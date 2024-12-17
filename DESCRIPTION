@@ -10,12 +10,20 @@ Authors@R: c(
   )
 Description: Adverse Events modules for use in the `gsm.app` package.
 License: Apache License (>= 2)
+URL: https://openrbqm.github.io/gsm.ae/,
+    https://github.com/OpenRBQM/gsm.ae
+BugReports: https://github.com/OpenRBQM/gsm.ae/issues
 Depends: 
     R (>= 4.0)
+Imports: 
+    bslib,
+    ggplot2,
+    rlang,
+    shiny
 Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
-URL: https://github.com/OpenRBQM/gsm.ae, https://openrbqm.github.io/gsm.ae/
-BugReports: https://github.com/OpenRBQM/gsm.ae/issues
+Suggests: 
+    testthat (>= 3.0.0)

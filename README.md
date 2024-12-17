@@ -7,6 +7,9 @@
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![R-CMD-check](https://github.com/OpenRBQM/gsm.ae/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/OpenRBQM/gsm.ae/actions/workflows/R-CMD-check.yaml)
+[![Codecov test
+coverage](https://codecov.io/gh/OpenRBQM/gsm.ae/graph/badge.svg)](https://app.codecov.io/gh/OpenRBQM/gsm.ae)
 <!-- badges: end -->
 
 gsm.ae provides Shiny modules and a plugin for use in apps created with
