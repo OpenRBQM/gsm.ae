@@ -1,3 +1,9 @@
+#' Dashboard Tab UI
+#'
+#' @inheritParams shared-params
+#' @returns A [bslib::layout_columns()] layout with information about the AE
+#'   domain.
+#' @keywords internal
 mod_AEDashboard_UI <- function(id) {
   ns <- shiny::NS(id)
   bslib::layout_columns(
@@ -20,7 +26,12 @@ mod_AEDashboard_UI <- function(id) {
   )
 }
 
-mod_AEDashboard_server <- function(id, rctv_dfAE) {
+#' Dashboard Tab Server
+#'
+#' @inheritParams shared-params
+#' @returns A module server function.
+#' @keywords internal
+mod_AEDashboard_Server <- function(id, rctv_dfAE) {
   shiny::moduleServer(id, function(input, output, session) {
     output$ae_count <- shiny::renderText({
       NROW(rctv_dfAE())
