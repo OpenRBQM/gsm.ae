@@ -14,6 +14,9 @@ pluginAE <- function() {
     strName = "Adverse Events",
     chrDomains = c("AE", "SUBJ"),
     fnShinyUI = mod_AE_UI,
-    fnShinyServer = mod_AE_Server
+    fnShinyServer = mod_AE_Server #,
+    # lMapping = list(
+    #
+    # )
   )
 }

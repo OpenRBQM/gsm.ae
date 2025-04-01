@@ -19,6 +19,8 @@
 #' @param id `character` The id for this element.
 #' @param lData `list` Raw data for use in a safetyCharts widget.
 #' @param lSettings `list` Named list of settings for a safetyCharts widget.
+#' @param rctv_dateSnapshot `reactive Date` A [shiny::reactive()] object that
+#'   returns the date of a data snapshot.
 #' @param rctv_dfAE `reactive dataframe` A [shiny::reactive()] object that
 #'   returns an adverse events domain dataframe.
 #' @param rctv_dfSUBJ `reactive dataframe` A [shiny::reactive()] object that

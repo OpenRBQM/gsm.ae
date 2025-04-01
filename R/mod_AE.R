@@ -6,22 +6,21 @@
 #' @export
 mod_AE_UI <- function(id) {
   ns <- NS(id)
-  bslib::navset_card_underline(
-    id = ns("selected_tab"),
-    title = "Adverse Events",
-    bslib::nav_panel(
-      "Dashboard",
+  # bslib::navset_card_underline(
+  #   id = ns("selected_tab"),
+  #   bslib::nav_panel(
+  #     "Dashboard",
+  bslib::page_fillable(
       mod_AEDashboard_UI(ns("dashboard"))
-    ),
-    bslib::nav_panel(
-      "Explorer",
-      aeExplorerOutput(ns("explorer"))
-    ),
-    bslib::nav_panel(
-      "Timeline",
-      aeTimelinesOutput(ns("timeline"))
-    ),
-    full_screen = TRUE
+    # ),
+    # bslib::nav_panel(
+    #   "Explorer",
+    #   aeExplorerOutput(ns("explorer"))
+    # ),
+    # bslib::nav_panel(
+    #   "Timeline",
+    #   aeTimelinesOutput(ns("timeline"))
+    # )
   )
 }
 
@@ -33,6 +32,7 @@ mod_AE_UI <- function(id) {
 #' @export
 mod_AE_Server <- function(
   id,
+  rctv_dateSnapshot,
   rctv_dfAE,
   rctv_dfSUBJ,
   rctv_strSiteID,
@@ -74,7 +74,7 @@ mod_AE_Server <- function(
       severity_col = "aetoxgr",
       serious_col = "aeser"
     )
-    mod_AEDashboard_Server("dashboard", rctv_dfAE_mod)
+    mod_AEDashboard_Server("dashboard", rctv_dateSnapshot, rctv_dfAE_mod, rctv_dfSUBJ)
     output$explorer <- render_aeExplorer({
       dfAE <- rctv_dfAE_mod()
       if (NROW(dfAE)) {
