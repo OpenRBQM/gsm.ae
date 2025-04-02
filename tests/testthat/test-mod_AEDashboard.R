@@ -14,8 +14,12 @@ test_that("mod_AEDashboard_Server works as expected", {
     args = list(
       id = "testing",
       rctv_dateSnapshot = reactiveVal(as.Date("2019-01-01")),
-      rctv_dfAE = reactive({gsm.app::sample_fnFetchData("AE")}),
-      rctv_dfSUBJ = reactive({gsm.app::sample_fnFetchData("SUBJ")})
+      rctv_dfAE = reactive({
+        gsm.app::sample_fnFetchData("AE")
+      }),
+      rctv_dfSUBJ = reactive({
+        gsm.app::sample_fnFetchData("SUBJ")
+      })
     ),
     {
       test_result <- output$`summary-metadataList`
