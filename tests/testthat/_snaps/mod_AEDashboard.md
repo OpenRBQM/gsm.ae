@@ -84,3 +84,55 @@
         </div>
       </bslib-layout-columns>
 
+# mod_AEDashboard_Server works as expected
+
+    Code
+      test_html
+    Output
+      <div class="metadata-list-item">
+        <div class="metadata-list-item-label">Adverse Events</div>
+        <div class="metadata-list-item-spacer"></div>
+        <div class="metadata-list-item-value">1220 (new: 12)</div>
+      </div>
+      <div class="metadata-list-item">
+        <div class="metadata-list-item-label">Serious Adverse Events</div>
+        <div class="metadata-list-item-spacer"></div>
+        <div class="metadata-list-item-value">41 (new: 0)</div>
+      </div>
+      <div class="metadata-list-item">
+        <div class="metadata-list-item-label">Participants</div>
+        <div class="metadata-list-item-spacer"></div>
+        <div class="metadata-list-item-value">243</div>
+      </div>
+      <div class="metadata-list-item">
+        <div class="metadata-list-item-label">Participants with 0 Adverse Events</div>
+        <div class="metadata-list-item-spacer"></div>
+        <div class="metadata-list-item-value">52</div>
+      </div>
+
+---
+
+    Code
+      test_html
+    Output
+      <div class="metadata-list-item">
+        <div class="metadata-list-item-label">Adverse Events</div>
+        <div class="metadata-list-item-spacer"></div>
+        <div class="metadata-list-item-value">1220 (new: 12)</div>
+      </div>
+      <div class="metadata-list-item">
+        <div class="metadata-list-item-label">Serious Adverse Events</div>
+        <div class="metadata-list-item-spacer"></div>
+        <div class="metadata-list-item-value">41 (new: 0)</div>
+      </div>
+      <div class="metadata-list-item">
+        <div class="metadata-list-item-label">Participants</div>
+        <div class="metadata-list-item-spacer"></div>
+        <div class="metadata-list-item-value">243</div>
+      </div>
+      <div class="metadata-list-item">
+        <div class="metadata-list-item-label">Participants with 0 Adverse Events</div>
+        <div class="metadata-list-item-spacer"></div>
+        <div class="metadata-list-item-value">52</div>
+      </div>
+

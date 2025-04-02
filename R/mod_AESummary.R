@@ -1,11 +1,11 @@
+#' Adverse Events Summary Card UI
+#'
+#' @inheritParams shared-params
+#' @returns A [bslib::card()] with counts of AEs, SAEs, participants, and
+#'   participants without AEs.
+#' @keywords internal
 mod_AESummary_UI <- function(id) {
   ns <- NS(id)
-  summary_data <- c(
-    AE = "99 (new: 9)",
-    SAE = "9 (new: 1)",
-    Participants = 999,
-    Participants0 = 9
-  )
   out_DashboardCard(
     id = id,
     title = "Summary",
@@ -13,9 +13,13 @@ mod_AESummary_UI <- function(id) {
   )
 }
 
+#' Adverse Events Summary Card Server
+#'
+#' @inheritParams shared-params
+#' @returns A module server function.
+#' @keywords internal
 mod_AESummary_Server <- function(id, rctv_dateSnapshot, rctv_dfAE, rctv_dfSUBJ) {
   moduleServer(id, function(input, output, session) {
-    # TODO: This should come in as an argument.
     rctv_intAE <- reactive({
       NROW(rctv_dfAE())
     })
@@ -59,21 +63,18 @@ mod_AESummary_Server <- function(id, rctv_dateSnapshot, rctv_dfAE, rctv_dfSUBJ) 
     })
 
     output$metadataList <- renderUI({
-      summary_data <- c(
-        `Adverse Events` = glue::glue(
-          "{rctv_intAE()} (new: {rctv_intAE_new()})"
-        ),
-        `Serious Adverse Events` = glue::glue(
-          "{rctv_intSAE()} (new: {rctv_intSAE_new()})"
-        ),
-        Participants = rctv_intParticipants(),
-        `Particpiants with 0 Adverse Events` = rctv_intParticipants0()
-      )
       gsm.app::out_MetadataList(
-        chrLabels = names(summary_data),
-        chrValues = unname(summary_data)
+        chrLabels = c(
+          "Adverse Events", "Serious Adverse Events",
+          "Participants", "Participants with 0 Adverse Events"
+        ),
+        chrValues = c(
+          glue::glue("{rctv_intAE()} (new: {rctv_intAE_new()})"),
+          glue::glue("{rctv_intSAE()} (new: {rctv_intSAE_new()})"),
+          rctv_intParticipants(),
+          rctv_intParticipants0()
+        )
       )
     })
   })
-
 }

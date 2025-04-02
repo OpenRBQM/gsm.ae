@@ -4,13 +4,19 @@
 \alias{mod_AEDashboard_Server}
 \title{Dashboard Tab Server}
 \usage{
-mod_AEDashboard_Server(id, rctv_dfAE)
+mod_AEDashboard_Server(id, rctv_dateSnapshot, rctv_dfAE, rctv_dfSUBJ)
 }
 \arguments{
 \item{id}{\code{character} The id for this element.}
 
+\item{rctv_dateSnapshot}{\verb{reactive Date} A \code{\link[shiny:reactive]{shiny::reactive()}} object that
+returns the date of a data snapshot.}
+
 \item{rctv_dfAE}{\verb{reactive dataframe} A \code{\link[shiny:reactive]{shiny::reactive()}} object that
 returns an adverse events domain dataframe.}
+
+\item{rctv_dfSUBJ}{\verb{reactive dataframe} A \code{\link[shiny:reactive]{shiny::reactive()}} object that
+returns a subject domain dataframe.}
 }
 \value{
 A module server function.

@@ -4,26 +4,10 @@
 \alias{shared-params}
 \title{Parameters used in multiple functions}
 \arguments{
-\item{envCall}{\code{environment} The environment from which this function was
-called, for use in better error messages. This value should usually be left
-as the default, or passed from the calling function if the calling function
-also has an \code{envCall} argument.}
-
-\item{envEvaluate}{\code{environment} The environment in which any variables used
-in the message or widget are defined. You almost definitely want to leave
-this as the default value.}
-
-\item{fnInit}{\code{function} An initialization function such as
-\code{\link[safetyCharts:init_aeExplorer]{safetyCharts::init_aeExplorer()}}.}
-
-\item{fnWidgetOutput}{\code{function} An \code{\link[htmlwidgets:htmlwidgets-shiny]{htmlwidgets::shinyWidgetOutput()}}
-function.}
-
 \item{id}{\code{character} The id for this element.}
 
-\item{lData}{\code{list} Raw data for use in a safetyCharts widget.}
-
-\item{lSettings}{\code{list} Named list of settings for a safetyCharts widget.}
+\item{rctv_dateSnapshot}{\verb{reactive Date} A \code{\link[shiny:reactive]{shiny::reactive()}} object that
+returns the date of a data snapshot.}
 
 \item{rctv_dfAE}{\verb{reactive dataframe} A \code{\link[shiny:reactive]{shiny::reactive()}} object that
 returns an adverse events domain dataframe.}
@@ -40,8 +24,6 @@ that returns the \code{SubjectID} of the selected participant.}
 
 \item{session}{\code{environment} Session from which to make a child scope (the
 default should almost always be used).}
-
-\item{strWidgetName}{\code{character} The name of a widget in the gsm package.}
 }
 \description{
 Reused parameter definitions are gathered here for easier usage. Note: We
