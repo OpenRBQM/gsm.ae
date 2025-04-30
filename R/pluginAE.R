@@ -5,15 +5,33 @@
 #' We provide a ready-to-use plugin definition for this AE plugin.
 #'
 #' @returns A plugin definition for use in gsm.app.
+#' @inheritParams shared-params
 #' @export
 #'
 #' @examples
 #' pluginAE()
-pluginAE <- function() {
+pluginAE <- function(
+  strCreatedField = "mincreated_dts",
+  strMetricID_AE = "Analysis_kri0001",
+  strMetricID_SAE = "Analysis_kri0002"
+) {
   gsm.app::plugin_Define(
     strName = "Adverse Events",
-    chrDomains = c("AE", "SUBJ"),
+    lSpec = list(
+      AE = list(
+        aest_dt = list(type = "Date"),
+        aeser = list(type = "character"),
+        SubjectID = list(type = "character"),
+        mincreated_dts = list(type = "character")
+      ),
+      SUBJ = list(
+        SubjectID = list(type = "character")
+      )
+    ),
     fnShinyUI = mod_AE_UI,
-    fnShinyServer = mod_AE_Server
+    fnShinyServer = mod_AE_Server,
+    strCreatedField = strCreatedField,
+    strMetricID_AE = strMetricID_AE,
+    strMetricID_SAE = strMetricID_SAE
   )
 }

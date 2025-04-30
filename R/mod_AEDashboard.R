@@ -57,9 +57,30 @@ out_DashboardCard <- function(id, title, ...) {
 #' @inheritParams shared-params
 #' @returns A module server function.
 #' @keywords internal
-mod_AEDashboard_Server <- function(id, rctv_dateSnapshot, rctv_dfAE, rctv_dfSUBJ) {
+mod_AEDashboard_Server <- function(
+  id,
+  dfAnalyticsInput,
+  dfResults,
+  rctv_dSnapshotDate,
+  rctv_dSnapshotDatePrevious,
+  rctv_dfAE,
+  rctv_dfSUBJ,
+  rctv_strSiteID,
+  strCreatedField = "mincreated_dts",
+  strMetricID_AE = "Analysis_kri0001",
+  strMetricID_SAE = "Analysis_kri0002"
+) {
   shiny::moduleServer(id, function(input, output, session) {
-    mod_AESummary_Server("summary", rctv_dateSnapshot, rctv_dfAE, rctv_dfSUBJ)
+    mod_AESummary_Server(
+      "summary",
+      dfAnalyticsInput = dfAnalyticsInput,
+      dfResults = dfResults,
+      rctv_dSnapshotDate = rctv_dSnapshotDate,
+      rctv_dSnapshotDatePrevious = rctv_dSnapshotDatePrevious,
+      rctv_strSiteID = rctv_strSiteID,
+      strMetricID_AE = strMetricID_AE,
+      strMetricID_SAE = strMetricID_SAE
+    )
     # All dashboard cards will be called here (that's why this function looks
     # like it's unnecessary).
   })

@@ -13,13 +13,13 @@ test_that("mod_AESummary_Server works as expected", {
     mod_AESummary_Server,
     args = list(
       id = "testing",
-      rctv_dateSnapshot = reactiveVal(as.Date("2019-01-01")),
-      rctv_dfAE = reactive({
-        gsm.app::sample_fnFetchData("AE")
-      }),
-      rctv_dfSUBJ = reactive({
-        gsm.app::sample_fnFetchData("SUBJ")
-      })
+      dfAnalyticsInput = gsm.app::sample_dfAnalyticsInput,
+      dfResults = gsm.app::sample_dfResults,
+      rctv_dSnapshotDate = reactiveVal(as.Date("2020-01-01")),
+      rctv_dSnapshotDatePrevious = reactiveVal(as.Date("2019-01-01")),
+      rctv_strSiteID = reactiveVal("All"),
+      strMetricID_AE = "Analysis_kri0001",
+      strMetricID_SAE = "Analysis_kri0002"
     ),
     {
       test_result <- output$metadataList
@@ -28,7 +28,19 @@ test_that("mod_AESummary_Server works as expected", {
       test_html <- test_result$html
       expect_cleaned_html(test_html, call = call)
 
-      rctv_dateSnapshot(as.Date("2019-02-01"))
+      rctv_strSiteID("0X159")
+      session$flushReact()
+      test_result <- output$title
+      expect_equal(output$title, "Summary for Site 0X159")
+
+      test_result <- output$metadataList
+      test_html <- test_result$html
+      expect_cleaned_html(test_html, call = call)
+
+      rctv_strSiteID("All")
+      rctv_dSnapshotDate(as.Date("2019-01-01"))
+      rctv_dSnapshotDatePrevious(as.Date("2018-01-01"))
+      session$flushReact()
       test_result <- output$metadataList
       test_html <- test_result$html
       expect_cleaned_html(test_html, call = call)

@@ -5,7 +5,9 @@
     Output
       <div class="card bslib-card bslib-mb-spacing bslib-card-input html-fill-item html-fill-container" data-bslib-card-init data-full-screen="false" data-require-bs-caller="card()" data-require-bs-version="5" id="testing" style="min-height:300px;">
         <div class="card-body bslib-gap-spacing html-fill-item html-fill-container" style="margin-top:auto;margin-bottom:auto;flex:1 1 auto;">
-          <h5>Summary</h5>
+          <h5>
+            <span id="testing-title" class="shiny-text-output"></span>
+          </h5>
           <div id="testing-metadataList" class="shiny-html-output"></div>
         </div>
         <bslib-tooltip placement="auto" bsOptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
@@ -23,22 +25,22 @@
       <div class="metadata-list-item">
         <div class="metadata-list-item-label">Adverse Events</div>
         <div class="metadata-list-item-spacer"></div>
-        <div class="metadata-list-item-value">1220 (new: 12)</div>
+        <div class="metadata-list-item-value">1168 (new: 18)</div>
       </div>
       <div class="metadata-list-item">
         <div class="metadata-list-item-label">Serious Adverse Events</div>
         <div class="metadata-list-item-spacer"></div>
-        <div class="metadata-list-item-value">41 (new: 0)</div>
+        <div class="metadata-list-item-value">41 (new: 1)</div>
       </div>
       <div class="metadata-list-item">
         <div class="metadata-list-item-label">Participants</div>
         <div class="metadata-list-item-spacer"></div>
-        <div class="metadata-list-item-value">243</div>
+        <div class="metadata-list-item-value">227</div>
       </div>
       <div class="metadata-list-item">
         <div class="metadata-list-item-label">Participants with 0 Adverse Events</div>
         <div class="metadata-list-item-spacer"></div>
-        <div class="metadata-list-item-value">52</div>
+        <div class="metadata-list-item-value">51</div>
       </div>
 
 ---
@@ -49,21 +51,47 @@
       <div class="metadata-list-item">
         <div class="metadata-list-item-label">Adverse Events</div>
         <div class="metadata-list-item-spacer"></div>
-        <div class="metadata-list-item-value">1220 (new: 12)</div>
+        <div class="metadata-list-item-value">400 (new: 0)</div>
       </div>
       <div class="metadata-list-item">
         <div class="metadata-list-item-label">Serious Adverse Events</div>
         <div class="metadata-list-item-spacer"></div>
-        <div class="metadata-list-item-value">41 (new: 0)</div>
+        <div class="metadata-list-item-value">4 (new: 0)</div>
       </div>
       <div class="metadata-list-item">
         <div class="metadata-list-item-label">Participants</div>
         <div class="metadata-list-item-spacer"></div>
-        <div class="metadata-list-item-value">243</div>
+        <div class="metadata-list-item-value">33</div>
       </div>
       <div class="metadata-list-item">
         <div class="metadata-list-item-label">Participants with 0 Adverse Events</div>
         <div class="metadata-list-item-spacer"></div>
-        <div class="metadata-list-item-value">52</div>
+        <div class="metadata-list-item-value">3</div>
+      </div>
+
+---
+
+    Code
+      test_html
+    Output
+      <div class="metadata-list-item">
+        <div class="metadata-list-item-label">Adverse Events</div>
+        <div class="metadata-list-item-spacer"></div>
+        <div class="metadata-list-item-value">1150 (new: 88)</div>
+      </div>
+      <div class="metadata-list-item">
+        <div class="metadata-list-item-label">Serious Adverse Events</div>
+        <div class="metadata-list-item-spacer"></div>
+        <div class="metadata-list-item-value">40 (new: 2)</div>
+      </div>
+      <div class="metadata-list-item">
+        <div class="metadata-list-item-label">Participants</div>
+        <div class="metadata-list-item-spacer"></div>
+        <div class="metadata-list-item-value">227</div>
+      </div>
+      <div class="metadata-list-item">
+        <div class="metadata-list-item-label">Participants with 0 Adverse Events</div>
+        <div class="metadata-list-item-spacer"></div>
+        <div class="metadata-list-item-value">51</div>
       </div>
 

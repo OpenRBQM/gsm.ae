@@ -6,8 +6,17 @@
 \arguments{
 \item{id}{\code{character} The id for this element.}
 
-\item{rctv_dateSnapshot}{\verb{reactive Date} A \code{\link[shiny:reactive]{shiny::reactive()}} object that
+\item{dfAnalyticsInput}{\code{data.frame} Participant-level metric data.}
+
+\item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output.}
+
+\item{rctv_dSnapshotDate}{\verb{reactive Date} A \code{\link[shiny:reactive]{shiny::reactive()}} object that
 returns the date of a data snapshot.}
+
+\item{rctv_dSnapshotDatePrevious}{\verb{reactive Date} A \code{\link[shiny:reactive]{shiny::reactive()}}
+object that returns the date of a data snapshot immediately before
+\code{rctv_dSnapshotDate}, or \code{NA} if there aren't any snapshots before the
+selected date.}
 
 \item{rctv_dfAE}{\verb{reactive dataframe} A \code{\link[shiny:reactive]{shiny::reactive()}} object that
 returns an adverse events domain dataframe.}
@@ -24,6 +33,15 @@ that returns the \code{SubjectID} of the selected participant.}
 
 \item{session}{\code{environment} Session from which to make a child scope (the
 default should almost always be used).}
+
+\item{strCreatedField}{\verb{length-1 character} The field that indicates when the
+adverse event was logged. Defaults to \code{"mincreated_dts"}.}
+
+\item{strMetricID_AE}{\verb{length-1 character} The ID of the adverse events
+metric. Defaults to \code{"Analysis_kri0001"}.}
+
+\item{strMetricID_SAE}{\verb{length-1 character} The ID of the serious adverse
+events metric. Defaults to \code{"Analysis_kri0001"}.}
 }
 \description{
 Reused parameter definitions are gathered here for easier usage. Note: We

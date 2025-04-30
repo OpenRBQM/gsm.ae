@@ -4,7 +4,21 @@
 \alias{pluginAE}
 \title{AE Plugin Definition}
 \usage{
-pluginAE()
+pluginAE(
+  strCreatedField = "mincreated_dts",
+  strMetricID_AE = "Analysis_kri0001",
+  strMetricID_SAE = "Analysis_kri0002"
+)
+}
+\arguments{
+\item{strCreatedField}{\verb{length-1 character} The field that indicates when the
+adverse event was logged. Defaults to \code{"mincreated_dts"}.}
+
+\item{strMetricID_AE}{\verb{length-1 character} The ID of the adverse events
+metric. Defaults to \code{"Analysis_kri0001"}.}
+
+\item{strMetricID_SAE}{\verb{length-1 character} The ID of the serious adverse
+events metric. Defaults to \code{"Analysis_kri0001"}.}
 }
 \value{
 A plugin definition for use in gsm.app.

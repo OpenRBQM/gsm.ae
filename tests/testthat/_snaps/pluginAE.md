@@ -18,7 +18,55 @@
       <environment: xxxx>
       
       
-      $domains
-      [1] "AE"   "SUBJ"
+      $spec
+      $spec$AE
+      $spec$AE$aest_dt
+      $spec$AE$aest_dt$type
+      [1] "Date"
+      
+      
+      $spec$AE$aeser
+      $spec$AE$aeser$type
+      [1] "character"
+      
+      
+      $spec$AE$SubjectID
+      $spec$AE$SubjectID$type
+      [1] "character"
+      
+      
+      $spec$AE$mincreated_dts
+      $spec$AE$mincreated_dts$type
+      [1] "character"
+      
+      
+      
+      $spec$SUBJ
+      $spec$SUBJ$SubjectID
+      $spec$SUBJ$SubjectID$type
+      [1] "character"
+      
+      
+      
+      
+      $config
+      $config$strCreatedField
+      [1] "mincreated_dts"
+      
+      $config$strMetricID_AE
+      [1] "Analysis_kri0001"
+      
+      $config$strMetricID_SAE
+      [1] "Analysis_kri0002"
+      
+      
+      $packages
+      list()
+      
+      $required_inputs
+      character(0)
+      
+      $workflows
+      list()
       
 

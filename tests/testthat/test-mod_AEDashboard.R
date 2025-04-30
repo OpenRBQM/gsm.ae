@@ -13,13 +13,17 @@ test_that("mod_AEDashboard_Server works as expected", {
     mod_AEDashboard_Server,
     args = list(
       id = "testing",
-      rctv_dateSnapshot = reactiveVal(as.Date("2019-01-01")),
+      dfAnalyticsInput = gsm.app::sample_dfAnalyticsInput,
+      dfResults = gsm.app::sample_dfResults,
+      rctv_dSnapshotDate = reactiveVal(as.Date("2020-01-01")),
+      rctv_dSnapshotDatePrevious = reactiveVal(as.Date("2019-01-01")),
       rctv_dfAE = reactive({
         gsm.app::sample_fnFetchData("AE")
       }),
       rctv_dfSUBJ = reactive({
         gsm.app::sample_fnFetchData("SUBJ")
-      })
+      }),
+      rctv_strSiteID = reactiveVal("All")
     ),
     {
       test_result <- output$`summary-metadataList`
@@ -28,7 +32,9 @@ test_that("mod_AEDashboard_Server works as expected", {
       test_html <- test_result$html
       expect_cleaned_html(test_html, call = call)
 
-      rctv_dateSnapshot(as.Date("2019-02-01"))
+      rctv_dSnapshotDate(as.Date("2019-01-01"))
+      rctv_dSnapshotDatePrevious(as.Date("2018-01-01"))
+      session$flushReact()
       test_result <- output$`summary-metadataList`
       test_html <- test_result$html
       expect_cleaned_html(test_html, call = call)

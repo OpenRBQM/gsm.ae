@@ -4,19 +4,53 @@
 \alias{mod_AEDashboard_Server}
 \title{Dashboard Tab Server}
 \usage{
-mod_AEDashboard_Server(id, rctv_dateSnapshot, rctv_dfAE, rctv_dfSUBJ)
+mod_AEDashboard_Server(
+  id,
+  dfAnalyticsInput,
+  dfResults,
+  rctv_dSnapshotDate,
+  rctv_dSnapshotDatePrevious,
+  rctv_dfAE,
+  rctv_dfSUBJ,
+  rctv_strSiteID,
+  strCreatedField = "mincreated_dts",
+  strMetricID_AE = "Analysis_kri0001",
+  strMetricID_SAE = "Analysis_kri0002"
+)
 }
 \arguments{
 \item{id}{\code{character} The id for this element.}
 
-\item{rctv_dateSnapshot}{\verb{reactive Date} A \code{\link[shiny:reactive]{shiny::reactive()}} object that
+\item{dfAnalyticsInput}{\code{data.frame} Participant-level metric data.}
+
+\item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output.}
+
+\item{rctv_dSnapshotDate}{\verb{reactive Date} A \code{\link[shiny:reactive]{shiny::reactive()}} object that
 returns the date of a data snapshot.}
+
+\item{rctv_dSnapshotDatePrevious}{\verb{reactive Date} A \code{\link[shiny:reactive]{shiny::reactive()}}
+object that returns the date of a data snapshot immediately before
+\code{rctv_dSnapshotDate}, or \code{NA} if there aren't any snapshots before the
+selected date.}
 
 \item{rctv_dfAE}{\verb{reactive dataframe} A \code{\link[shiny:reactive]{shiny::reactive()}} object that
 returns an adverse events domain dataframe.}
 
 \item{rctv_dfSUBJ}{\verb{reactive dataframe} A \code{\link[shiny:reactive]{shiny::reactive()}} object that
 returns a subject domain dataframe.}
+
+\item{rctv_strSiteID}{\verb{reactive character} A \code{\link[shiny:reactiveVal]{shiny::reactiveVal()}} object
+that returns the \code{GroupID} of the selected site, and can be used to update
+the selected site.}
+
+\item{strCreatedField}{\verb{length-1 character} The field that indicates when the
+adverse event was logged. Defaults to \code{"mincreated_dts"}.}
+
+\item{strMetricID_AE}{\verb{length-1 character} The ID of the adverse events
+metric. Defaults to \code{"Analysis_kri0001"}.}
+
+\item{strMetricID_SAE}{\verb{length-1 character} The ID of the serious adverse
+events metric. Defaults to \code{"Analysis_kri0001"}.}
 }
 \value{
 A module server function.
