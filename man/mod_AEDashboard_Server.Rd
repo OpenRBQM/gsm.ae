@@ -12,7 +12,7 @@ mod_AEDashboard_Server(
   rctv_dSnapshotDatePrevious,
   rctv_dfAE,
   rctv_dfSUBJ,
-  rctv_strSiteID,
+  rctv_strGroupID,
   strCreatedField = "mincreated_dts",
   strMetricID_AE = "Analysis_kri0001",
   strMetricID_SAE = "Analysis_kri0002"
@@ -39,9 +39,9 @@ returns an adverse events domain dataframe.}
 \item{rctv_dfSUBJ}{\verb{reactive dataframe} A \code{\link[shiny:reactive]{shiny::reactive()}} object that
 returns a subject domain dataframe.}
 
-\item{rctv_strSiteID}{\verb{reactive character} A \code{\link[shiny:reactiveVal]{shiny::reactiveVal()}} object
-that returns the \code{GroupID} of the selected site, and can be used to update
-the selected site.}
+\item{rctv_strGroupID}{\verb{reactive character} A \code{\link[shiny:reactiveVal]{shiny::reactiveVal()}} object
+that returns the \code{GroupID} of the selected group (usually site), and can be
+used to update which group is selected.}
 
 \item{strCreatedField}{\verb{length-1 character} The field that indicates when the
 adverse event was logged. Defaults to \code{"mincreated_dts"}.}

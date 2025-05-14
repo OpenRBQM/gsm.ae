@@ -18,9 +18,9 @@
 #'   returns an adverse events domain dataframe.
 #' @param rctv_dfSUBJ `reactive dataframe` A [shiny::reactive()] object that
 #'   returns a subject domain dataframe.
-#' @param rctv_strSiteID `reactive character` A [shiny::reactiveVal()] object
-#'   that returns the `GroupID` of the selected site, and can be used to update
-#'   the selected site.
+#' @param rctv_strGroupID `reactive character` A [shiny::reactiveVal()] object
+#'   that returns the `GroupID` of the selected group (usually site), and can be
+#'   used to update which group is selected.
 #' @param rctv_strSubjectID `reactive character` A [shiny::reactive()] object
 #'   that returns the `SubjectID` of the selected participant.
 #' @param session `environment` Session from which to make a child scope (the

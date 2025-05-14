@@ -24,25 +24,25 @@ mod_AESummary_Server <- function(
   dfResults,
   rctv_dSnapshotDate,
   rctv_dSnapshotDatePrevious,
-  rctv_strSiteID,
+  rctv_strGroupID,
   strMetricID_AE = "Analysis_kri0001",
   strMetricID_SAE = "Analysis_kri0002"
 ) {
   moduleServer(id, function(input, output, session) {
     rctv_bSiteIsSelected <- reactive({
-      strSiteID <- gsm.app:::NullifyEmpty(rctv_strSiteID())
+      strSiteID <- gsm.app:::NullifyEmpty(rctv_strGroupID())
       as.logical(length(strSiteID))
     })
     output$title <- renderText({
       if (rctv_bSiteIsSelected()) {
-        return(glue::glue("Summary for Site {rctv_strSiteID()}"))
+        return(glue::glue("Summary for Site {rctv_strGroupID()}"))
       }
       return("Summary for Overall Study")
     })
     rctv_dfResults_current <- reactive({
       df <- dplyr::filter(dfResults, .data$SnapshotDate == rctv_dSnapshotDate())
       if (rctv_bSiteIsSelected()) {
-        df <- dplyr::filter(df, .data$GroupID == rctv_strSiteID())
+        df <- dplyr::filter(df, .data$GroupID == rctv_strGroupID())
       }
       return(df)
     })
@@ -52,7 +52,7 @@ mod_AESummary_Server <- function(
         .data$SnapshotDate == rctv_dSnapshotDatePrevious()
       )
       if (rctv_bSiteIsSelected()) {
-        df <- dplyr::filter(df, .data$GroupID == rctv_strSiteID())
+        df <- dplyr::filter(df, .data$GroupID == rctv_strGroupID())
       }
       return(df)
     })
@@ -87,7 +87,7 @@ mod_AESummary_Server <- function(
         df <- dplyr::filter(df, .data$SnapshotDate == rctv_dSnapshotDate())
       }
       if (rctv_bSiteIsSelected()) {
-        df <- dplyr::filter(df, .data$GroupID == rctv_strSiteID())
+        df <- dplyr::filter(df, .data$GroupID == rctv_strGroupID())
       }
       return(df)
     })

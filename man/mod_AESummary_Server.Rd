@@ -10,7 +10,7 @@ mod_AESummary_Server(
   dfResults,
   rctv_dSnapshotDate,
   rctv_dSnapshotDatePrevious,
-  rctv_strSiteID,
+  rctv_strGroupID,
   strMetricID_AE = "Analysis_kri0001",
   strMetricID_SAE = "Analysis_kri0002"
 )
@@ -30,9 +30,9 @@ object that returns the date of a data snapshot immediately before
 \code{rctv_dSnapshotDate}, or \code{NA} if there aren't any snapshots before the
 selected date.}
 
-\item{rctv_strSiteID}{\verb{reactive character} A \code{\link[shiny:reactiveVal]{shiny::reactiveVal()}} object
-that returns the \code{GroupID} of the selected site, and can be used to update
-the selected site.}
+\item{rctv_strGroupID}{\verb{reactive character} A \code{\link[shiny:reactiveVal]{shiny::reactiveVal()}} object
+that returns the \code{GroupID} of the selected group (usually site), and can be
+used to update which group is selected.}
 
 \item{strMetricID_AE}{\verb{length-1 character} The ID of the adverse events
 metric. Defaults to \code{"Analysis_kri0001"}.}

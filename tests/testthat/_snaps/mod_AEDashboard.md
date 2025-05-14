@@ -23,7 +23,7 @@
           <div class="card bslib-card bslib-mb-spacing bslib-card-input html-fill-item html-fill-container" data-bslib-card-init data-full-screen="false" data-require-bs-caller="card()" data-require-bs-version="5" id="testing-charts" style="min-height:300px;">
             <div class="card-body bslib-gap-spacing html-fill-item html-fill-container" style="margin-top:auto;margin-bottom:auto;flex:1 1 auto;">
               <h5>Charts</h5>
-              (placeholder)
+              <em>Placeholder: Site rates of attributes compared to study (Relatedness, Grade, Action Taken, ongoing/resolved,outcome). Per Jon will assess if we can include any available.</em>
             </div>
             <bslib-tooltip placement="auto" bsOptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
               <template>Expand</template>
@@ -36,7 +36,8 @@
           <div class="card bslib-card bslib-mb-spacing bslib-card-input html-fill-item html-fill-container" data-bslib-card-init data-full-screen="false" data-require-bs-caller="card()" data-require-bs-version="5" id="testing-top_soc" style="min-height:300px;">
             <div class="card-body bslib-gap-spacing html-fill-item html-fill-container" style="margin-top:auto;margin-bottom:auto;flex:1 1 auto;">
               <h5>Top SOC</h5>
-              (placeholder)
+              <em>Placeholder: Compare top SOC for the study to whatever is selected - either site or country e.g., Gastro site 25%, study 75%
+      In order to identify Systems or Organ Classes (SOCs) with particular issues in AEs, as a CM/RA, I would like to see counts/% by SOC, for site and (if data is subset) selected thing.</em>
             </div>
             <bslib-tooltip placement="auto" bsOptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
               <template>Expand</template>
@@ -49,7 +50,9 @@
           <div class="card bslib-card bslib-mb-spacing bslib-card-input html-fill-item html-fill-container" data-bslib-card-init data-full-screen="false" data-require-bs-caller="card()" data-require-bs-version="5" id="testing-data_quality" style="min-height:300px;">
             <div class="card-body bslib-gap-spacing html-fill-item html-fill-container" style="margin-top:auto;margin-bottom:auto;flex:1 1 auto;">
               <h5>Data Quality</h5>
-              (placeholder)
+              <em>Placeholder: Box plot to show distribution of time to AE entry and Queries on AE forms
+      Average time to entry for AEs (date of next visit after AE start date, until the mincreated date) at the study and selected level (site or country).
+      Queries on AE forms (count with ability to details on demand the queries) - no update to data model needed. Based on output received from DM/CP (on DNA tab), add to deep dive app.</em>
             </div>
             <bslib-tooltip placement="auto" bsOptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
               <template>Expand</template>
@@ -62,7 +65,8 @@
           <div class="card bslib-card bslib-mb-spacing bslib-card-input html-fill-item html-fill-container" data-bslib-card-init data-full-screen="false" data-require-bs-caller="card()" data-require-bs-version="5" id="testing-timelines" style="min-height:300px;">
             <div class="card-body bslib-gap-spacing html-fill-item html-fill-container" style="margin-top:auto;margin-bottom:auto;flex:1 1 auto;">
               <h5>Timelines</h5>
-              (placeholder)
+              <em>Placeholder: Filter on category and then surface count of safety PDs by time. For AE timeline use the mincreated date. Ideally be able to have a zoom bar that we could zoom into specific timeframes. Separate tab for details and heatmap calendar
+      Need to add safety-related PDs to development data. Spencer to confirm/derive AE delayed data entry</em>
             </div>
             <bslib-tooltip placement="auto" bsOptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
               <template>Expand</template>
@@ -75,7 +79,7 @@
           <div class="card bslib-card bslib-mb-spacing bslib-card-input html-fill-item html-fill-container" data-bslib-card-init data-full-screen="false" data-require-bs-caller="card()" data-require-bs-version="5" id="testing-participant_summary" style="min-height:300px;">
             <div class="card-body bslib-gap-spacing html-fill-item html-fill-container" style="margin-top:auto;margin-bottom:auto;flex:1 1 auto;">
               <h5>Participant Summary</h5>
-              (placeholder)
+              <em>Placeholder: Participant ID, AE count (# since last snapshot), time on study, participant AE rate</em>
             </div>
             <bslib-tooltip placement="auto" bsOptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
               <template>Expand</template>

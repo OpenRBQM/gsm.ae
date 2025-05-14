@@ -19,14 +19,14 @@ Imports:
     bslib,
     dplyr,
     glue,
-    gsm.app (>= 2.4.0.9001),
+    gsm.app (>= 2.4.0.9002),
     magrittr,
     rlang,
     shiny
 Suggests: 
     testthat (>= 3.0.0)
 Remotes:
-    gsm.app=gilead-biostats/gsm.app#439
+    gsm.app=gilead-biostats/gsm.app@fix-447-plugin_multilevel
 Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-US

@@ -11,27 +11,27 @@ mod_AEDashboard_UI <- function(id) {
     out_DashboardCard(
       id = ns("charts"),
       "Charts",
-      "(placeholder)"
+      shiny::tags$em("Placeholder: Site rates of attributes compared to study (Relatedness, Grade, Action Taken, ongoing/resolved,outcome). Per Jon will assess if we can include any available.")
     ),
     out_DashboardCard(
       id = ns("top_soc"),
       "Top SOC",
-      "(placeholder)"
+      shiny::tags$em("Placeholder: Compare top SOC for the study to whatever is selected - either site or country e.g., Gastro site 25%, study 75%\nIn order to identify Systems or Organ Classes (SOCs) with particular issues in AEs, as a CM/RA, I would like to see counts/% by SOC, for site and (if data is subset) selected thing.")
     ),
     out_DashboardCard(
       id = ns("data_quality"),
       "Data Quality",
-      "(placeholder)"
+      shiny::tags$em("Placeholder: Box plot to show distribution of time to AE entry and Queries on AE forms\nAverage time to entry for AEs (date of next visit after AE start date, until the mincreated date) at the study and selected level (site or country).\nQueries on AE forms (count with ability to details on demand the queries) - no update to data model needed. Based on output received from DM/CP (on DNA tab), add to deep dive app.")
     ),
     out_DashboardCard(
       id = ns("timelines"),
       "Timelines",
-      "(placeholder)"
+      shiny::tags$em("Placeholder: Filter on category and then surface count of safety PDs by time. For AE timeline use the mincreated date. Ideally be able to have a zoom bar that we could zoom into specific timeframes. Separate tab for details and heatmap calendar\nNeed to add safety-related PDs to development data. Spencer to confirm/derive AE delayed data entry")
     ),
     out_DashboardCard(
       id = ns("participant_summary"),
       "Participant Summary",
-      "(placeholder)"
+      shiny::tags$em("Placeholder: Participant ID, AE count (# since last snapshot), time on study, participant AE rate")
     ),
     col_widths = c(4, 4, 4, 4, 4, 4)
   )
@@ -65,7 +65,7 @@ mod_AEDashboard_Server <- function(
   rctv_dSnapshotDatePrevious,
   rctv_dfAE,
   rctv_dfSUBJ,
-  rctv_strSiteID,
+  rctv_strGroupID,
   strCreatedField = "mincreated_dts",
   strMetricID_AE = "Analysis_kri0001",
   strMetricID_SAE = "Analysis_kri0002"
@@ -77,7 +77,7 @@ mod_AEDashboard_Server <- function(
       dfResults = dfResults,
       rctv_dSnapshotDate = rctv_dSnapshotDate,
       rctv_dSnapshotDatePrevious = rctv_dSnapshotDatePrevious,
-      rctv_strSiteID = rctv_strSiteID,
+      rctv_strGroupID = rctv_strGroupID,
       strMetricID_AE = strMetricID_AE,
       strMetricID_SAE = strMetricID_SAE
     )

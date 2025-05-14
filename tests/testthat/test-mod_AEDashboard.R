@@ -23,7 +23,7 @@ test_that("mod_AEDashboard_Server works as expected", {
       rctv_dfSUBJ = reactive({
         gsm.app::sample_fnFetchData("SUBJ")
       }),
-      rctv_strSiteID = reactiveVal("All")
+      rctv_strGroupID = reactiveVal("All")
     ),
     {
       test_result <- output$`summary-metadataList`

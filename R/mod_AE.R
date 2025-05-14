@@ -24,7 +24,7 @@ mod_AE_Server <- function(
   rctv_dSnapshotDate,
   rctv_dfAE,
   rctv_dfSUBJ,
-  rctv_strSiteID,
+  rctv_strGroupID,
   strCreatedField = "mincreated_dts",
   strMetricID_AE = "Analysis_kri0001",
   strMetricID_SAE = "Analysis_kri0002"
@@ -48,7 +48,7 @@ mod_AE_Server <- function(
       rctv_dSnapshotDatePrevious = rctv_dSnapshotDatePrevious,
       rctv_dfAE = rctv_dfAE,
       rctv_dfSUBJ = rctv_dfSUBJ,
-      rctv_strSiteID = rctv_strSiteID,
+      rctv_strGroupID = rctv_strGroupID,
       strCreatedField = strCreatedField,
       strMetricID_AE = strMetricID_AE,
       strMetricID_SAE = strMetricID_SAE
