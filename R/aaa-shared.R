@@ -25,8 +25,13 @@
 #'   that returns the `SubjectID` of the selected participant.
 #' @param session `environment` Session from which to make a child scope (the
 #'   default should almost always be used).
-#' @param strCreatedField `length-1 character` The field that indicates when the
-#'   adverse event was logged. Defaults to `"mincreated_dts"`.
+#' @param strField_Created `length-1 character` The field that indicates when
+#'   the adverse event was logged. Defaults to `"mincreated_dts"`.
+#' @param strField_GroupActive `length-1 character` The field that indicates
+#'   when the group (usually site or country) became active. Defaults to
+#'   `"site_active_dt"`.
+#' @param strField_StudyActive `length-1 character` The field that indicates
+#'   when the study became active. Defaults to `"act_fpfv"`.
 #' @param strMetricID_AE `length-1 character` The ID of the adverse events
 #'   metric. Defaults to `"Analysis_kri0001"`.
 #' @param strMetricID_SAE `length-1 character` The ID of the serious adverse

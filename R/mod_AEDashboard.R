@@ -66,7 +66,7 @@ mod_AEDashboard_Server <- function(
   rctv_dfAE,
   rctv_dfSUBJ,
   rctv_strGroupID,
-  strCreatedField = "mincreated_dts",
+  strField_Created = "mincreated_dts",
   strMetricID_AE = "Analysis_kri0001",
   strMetricID_SAE = "Analysis_kri0002"
 ) {

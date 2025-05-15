@@ -11,7 +11,7 @@
 #' @examples
 #' pluginAE()
 pluginAE <- function(
-  strCreatedField = "mincreated_dts",
+  strField_Created = "mincreated_dts",
   strMetricID_AE = "Analysis_kri0001",
   strMetricID_SAE = "Analysis_kri0002"
 ) {
@@ -30,7 +30,7 @@ pluginAE <- function(
     ),
     fnShinyUI = mod_AE_UI,
     fnShinyServer = mod_AE_Server,
-    strCreatedField = strCreatedField,
+    strField_Created = strField_Created,
     strMetricID_AE = strMetricID_AE,
     strMetricID_SAE = strMetricID_SAE
   )

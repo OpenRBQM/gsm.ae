@@ -34,8 +34,15 @@ that returns the \code{SubjectID} of the selected participant.}
 \item{session}{\code{environment} Session from which to make a child scope (the
 default should almost always be used).}
 
-\item{strCreatedField}{\verb{length-1 character} The field that indicates when the
-adverse event was logged. Defaults to \code{"mincreated_dts"}.}
+\item{strField_Created}{\verb{length-1 character} The field that indicates when
+the adverse event was logged. Defaults to \code{"mincreated_dts"}.}
+
+\item{strField_GroupActive}{\verb{length-1 character} The field that indicates
+when the group (usually site or country) became active. Defaults to
+\code{"site_active_dt"}.}
+
+\item{strField_StudyActive}{\verb{length-1 character} The field that indicates
+when the study became active. Defaults to \code{"act_fpfv"}.}
 
 \item{strMetricID_AE}{\verb{length-1 character} The ID of the adverse events
 metric. Defaults to \code{"Analysis_kri0001"}.}

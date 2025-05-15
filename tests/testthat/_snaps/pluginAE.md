@@ -50,7 +50,7 @@
       
       
       $config
-      $config$strCreatedField
+      $config$strField_Created
       [1] "mincreated_dts"
       
       $config$strMetricID_AE

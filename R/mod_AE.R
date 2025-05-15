@@ -20,12 +20,15 @@ mod_AE_UI <- function(id) {
 mod_AE_Server <- function(
   id,
   dfAnalyticsInput,
+  dfGroups,
   dfResults,
   rctv_dSnapshotDate,
   rctv_dfAE,
   rctv_dfSUBJ,
   rctv_strGroupID,
-  strCreatedField = "mincreated_dts",
+  strField_Created = "mincreated_dts",
+  strField_GroupActive = "site_active_dt",
+  strField_StudyActive = "act_fpfv",
   strMetricID_AE = "Analysis_kri0001",
   strMetricID_SAE = "Analysis_kri0002"
 ) {
@@ -49,7 +52,7 @@ mod_AE_Server <- function(
       rctv_dfAE = rctv_dfAE,
       rctv_dfSUBJ = rctv_dfSUBJ,
       rctv_strGroupID = rctv_strGroupID,
-      strCreatedField = strCreatedField,
+      strField_Created = strField_Created,
       strMetricID_AE = strMetricID_AE,
       strMetricID_SAE = strMetricID_SAE
     )

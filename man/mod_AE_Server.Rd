@@ -7,12 +7,15 @@
 mod_AE_Server(
   id,
   dfAnalyticsInput,
+  dfGroups,
   dfResults,
   rctv_dSnapshotDate,
   rctv_dfAE,
   rctv_dfSUBJ,
   rctv_strGroupID,
-  strCreatedField = "mincreated_dts",
+  strField_Created = "mincreated_dts",
+  strField_GroupActive = "site_active_dt",
+  strField_StudyActive = "act_fpfv",
   strMetricID_AE = "Analysis_kri0001",
   strMetricID_SAE = "Analysis_kri0002"
 )
@@ -37,8 +40,15 @@ returns a subject domain dataframe.}
 that returns the \code{GroupID} of the selected group (usually site), and can be
 used to update which group is selected.}
 
-\item{strCreatedField}{\verb{length-1 character} The field that indicates when the
-adverse event was logged. Defaults to \code{"mincreated_dts"}.}
+\item{strField_Created}{\verb{length-1 character} The field that indicates when
+the adverse event was logged. Defaults to \code{"mincreated_dts"}.}
+
+\item{strField_GroupActive}{\verb{length-1 character} The field that indicates
+when the group (usually site or country) became active. Defaults to
+\code{"site_active_dt"}.}
+
+\item{strField_StudyActive}{\verb{length-1 character} The field that indicates
+when the study became active. Defaults to \code{"act_fpfv"}.}
 
 \item{strMetricID_AE}{\verb{length-1 character} The ID of the adverse events
 metric. Defaults to \code{"Analysis_kri0001"}.}
