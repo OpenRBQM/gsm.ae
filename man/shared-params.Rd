@@ -4,26 +4,19 @@
 \alias{shared-params}
 \title{Parameters used in multiple functions}
 \arguments{
-\item{envCall}{\code{environment} The environment from which this function was
-called, for use in better error messages. This value should usually be left
-as the default, or passed from the calling function if the calling function
-also has an \code{envCall} argument.}
-
-\item{envEvaluate}{\code{environment} The environment in which any variables used
-in the message or widget are defined. You almost definitely want to leave
-this as the default value.}
-
-\item{fnInit}{\code{function} An initialization function such as
-\code{\link[safetyCharts:init_aeExplorer]{safetyCharts::init_aeExplorer()}}.}
-
-\item{fnWidgetOutput}{\code{function} An \code{\link[htmlwidgets:htmlwidgets-shiny]{htmlwidgets::shinyWidgetOutput()}}
-function.}
-
 \item{id}{\code{character} The id for this element.}
 
-\item{lData}{\code{list} Raw data for use in a safetyCharts widget.}
+\item{dfAnalyticsInput}{\code{data.frame} Participant-level metric data.}
 
-\item{lSettings}{\code{list} Named list of settings for a safetyCharts widget.}
+\item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output.}
+
+\item{rctv_dSnapshotDate}{\verb{reactive Date} A \code{\link[shiny:reactive]{shiny::reactive()}} object that
+returns the date of a data snapshot.}
+
+\item{rctv_dSnapshotDatePrevious}{\verb{reactive Date} A \code{\link[shiny:reactive]{shiny::reactive()}}
+object that returns the date of a data snapshot immediately before
+\code{rctv_dSnapshotDate}, or \code{NA} if there aren't any snapshots before the
+selected date.}
 
 \item{rctv_dfAE}{\verb{reactive dataframe} A \code{\link[shiny:reactive]{shiny::reactive()}} object that
 returns an adverse events domain dataframe.}
@@ -31,9 +24,12 @@ returns an adverse events domain dataframe.}
 \item{rctv_dfSUBJ}{\verb{reactive dataframe} A \code{\link[shiny:reactive]{shiny::reactive()}} object that
 returns a subject domain dataframe.}
 
-\item{rctv_strSiteID}{\verb{reactive character} A \code{\link[shiny:reactiveVal]{shiny::reactiveVal()}} object
-that returns the \code{GroupID} of the selected site, and can be used to update
-the selected site.}
+\item{rctv_strGroupID}{\verb{reactive character} A \code{\link[shiny:reactiveVal]{shiny::reactiveVal()}} object
+that returns the \code{GroupID} of the selected group (usually site), and can be
+used to update which group is selected.}
+
+\item{rctv_strGroupLevel}{\verb{reactive character} A \code{\link[shiny:reactiveVal]{shiny::reactiveVal()}}
+object that returns the selected \code{GroupLevel}.}
 
 \item{rctv_strSubjectID}{\verb{reactive character} A \code{\link[shiny:reactive]{shiny::reactive()}} object
 that returns the \code{SubjectID} of the selected participant.}
@@ -41,7 +37,21 @@ that returns the \code{SubjectID} of the selected participant.}
 \item{session}{\code{environment} Session from which to make a child scope (the
 default should almost always be used).}
 
-\item{strWidgetName}{\code{character} The name of a widget in the gsm package.}
+\item{strField_Created}{\verb{length-1 character} The field that indicates when
+the adverse event was logged. Defaults to \code{"mincreated_dts"}.}
+
+\item{strField_GroupActive}{\verb{length-1 character} The field that indicates
+when the group (usually site or country) became active. Defaults to
+\code{"site_active_dt"}.}
+
+\item{strField_StudyActive}{\verb{length-1 character} The field that indicates
+when the study became active. Defaults to \code{"act_fpfv"}.}
+
+\item{strMetricID_AE}{\verb{length-1 character} The ID of the adverse events
+metric. Defaults to \code{"Analysis_kri0001"}.}
+
+\item{strMetricID_SAE}{\verb{length-1 character} The ID of the serious adverse
+events metric. Defaults to \code{"Analysis_kri0001"}.}
 }
 \description{
 Reused parameter definitions are gathered here for easier usage. Note: We

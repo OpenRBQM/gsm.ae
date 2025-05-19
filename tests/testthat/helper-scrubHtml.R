@@ -14,6 +14,7 @@ scrub_html <- function(chrLines) {
     scrub_tab_ids() %>%
     scrub_tabset_ids() %>%
     scrub_collapse_ids() %>%
+    scrub_gt_ids() %>%
     scrub_extra_black_style()
 }
 
@@ -35,6 +36,11 @@ scrub_tabset_ids <- function(chrLines) {
 
 scrub_collapse_ids <- function(chrLines) {
   gsub("navbar-collapse-\\d+", "navbar-collapse-XXXX", chrLines)
+}
+
+scrub_gt_ids <- function(chrLines) {
+  chrLines <- gsub('id="[a-z]{10}"', 'id="gtRandomID"', chrLines)
+  gsub('#[a-z]{10} ', '#gtRandomID ', chrLines)
 }
 
 scrub_extra_black_style <- function(chrLines) {

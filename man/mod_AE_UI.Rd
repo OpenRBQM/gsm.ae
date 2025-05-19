@@ -10,7 +10,7 @@ mod_AE_UI(id)
 \item{id}{\code{character} The id for this element.}
 }
 \value{
-A \code{\link[bslib:navset]{bslib::navset_card_underline()}} with the main AE plugin UI.
+A \code{\link[bslib:page_fillable]{bslib::page_fillable()}} with the AE plugin UI.
 }
 \description{
 Adverse Events Plugin UI

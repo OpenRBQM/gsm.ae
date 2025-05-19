@@ -2,26 +2,12 @@
 #'
 #' @inheritParams shared-params
 #'
-#' @returns A [bslib::navset_card_underline()] with the main AE plugin UI.
+#' @returns A [bslib::page_fillable()] with the AE plugin UI.
 #' @export
 mod_AE_UI <- function(id) {
   ns <- NS(id)
-  bslib::navset_card_underline(
-    id = ns("selected_tab"),
-    title = "Adverse Events",
-    bslib::nav_panel(
-      "Dashboard",
-      mod_AEDashboard_UI(ns("dashboard"))
-    ),
-    bslib::nav_panel(
-      "Explorer",
-      aeExplorerOutput(ns("explorer"))
-    ),
-    bslib::nav_panel(
-      "Timeline",
-      aeTimelinesOutput(ns("timeline"))
-    ),
-    full_screen = TRUE
+  bslib::page_fillable(
+    mod_AEDashboard_UI(ns("dashboard"))
   )
 }
 
@@ -33,74 +19,70 @@ mod_AE_UI <- function(id) {
 #' @export
 mod_AE_Server <- function(
   id,
-  rctv_dfAE,
-  rctv_dfSUBJ,
-  rctv_strSiteID,
-  rctv_strSubjectID
+  dfAnalyticsInput,
+  dfResults,
+  rctv_dSnapshotDate,
+  rctv_strGroupID,
+  rctv_strGroupLevel,
+  rctv_strSubjectID,
+  strMetricID_AE = "Analysis_kri0001",
+  strMetricID_SAE = "Analysis_kri0002"
 ) {
-  moduleServer(id, function(input, output, session) {
-    rctv_dfAE_mod <- reactive({
-      dfAE <- rctv_dfAE()
-      if (NROW(dfAE)) {
-        dfAE <- dfAE %>%
-          dplyr::inner_join(rctv_dfSUBJ(), by = "SubjectID") %>%
-          dplyr::mutate(
-            aetoxgr = toupper(
-              sub("^out of bound:", "", .data$aetoxgr)
-            ),
-            aest_dy = .data$aest_dt - .data$firstparticipantdate + 1L,
-            aeen_dy = .data$aeen_dt - .data$firstparticipantdate + 1L
-          ) %>%
-          dplyr::arrange(
-            .data$SubjectID,
-            .data$aest_dy,
-            .data$aeen_dy,
-            .data$mdrpt_nsv,
-            .data$aetoxgr
-          ) %>%
-          dplyr::mutate(
-            seq = dplyr::row_number(),
-            .by = "SubjectID"
-          )
-      }
-    })
-    aes_settings <- list(
-      id_col = "SubjectID",
-      seq_col = "seq",
-      stdy_col = "aest_dy",
-      endy_col = "aeen_dy",
-      term_col = "mdrpt_nsv",
-      bodsys_col = "mdrsoc_nsv",
-      severity_col = "aetoxgr",
-      serious_col = "aeser"
+  dfAnalyticsInput <- dfAnalyticsInput %>%
+    dplyr::filter(.data$MetricID %in% c(strMetricID_AE, strMetricID_SAE)) %>%
+    dplyr::mutate(
+      MetricID = dplyr::case_match(
+        .data$MetricID,
+        strMetricID_AE ~ "AE",
+        strMetricID_SAE ~ "SAE"
+      ),
+      dplyr::across(
+        c("Numerator", "Denominator"),
+        as.integer
+      )
+    ) %>%
+    dplyr::arrange(
+      .data$GroupLevel,
+      .data$GroupID,
+      .data$SubjectID,
+      .data$MetricID,
+      .data$SnapshotDate
     )
-    mod_AEDashboard_Server("dashboard", rctv_dfAE_mod)
-    output$explorer <- render_aeExplorer({
-      dfAE <- rctv_dfAE_mod()
-      if (NROW(dfAE)) {
-        render_SC_Widget(
-          lData = list(dm = rctv_dfSUBJ(), aes = dfAE),
-          lSettings = list(
-            dm = list(
-              id_col = "SubjectID"
-            ),
-            aes = aes_settings
-          ),
-          fnInit = safetyCharts::init_aeExplorer,
-          strWidgetName = "aeExplorer"
+
+  moduleServer(id, function(input, output, session) {
+    rctv_dSnapshotDatePrevious <- reactive({
+      dSnapshotDates <- as.Date(unique(dfResults$SnapshotDate))
+      dSnapshotDatesPrevious <- dSnapshotDates[
+        !is.na(dSnapshotDates) & dSnapshotDates < rctv_dSnapshotDate()
+      ]
+      if (length(dSnapshotDatesPrevious)) {
+        return(max(dSnapshotDatesPrevious, na.rm = TRUE))
+      }
+      return(as.Date(NA, origin = "1970-01-01"))
+    })
+    # Ideally this should happen in gsm.app, see
+    # https://github.com/Gilead-BioStats/gsm.app/issues/449
+    rctv_strGroupID_inferred <- reactive({
+      strGroupID <- rctv_strGroupID()
+      strSubjectID <- rctv_strSubjectID()
+      if (is.null(strGroupID) && length(strSubjectID) == 1) {
+        test1 <- dfAnalyticsInput$SubjectID == strSubjectID
+        test2 <- dfAnalyticsInput$GroupLevel == rctv_strGroupLevel()
+        return(
+          dfAnalyticsInput$GroupID[test1 & test2][[1]]
         )
       }
-    })
-    output$timeline <- render_aeTimelines({
-      dfAE <- rctv_dfAE_mod()
-      if (NROW(dfAE)) {
-        render_SC_Widget(
-          lData = dfAE,
-          lSettings = aes_settings,
-          fnInit = safetyCharts::init_aeTimelines,
-          strWidgetName = "aeTimelines"
-        )
-      }
-    })
+      return(strGroupID)
+    }) %>%
+      bindCache(rctv_strSubjectID(), rctv_strGroupID(), rctv_strGroupLevel())
+    mod_AEDashboard_Server(
+      "dashboard",
+      dfAnalyticsInput = dfAnalyticsInput,
+      rctv_dSnapshotDate = rctv_dSnapshotDate,
+      rctv_dSnapshotDatePrevious = rctv_dSnapshotDatePrevious,
+      rctv_strGroupID = rctv_strGroupID_inferred,
+      rctv_strGroupLevel = rctv_strGroupLevel,
+      rctv_strSubjectID = rctv_strSubjectID
+    )
   })
 }
