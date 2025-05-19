@@ -7,23 +7,17 @@
 mod_AEDashboard_Server(
   id,
   dfAnalyticsInput,
-  dfResults,
   rctv_dSnapshotDate,
   rctv_dSnapshotDatePrevious,
-  rctv_dfAE,
-  rctv_dfSUBJ,
   rctv_strGroupID,
-  strField_Created = "mincreated_dts",
-  strMetricID_AE = "Analysis_kri0001",
-  strMetricID_SAE = "Analysis_kri0002"
+  rctv_strGroupLevel,
+  rctv_strSubjectID
 )
 }
 \arguments{
 \item{id}{\code{character} The id for this element.}
 
 \item{dfAnalyticsInput}{\code{data.frame} Participant-level metric data.}
-
-\item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output.}
 
 \item{rctv_dSnapshotDate}{\verb{reactive Date} A \code{\link[shiny:reactive]{shiny::reactive()}} object that
 returns the date of a data snapshot.}
@@ -33,24 +27,15 @@ object that returns the date of a data snapshot immediately before
 \code{rctv_dSnapshotDate}, or \code{NA} if there aren't any snapshots before the
 selected date.}
 
-\item{rctv_dfAE}{\verb{reactive dataframe} A \code{\link[shiny:reactive]{shiny::reactive()}} object that
-returns an adverse events domain dataframe.}
-
-\item{rctv_dfSUBJ}{\verb{reactive dataframe} A \code{\link[shiny:reactive]{shiny::reactive()}} object that
-returns a subject domain dataframe.}
-
 \item{rctv_strGroupID}{\verb{reactive character} A \code{\link[shiny:reactiveVal]{shiny::reactiveVal()}} object
 that returns the \code{GroupID} of the selected group (usually site), and can be
 used to update which group is selected.}
 
-\item{strField_Created}{\verb{length-1 character} The field that indicates when
-the adverse event was logged. Defaults to \code{"mincreated_dts"}.}
+\item{rctv_strGroupLevel}{\verb{reactive character} A \code{\link[shiny:reactiveVal]{shiny::reactiveVal()}}
+object that returns the selected \code{GroupLevel}.}
 
-\item{strMetricID_AE}{\verb{length-1 character} The ID of the adverse events
-metric. Defaults to \code{"Analysis_kri0001"}.}
-
-\item{strMetricID_SAE}{\verb{length-1 character} The ID of the serious adverse
-events metric. Defaults to \code{"Analysis_kri0001"}.}
+\item{rctv_strSubjectID}{\verb{reactive character} A \code{\link[shiny:reactive]{shiny::reactive()}} object
+that returns the \code{SubjectID} of the selected participant.}
 }
 \value{
 A module server function.

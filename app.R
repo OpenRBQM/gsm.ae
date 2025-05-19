@@ -7,8 +7,6 @@ if (grepl("gsm\\.ae", getwd()) ||
 }
 library(gsm.app)
 
-aePlugin <- pluginAE()
-
 gsm.app::run_gsm_app(
   dfAnalyticsInput = gsm.app::sample_dfAnalyticsInput,
   dfBounds = gsm.app::sample_dfBounds,

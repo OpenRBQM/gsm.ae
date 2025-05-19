@@ -20,18 +20,35 @@ mod_AE_UI <- function(id) {
 mod_AE_Server <- function(
   id,
   dfAnalyticsInput,
-  dfGroups,
   dfResults,
   rctv_dSnapshotDate,
-  rctv_dfAE,
-  rctv_dfSUBJ,
   rctv_strGroupID,
-  strField_Created = "mincreated_dts",
-  strField_GroupActive = "site_active_dt",
-  strField_StudyActive = "act_fpfv",
+  rctv_strGroupLevel,
+  rctv_strSubjectID,
   strMetricID_AE = "Analysis_kri0001",
   strMetricID_SAE = "Analysis_kri0002"
 ) {
+  dfAnalyticsInput <- dfAnalyticsInput %>%
+    dplyr::filter(.data$MetricID %in% c(strMetricID_AE, strMetricID_SAE)) %>%
+    dplyr::mutate(
+      MetricID = dplyr::case_match(
+        .data$MetricID,
+        strMetricID_AE ~ "AE",
+        strMetricID_SAE ~ "SAE"
+      ),
+      dplyr::across(
+        c("Numerator", "Denominator"),
+        as.integer
+      )
+    ) %>%
+    dplyr::arrange(
+      .data$GroupLevel,
+      .data$GroupID,
+      .data$SubjectID,
+      .data$MetricID,
+      .data$SnapshotDate
+    )
+
   moduleServer(id, function(input, output, session) {
     rctv_dSnapshotDatePrevious <- reactive({
       dSnapshotDates <- as.Date(unique(dfResults$SnapshotDate))
@@ -43,18 +60,29 @@ mod_AE_Server <- function(
       }
       return(as.Date(NA, origin = "1970-01-01"))
     })
+    # Ideally this should happen in gsm.app, see
+    # https://github.com/Gilead-BioStats/gsm.app/issues/449
+    rctv_strGroupID_inferred <- reactive({
+      strGroupID <- rctv_strGroupID()
+      strSubjectID <- rctv_strSubjectID()
+      if (is.null(strGroupID) && length(strSubjectID) == 1) {
+        test1 <- dfAnalyticsInput$SubjectID == strSubjectID
+        test2 <- dfAnalyticsInput$GroupLevel == rctv_strGroupLevel()
+        return(
+          dfAnalyticsInput$GroupID[test1 & test2][[1]]
+        )
+      }
+      return(strGroupID)
+    }) %>%
+      bindCache(rctv_strSubjectID(), rctv_strGroupID(), rctv_strGroupLevel())
     mod_AEDashboard_Server(
       "dashboard",
       dfAnalyticsInput = dfAnalyticsInput,
-      dfResults = dfResults,
       rctv_dSnapshotDate = rctv_dSnapshotDate,
       rctv_dSnapshotDatePrevious = rctv_dSnapshotDatePrevious,
-      rctv_dfAE = rctv_dfAE,
-      rctv_dfSUBJ = rctv_dfSUBJ,
-      rctv_strGroupID = rctv_strGroupID,
-      strField_Created = strField_Created,
-      strMetricID_AE = strMetricID_AE,
-      strMetricID_SAE = strMetricID_SAE
+      rctv_strGroupID = rctv_strGroupID_inferred,
+      rctv_strGroupLevel = rctv_strGroupLevel,
+      rctv_strSubjectID = rctv_strSubjectID
     )
   })
 }

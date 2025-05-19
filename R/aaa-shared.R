@@ -21,6 +21,8 @@
 #' @param rctv_strGroupID `reactive character` A [shiny::reactiveVal()] object
 #'   that returns the `GroupID` of the selected group (usually site), and can be
 #'   used to update which group is selected.
+#' @param rctv_strGroupLevel `reactive character` A [shiny::reactiveVal()]
+#'   object that returns the selected `GroupLevel`.
 #' @param rctv_strSubjectID `reactive character` A [shiny::reactive()] object
 #'   that returns the `SubjectID` of the selected participant.
 #' @param session `environment` Session from which to make a child scope (the
