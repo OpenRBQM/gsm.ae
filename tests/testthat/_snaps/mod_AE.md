@@ -533,11 +533,11 @@
           <tr><th id="stub_1_3" scope="row" class="gt_row gt_right gt_stub">SAE</th>
       <td headers="stub_1_3 Study" class="gt_row gt_center" style="white-space: nowrap;">40 (+2)</td></tr>
           <tr><th id="stub_1_4" scope="row" class="gt_row gt_right gt_stub">SAE Rate</th>
-      <td headers="stub_1_4 Study" class="gt_row gt_center gt_striped" style="white-space: nowrap;">0.00024 (—)</td></tr>
+      <td headers="stub_1_4 Study" class="gt_row gt_center gt_striped" style="white-space: nowrap;">0.00024 (0)</td></tr>
           <tr><th id="stub_1_5" scope="row" class="gt_row gt_right gt_stub">Days on Study</th>
-      <td headers="stub_1_5 Study" class="gt_row gt_center" style="white-space: nowrap;">164,724 (—)</td></tr>
+      <td headers="stub_1_5 Study" class="gt_row gt_center" style="white-space: nowrap;">164,724 (0)</td></tr>
           <tr><th id="stub_1_6" scope="row" class="gt_row gt_right gt_stub">Participants</th>
-      <td headers="stub_1_6 Study" class="gt_row gt_center gt_striped" style="white-space: nowrap;">227 (—)</td></tr>
+      <td headers="stub_1_6 Study" class="gt_row gt_center gt_striped" style="white-space: nowrap;">227 (0)</td></tr>
           <tr><th id="stub_1_7" scope="row" class="gt_row gt_right gt_stub"> w/0 AE</th>
       <td headers="stub_1_7 Study" class="gt_row gt_center" style="white-space: nowrap;">51 (−6)</td></tr>
         </tbody>
@@ -1017,11 +1017,11 @@
           <tr><th id="stub_1_3" scope="row" class="gt_row gt_right gt_stub">SAE</th>
       <td headers="stub_1_3 Study" class="gt_row gt_center" style="white-space: nowrap;">40 (+2)</td></tr>
           <tr><th id="stub_1_4" scope="row" class="gt_row gt_right gt_stub">SAE Rate</th>
-      <td headers="stub_1_4 Study" class="gt_row gt_center gt_striped" style="white-space: nowrap;">0.00024 (—)</td></tr>
+      <td headers="stub_1_4 Study" class="gt_row gt_center gt_striped" style="white-space: nowrap;">0.00024 (0)</td></tr>
           <tr><th id="stub_1_5" scope="row" class="gt_row gt_right gt_stub">Days on Study</th>
-      <td headers="stub_1_5 Study" class="gt_row gt_center" style="white-space: nowrap;">164,724 (—)</td></tr>
+      <td headers="stub_1_5 Study" class="gt_row gt_center" style="white-space: nowrap;">164,724 (0)</td></tr>
           <tr><th id="stub_1_6" scope="row" class="gt_row gt_right gt_stub">Participants</th>
-      <td headers="stub_1_6 Study" class="gt_row gt_center gt_striped" style="white-space: nowrap;">227 (—)</td></tr>
+      <td headers="stub_1_6 Study" class="gt_row gt_center gt_striped" style="white-space: nowrap;">227 (0)</td></tr>
           <tr><th id="stub_1_7" scope="row" class="gt_row gt_right gt_stub"> w/0 AE</th>
       <td headers="stub_1_7 Study" class="gt_row gt_center" style="white-space: nowrap;">51 (−6)</td></tr>
         </tbody>

@@ -133,12 +133,6 @@ SummarizeAE <- function(
 ) {
   # I assume dfAnalyticsInput is valid, since it will always come from gsm.app
   # right now.
-  format_delta <- scales::label_number(
-    big.mark = ",",
-    style_negative = "minus",
-    style_positive = "plus"
-  )
-  format_number <- scales::label_number(big.mark = ",")
   dplyr::summarize(
     dfAnalyticsInput,
     n = sum(.data$Numerator),
@@ -153,25 +147,29 @@ SummarizeAE <- function(
       values_from = c("n", "days", "rate", "participants", "participants0")
     ) %>%
     dplyr::mutate(
-      d_AE = format_delta(.data$n_AE - dplyr::lag(.data$n_AE)),
-      d_rate_AE = dplyr::if_else(
-        .data$n_AE > 0,
-        format_delta(.data$rate_AE - dplyr::lag(.data$rate_AE)),
-        "0"
+      d_AE = FormatDelta(.data$n_AE - dplyr::lag(.data$n_AE)),
+      d_rate_AE = dplyr::case_when(
+        is.na(dplyr::lag(.data$n_AE)) ~ "\u2014",
+        .data$n_SAE > 0 ~ FormatDelta(
+          .data$rate_AE - dplyr::lag(.data$rate_AE)
+        ),
+        .default = "0"
       ),
-      d_SAE = format_delta(.data$n_SAE - dplyr::lag(.data$n_SAE)),
-      d_rate_SAE = dplyr::if_else(
-        .data$n_SAE > 0,
-        format_delta(.data$rate_SAE - dplyr::lag(.data$rate_SAE)),
-        "0"
+      d_SAE = FormatDelta(.data$n_SAE - dplyr::lag(.data$n_SAE)),
+      d_rate_SAE = dplyr::case_when(
+        is.na(dplyr::lag(.data$n_AE)) ~ "\u2014",
+        .data$n_SAE > 0 ~ FormatDelta(
+          .data$rate_SAE - dplyr::lag(.data$rate_SAE)
+        ),
+        .default = "0"
       ),
-      d_participants = format_delta(
+      d_participants = FormatDelta(
         .data$participants_AE - dplyr::lag(.data$participants_AE)
       ),
-      d_participants0 = format_delta(
+      d_participants0 = FormatDelta(
         .data$participants0_AE - dplyr::lag(.data$participants0_AE)
       ),
-      d_days = format_delta(
+      d_days = FormatDelta(
         .data$days_AE - dplyr::lag(.data$days_AE)
       ),
       dplyr::across(
@@ -184,7 +182,7 @@ SummarizeAE <- function(
           "participants0_AE",
           "days_AE"
         ),
-        format_number
+        FormatCount
       )
     ) %>%
     dplyr::mutate(
@@ -208,17 +206,31 @@ SummarizeAE <- function(
     )
 }
 
+FormatDelta <- function(d) {
+  ScaleDelta <- scales::label_number(
+    big.mark = ",",
+    style_negative = "minus",
+    style_positive = "plus"
+  )
+  return(CleanNumberForPrinting(ScaleDelta(d)))
+}
+
+FormatCount <- function(n) {
+  ScaleNumber <- scales::label_number(big.mark = ",")
+  return(CleanNumberForPrinting(ScaleNumber(n)))
+}
+
+CleanNumberForPrinting <- function(x) {
+  return(
+    dplyr::case_when(
+      is.na(x) ~ "\u2014",
+      # If it's 0.000000, count it as 0.
+      !grepl("[^0.]", x) ~ "0",
+      .default = x
+    )
+  )
+}
+
 GlueDelta <- function(n, d) {
-  n <- dplyr::case_when(
-    is.na(n) ~ "\u2014",
-    !grepl("[^0.]", n) ~ "0",
-    .default = n
-  )
-  d <- dplyr::case_when(
-    is.na(d) ~ "",
-    d == "0" ~ " (\u2014)",
-    !grepl("[^0.]", d) ~ " (\u2014)",
-    .default = glue::glue(" ({d})")
-  )
-  paste0(n, d)
+  return(glue::glue("{n} ({d})"))
 }
