@@ -38,7 +38,15 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">mod_AEDashboard_Server</span><span class="op">(</span><span class="va">id</span>, <span class="va">rctv_dfAE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">mod_AEDashboard_Server</span><span class="op">(</span></span>
+<span>  <span class="va">id</span>,</span>
+<span>  <span class="va">dfAnalyticsInput</span>,</span>
+<span>  <span class="va">rctv_dSnapshotDate</span>,</span>
+<span>  <span class="va">rctv_dSnapshotDatePrevious</span>,</span>
+<span>  <span class="va">rctv_strGroupID</span>,</span>
+<span>  <span class="va">rctv_strGroupLevel</span>,</span>
+<span>  <span class="va">rctv_strSubjectID</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -49,9 +57,36 @@
 <dd><p><code>character</code> The id for this element.</p></dd>
 
 
-<dt id="arg-rctv-dfae">rctv_dfAE<a class="anchor" aria-label="anchor" href="#arg-rctv-dfae"></a></dt>
-<dd><p><code>reactive dataframe</code> A <code><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">shiny::reactive()</a></code> object that
-returns an adverse events domain dataframe.</p></dd>
+<dt id="arg-dfanalyticsinput">dfAnalyticsInput<a class="anchor" aria-label="anchor" href="#arg-dfanalyticsinput"></a></dt>
+<dd><p><code>data.frame</code> Participant-level metric data.</p></dd>
+
+
+<dt id="arg-rctv-dsnapshotdate">rctv_dSnapshotDate<a class="anchor" aria-label="anchor" href="#arg-rctv-dsnapshotdate"></a></dt>
+<dd><p><code>reactive Date</code> A <code><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">shiny::reactive()</a></code> object that
+returns the date of a data snapshot.</p></dd>
+
+
+<dt id="arg-rctv-dsnapshotdateprevious">rctv_dSnapshotDatePrevious<a class="anchor" aria-label="anchor" href="#arg-rctv-dsnapshotdateprevious"></a></dt>
+<dd><p><code>reactive Date</code> A <code><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">shiny::reactive()</a></code>
+object that returns the date of a data snapshot immediately before
+<code>rctv_dSnapshotDate</code>, or <code>NA</code> if there aren't any snapshots before the
+selected date.</p></dd>
+
+
+<dt id="arg-rctv-strgroupid">rctv_strGroupID<a class="anchor" aria-label="anchor" href="#arg-rctv-strgroupid"></a></dt>
+<dd><p><code>reactive character</code> A <code><a href="https://rdrr.io/pkg/shiny/man/reactiveVal.html" class="external-link">shiny::reactiveVal()</a></code> object
+that returns the <code>GroupID</code> of the selected group (usually site), and can be
+used to update which group is selected.</p></dd>
+
+
+<dt id="arg-rctv-strgrouplevel">rctv_strGroupLevel<a class="anchor" aria-label="anchor" href="#arg-rctv-strgrouplevel"></a></dt>
+<dd><p><code>reactive character</code> A <code><a href="https://rdrr.io/pkg/shiny/man/reactiveVal.html" class="external-link">shiny::reactiveVal()</a></code>
+object that returns the selected <code>GroupLevel</code>.</p></dd>
+
+
+<dt id="arg-rctv-strsubjectid">rctv_strSubjectID<a class="anchor" aria-label="anchor" href="#arg-rctv-strsubjectid"></a></dt>
+<dd><p><code>reactive character</code> A <code><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">shiny::reactive()</a></code> object
+that returns the <code>SubjectID</code> of the selected participant.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -68,7 +103,7 @@ returns an adverse events domain dataframe.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
 </div>
 
     </footer></div>

@@ -50,39 +50,28 @@ argument in module server functions.</p>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg-envcall">envCall<a class="anchor" aria-label="anchor" href="#arg-envcall"></a></dt>
-<dd><p><code>environment</code> The environment from which this function was
-called, for use in better error messages. This value should usually be left
-as the default, or passed from the calling function if the calling function
-also has an <code>envCall</code> argument.</p></dd>
-
-
-<dt id="arg-envevaluate">envEvaluate<a class="anchor" aria-label="anchor" href="#arg-envevaluate"></a></dt>
-<dd><p><code>environment</code> The environment in which any variables used
-in the message or widget are defined. You almost definitely want to leave
-this as the default value.</p></dd>
-
-
-<dt id="arg-fninit">fnInit<a class="anchor" aria-label="anchor" href="#arg-fninit"></a></dt>
-<dd><p><code>function</code> An initialization function such as
-<code><a href="https://rdrr.io/pkg/safetyCharts/man/init_aeExplorer.html" class="external-link">safetyCharts::init_aeExplorer()</a></code>.</p></dd>
-
-
-<dt id="arg-fnwidgetoutput">fnWidgetOutput<a class="anchor" aria-label="anchor" href="#arg-fnwidgetoutput"></a></dt>
-<dd><p><code>function</code> An <code><a href="https://rdrr.io/pkg/htmlwidgets/man/htmlwidgets-shiny.html" class="external-link">htmlwidgets::shinyWidgetOutput()</a></code>
-function.</p></dd>
-
-
-<dt id="arg-id">id<a class="anchor" aria-label="anchor" href="#arg-id"></a></dt>
+<dl><dt id="arg-id">id<a class="anchor" aria-label="anchor" href="#arg-id"></a></dt>
 <dd><p><code>character</code> The id for this element.</p></dd>
 
 
-<dt id="arg-ldata">lData<a class="anchor" aria-label="anchor" href="#arg-ldata"></a></dt>
-<dd><p><code>list</code> Raw data for use in a safetyCharts widget.</p></dd>
+<dt id="arg-dfanalyticsinput">dfAnalyticsInput<a class="anchor" aria-label="anchor" href="#arg-dfanalyticsinput"></a></dt>
+<dd><p><code>data.frame</code> Participant-level metric data.</p></dd>
 
 
-<dt id="arg-lsettings">lSettings<a class="anchor" aria-label="anchor" href="#arg-lsettings"></a></dt>
-<dd><p><code>list</code> Named list of settings for a safetyCharts widget.</p></dd>
+<dt id="arg-dfresults">dfResults<a class="anchor" aria-label="anchor" href="#arg-dfresults"></a></dt>
+<dd><p><code>data.frame</code> A stacked summary of analysis pipeline output.</p></dd>
+
+
+<dt id="arg-rctv-dsnapshotdate">rctv_dSnapshotDate<a class="anchor" aria-label="anchor" href="#arg-rctv-dsnapshotdate"></a></dt>
+<dd><p><code>reactive Date</code> A <code><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">shiny::reactive()</a></code> object that
+returns the date of a data snapshot.</p></dd>
+
+
+<dt id="arg-rctv-dsnapshotdateprevious">rctv_dSnapshotDatePrevious<a class="anchor" aria-label="anchor" href="#arg-rctv-dsnapshotdateprevious"></a></dt>
+<dd><p><code>reactive Date</code> A <code><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">shiny::reactive()</a></code>
+object that returns the date of a data snapshot immediately before
+<code>rctv_dSnapshotDate</code>, or <code>NA</code> if there aren't any snapshots before the
+selected date.</p></dd>
 
 
 <dt id="arg-rctv-dfae">rctv_dfAE<a class="anchor" aria-label="anchor" href="#arg-rctv-dfae"></a></dt>
@@ -95,10 +84,15 @@ returns an adverse events domain dataframe.</p></dd>
 returns a subject domain dataframe.</p></dd>
 
 
-<dt id="arg-rctv-strsiteid">rctv_strSiteID<a class="anchor" aria-label="anchor" href="#arg-rctv-strsiteid"></a></dt>
+<dt id="arg-rctv-strgroupid">rctv_strGroupID<a class="anchor" aria-label="anchor" href="#arg-rctv-strgroupid"></a></dt>
 <dd><p><code>reactive character</code> A <code><a href="https://rdrr.io/pkg/shiny/man/reactiveVal.html" class="external-link">shiny::reactiveVal()</a></code> object
-that returns the <code>GroupID</code> of the selected site, and can be used to update
-the selected site.</p></dd>
+that returns the <code>GroupID</code> of the selected group (usually site), and can be
+used to update which group is selected.</p></dd>
+
+
+<dt id="arg-rctv-strgrouplevel">rctv_strGroupLevel<a class="anchor" aria-label="anchor" href="#arg-rctv-strgrouplevel"></a></dt>
+<dd><p><code>reactive character</code> A <code><a href="https://rdrr.io/pkg/shiny/man/reactiveVal.html" class="external-link">shiny::reactiveVal()</a></code>
+object that returns the selected <code>GroupLevel</code>.</p></dd>
 
 
 <dt id="arg-rctv-strsubjectid">rctv_strSubjectID<a class="anchor" aria-label="anchor" href="#arg-rctv-strsubjectid"></a></dt>
@@ -111,8 +105,30 @@ that returns the <code>SubjectID</code> of the selected participant.</p></dd>
 default should almost always be used).</p></dd>
 
 
-<dt id="arg-strwidgetname">strWidgetName<a class="anchor" aria-label="anchor" href="#arg-strwidgetname"></a></dt>
-<dd><p><code>character</code> The name of a widget in the gsm package.</p></dd>
+<dt id="arg-strfield-created">strField_Created<a class="anchor" aria-label="anchor" href="#arg-strfield-created"></a></dt>
+<dd><p><code>length-1 character</code> The field that indicates when
+the adverse event was logged. Defaults to <code>"mincreated_dts"</code>.</p></dd>
+
+
+<dt id="arg-strfield-groupactive">strField_GroupActive<a class="anchor" aria-label="anchor" href="#arg-strfield-groupactive"></a></dt>
+<dd><p><code>length-1 character</code> The field that indicates
+when the group (usually site or country) became active. Defaults to
+<code>"site_active_dt"</code>.</p></dd>
+
+
+<dt id="arg-strfield-studyactive">strField_StudyActive<a class="anchor" aria-label="anchor" href="#arg-strfield-studyactive"></a></dt>
+<dd><p><code>length-1 character</code> The field that indicates
+when the study became active. Defaults to <code>"act_fpfv"</code>.</p></dd>
+
+
+<dt id="arg-strmetricid-ae">strMetricID_AE<a class="anchor" aria-label="anchor" href="#arg-strmetricid-ae"></a></dt>
+<dd><p><code>length-1 character</code> The ID of the adverse events
+metric. Defaults to <code>"Analysis_kri0001"</code>.</p></dd>
+
+
+<dt id="arg-strmetricid-sae">strMetricID_SAE<a class="anchor" aria-label="anchor" href="#arg-strmetricid-sae"></a></dt>
+<dd><p><code>length-1 character</code> The ID of the serious adverse
+events metric. Defaults to <code>"Analysis_kri0001"</code>.</p></dd>
 
 </dl></div>
 
@@ -124,7 +140,7 @@ default should almost always be used).</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
 </div>
 
     </footer></div>

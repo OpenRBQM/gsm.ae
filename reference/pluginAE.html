@@ -44,9 +44,32 @@ We provide a ready-to-use plugin definition for this AE plugin.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">pluginAE</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">pluginAE</span><span class="op">(</span></span>
+<span>  strField_Created <span class="op">=</span> <span class="st">"mincreated_dts"</span>,</span>
+<span>  strMetricID_AE <span class="op">=</span> <span class="st">"Analysis_kri0001"</span>,</span>
+<span>  strMetricID_SAE <span class="op">=</span> <span class="st">"Analysis_kri0002"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
+    <div class="section level2">
+    <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
+
+
+<dl><dt id="arg-strfield-created">strField_Created<a class="anchor" aria-label="anchor" href="#arg-strfield-created"></a></dt>
+<dd><p><code>length-1 character</code> The field that indicates when
+the adverse event was logged. Defaults to <code>"mincreated_dts"</code>.</p></dd>
+
+
+<dt id="arg-strmetricid-ae">strMetricID_AE<a class="anchor" aria-label="anchor" href="#arg-strmetricid-ae"></a></dt>
+<dd><p><code>length-1 character</code> The ID of the adverse events
+metric. Defaults to <code>"Analysis_kri0001"</code>.</p></dd>
+
+
+<dt id="arg-strmetricid-sae">strMetricID_SAE<a class="anchor" aria-label="anchor" href="#arg-strmetricid-sae"></a></dt>
+<dd><p><code>length-1 character</code> The ID of the serious adverse
+events metric. Defaults to <code>"Analysis_kri0001"</code>.</p></dd>
+
+</dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A plugin definition for use in gsm.app.</p>
@@ -65,61 +88,103 @@ We provide a ready-to-use plugin definition for this AE plugin.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (id) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     ns &lt;- NS(id)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     bslib::navset_card_underline(id = ns("selected_tab"), title = "Adverse Events", </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         bslib::nav_panel("Dashboard", mod_AEDashboard_UI(ns("dashboard"))), </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         bslib::nav_panel("Explorer", aeExplorerOutput(ns("explorer"))), </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         bslib::nav_panel("Timeline", aeTimelinesOutput(ns("timeline"))), </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         full_screen = TRUE)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     bslib::page_fillable(mod_AEDashboard_UI(ns("dashboard")))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55e7210aa348&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x555e5f2e3af0&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: namespace:gsm.ae&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $shiny$Server</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> function (id, rctv_dfAE, rctv_dfSUBJ, rctv_strSiteID, rctv_strSubjectID) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> function (id, dfAnalyticsInput, dfResults, rctv_dSnapshotDate, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     rctv_strGroupID, rctv_strGroupLevel, rctv_strSubjectID, strMetricID_AE = "Analysis_kri0001", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     strMetricID_SAE = "Analysis_kri0002") </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     dfAnalyticsInput &lt;- dfAnalyticsInput %&gt;% dplyr::filter(.data$MetricID %in% </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         c(strMetricID_AE, strMetricID_SAE)) %&gt;% dplyr::mutate(MetricID = dplyr::case_match(.data$MetricID, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         strMetricID_AE ~ "AE", strMetricID_SAE ~ "SAE"), dplyr::across(c("Numerator", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "Denominator"), as.integer)) %&gt;% dplyr::arrange(.data$GroupLevel, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         .data$GroupID, .data$SubjectID, .data$MetricID, .data$SnapshotDate)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     moduleServer(id, function(input, output, session) {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         rctv_dfAE_mod &lt;- reactive({</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             dfAE &lt;- rctv_dfAE()</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             if (NROW(dfAE)) {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                 dfAE &lt;- dfAE %&gt;% dplyr::inner_join(rctv_dfSUBJ(), </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   by = "SubjectID") %&gt;% dplyr::mutate(aetoxgr = toupper(sub("^out of bound:", </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   "", .data$aetoxgr)), aest_dy = .data$aest_dt - </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   .data$firstparticipantdate + 1L, aeen_dy = .data$aeen_dt - </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   .data$firstparticipantdate + 1L) %&gt;% dplyr::arrange(.data$SubjectID, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   .data$aest_dy, .data$aeen_dy, .data$mdrpt_nsv, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   .data$aetoxgr) %&gt;% dplyr::mutate(seq = dplyr::row_number(), </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   .by = "SubjectID")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         rctv_dSnapshotDatePrevious &lt;- reactive({</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             dSnapshotDates &lt;- as.Date(unique(dfResults$SnapshotDate))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             dSnapshotDatesPrevious &lt;- dSnapshotDates[!is.na(dSnapshotDates) &amp; </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 dSnapshotDates &lt; rctv_dSnapshotDate()]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             if (length(dSnapshotDatesPrevious)) {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 return(max(dSnapshotDatesPrevious, na.rm = TRUE))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             return(as.Date(NA, origin = "1970-01-01"))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         })</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         aes_settings &lt;- list(id_col = "SubjectID", seq_col = "seq", </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             stdy_col = "aest_dy", endy_col = "aeen_dy", term_col = "mdrpt_nsv", </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             bodsys_col = "mdrsoc_nsv", severity_col = "aetoxgr", </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             serious_col = "aeser")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         mod_AEDashboard_Server("dashboard", rctv_dfAE_mod)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         output$explorer &lt;- render_aeExplorer({</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             dfAE &lt;- rctv_dfAE_mod()</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             if (NROW(dfAE)) {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                 render_SC_Widget(lData = list(dm = rctv_dfSUBJ(), </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   aes = dfAE), lSettings = list(dm = list(id_col = "SubjectID"), </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   aes = aes_settings), fnInit = safetyCharts::init_aeExplorer, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   strWidgetName = "aeExplorer")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         rctv_strGroupID_inferred &lt;- reactive({</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             strGroupID &lt;- rctv_strGroupID()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             strSubjectID &lt;- rctv_strSubjectID()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             if (is.null(strGroupID) &amp;&amp; length(strSubjectID) == </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 1) {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 test1 &lt;- dfAnalyticsInput$SubjectID == strSubjectID</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 test2 &lt;- dfAnalyticsInput$GroupLevel == rctv_strGroupLevel()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 return(dfAnalyticsInput$GroupID[test1 &amp; test2][[1]])</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         })</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         output$timeline &lt;- render_aeTimelines({</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             dfAE &lt;- rctv_dfAE_mod()</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             if (NROW(dfAE)) {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                 render_SC_Widget(lData = dfAE, lSettings = aes_settings, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   fnInit = safetyCharts::init_aeTimelines, strWidgetName = "aeTimelines")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         })</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             return(strGroupID)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         }) %&gt;% bindCache(rctv_strSubjectID(), rctv_strGroupID(), </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             rctv_strGroupLevel())</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         mod_AEDashboard_Server("dashboard", dfAnalyticsInput = dfAnalyticsInput, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             rctv_dSnapshotDate = rctv_dSnapshotDate, rctv_dSnapshotDatePrevious = rctv_dSnapshotDatePrevious, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             rctv_strGroupID = rctv_strGroupID_inferred, rctv_strGroupLevel = rctv_strGroupLevel, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             rctv_strSubjectID = rctv_strSubjectID)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     })</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55e7210aca10&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x555e5f2e4848&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: namespace:gsm.ae&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $domains</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "AE"   "SUBJ"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $spec</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $spec$AE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $spec$AE$aest_dt</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $spec$AE$aest_dt$type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Date"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $spec$AE$aeser</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $spec$AE$aeser$type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "character"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $spec$AE$SubjectID</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $spec$AE$SubjectID$type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "character"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $spec$AE$mincreated_dts</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $spec$AE$mincreated_dts$type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "character"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $spec$SUBJ</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $spec$SUBJ$SubjectID</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $spec$SUBJ$SubjectID$type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "character"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $config</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $config$strField_Created</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "mincreated_dts"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $config$strMetricID_AE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Analysis_kri0001"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $config$strMetricID_SAE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Analysis_kri0002"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $packages</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> list()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $required_inputs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $workflows</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> list()</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
@@ -132,7 +197,7 @@ We provide a ready-to-use plugin definition for this AE plugin.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
 </div>
 
     </footer></div>
