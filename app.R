@@ -15,7 +15,7 @@ gsm.app::run_gsm_app(
   dfResults = gsm.app::sample_dfResults,
   fnFetchData = gsm.app::sample_fnFetchData,
   lPlugins = list(pluginAE()),
-  strTitle = "gsm.ae demo",
+  strTitle = Sys.getenv("GSMAPP_TITLE", "gsm.ae Demo"),
   strFavicon = Sys.getenv("GSMAPP_FAVICON", "comment-medical"),
   strFaviconColor = Sys.getenv("GSMAPP_FAVICONCOLOR", gsm.app::ColorScheme("red"))
 )
