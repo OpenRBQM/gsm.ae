@@ -56,6 +56,11 @@ mod_AEDashboard_Server <- function(
   rctv_strGroupLevel,
   rctv_strSubjectID
 ) {
+  # All dashboard card server functions will be called here. That's why this
+  # function looks like it's unnecessary. Since it doesn't have other contents,
+  # there's nothing to test yet.
+  #
+  # nocov start
   moduleServer(id, function(input, output, session) {
     mod_AESummary_Server(
       "summary",
@@ -66,7 +71,6 @@ mod_AEDashboard_Server <- function(
       rctv_strGroupLevel = rctv_strGroupLevel,
       rctv_strSubjectID = rctv_strSubjectID
     )
-    # All dashboard card server functions will be called here (that's why this
-    # function looks like it's unnecessary).
   })
+  # nocov end
 }
