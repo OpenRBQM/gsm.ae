@@ -48,6 +48,25 @@ mod_AE_Server <- function(
       .data$MetricID,
       .data$SnapshotDate
     )
+  dfResults <- dfResults %>%
+    dplyr::filter(.data$MetricID %in% c(strMetricID_AE, strMetricID_SAE)) %>%
+    dplyr::mutate(
+      MetricID = dplyr::case_match(
+        .data$MetricID,
+        strMetricID_AE ~ "AE",
+        strMetricID_SAE ~ "SAE"
+      ),
+      dplyr::across(
+        c("Numerator", "Denominator"),
+        as.integer
+      )
+    ) %>%
+    dplyr::arrange(
+      .data$GroupLevel,
+      .data$GroupID,
+      .data$MetricID,
+      .data$SnapshotDate
+    )
 
   moduleServer(id, function(input, output, session) {
     rctv_dSnapshotDatePrevious <- reactive({
