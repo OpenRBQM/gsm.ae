@@ -23,7 +23,7 @@ mod_AEDashboard_UI <- function(id) {
       "Top SOC",
       tags$em("Placeholder: Compare top SOC for the study to whatever is selected - either site or country e.g., Gastro site 25%, study 75%\nIn order to identify Systems or Organ Classes (SOCs) with particular issues in AEs, as a CM/RA, I would like to see counts/% by SOC, for site and (if data is subset) selected thing.")
     ),
-    col_widths = c(6, 6, 6, 6)
+    col_widths = c(-2, 4, 4, -2, -2, 4, 4, -2)
   )
 }
 
@@ -56,6 +56,11 @@ mod_AEDashboard_Server <- function(
   rctv_strGroupLevel,
   rctv_strSubjectID
 ) {
+  # All dashboard card server functions will be called here. That's why this
+  # function looks like it's unnecessary. Since it doesn't have other contents,
+  # there's nothing to test yet.
+  #
+  # nocov start
   moduleServer(id, function(input, output, session) {
     mod_AESummary_Server(
       "summary",
@@ -66,7 +71,6 @@ mod_AEDashboard_Server <- function(
       rctv_strGroupLevel = rctv_strGroupLevel,
       rctv_strSubjectID = rctv_strSubjectID
     )
-    # All dashboard card server functions will be called here (that's why this
-    # function looks like it's unnecessary).
   })
+  # nocov end
 }

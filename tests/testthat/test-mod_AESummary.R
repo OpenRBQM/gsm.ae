@@ -9,37 +9,13 @@ test_that("mod_AESummary_UI produces the expected UI", {
 
 test_that("mod_AESummary_Server works as expected", {
   call <- rlang::current_env()
-  # mod_AE_Server() processes input dfs.
-  strMetricID_AE <- "Analysis_kri0001"
-  strMetricID_SAE <- "Analysis_kri0002"
-  dfAnalyticsInput <- gsm.app::sample_dfAnalyticsInput %>%
-    dplyr::filter(.data$MetricID %in% c(strMetricID_AE, strMetricID_SAE)) %>%
-    dplyr::mutate(
-      MetricID = dplyr::case_match(
-        .data$MetricID,
-        strMetricID_AE ~ "AE",
-        strMetricID_SAE ~ "SAE"
-      ),
-      dplyr::across(
-        c("Numerator", "Denominator"),
-        as.integer
-      )
-    ) %>%
-    dplyr::arrange(
-      .data$GroupLevel,
-      .data$GroupID,
-      .data$SubjectID,
-      .data$MetricID,
-      .data$SnapshotDate
-    )
-
   testServer(
     mod_AESummary_Server,
     args = list(
       id = "testing",
-      dfAnalyticsInput = dfAnalyticsInput,
-      rctv_dSnapshotDate = reactiveVal(as.Date("2020-01-01")),
-      rctv_dSnapshotDatePrevious = reactiveVal(as.Date("2019-01-01")),
+      dfAnalyticsInput = PrepareGSMData(gsm.app::sample_dfAnalyticsInput),
+      rctv_dSnapshotDate = reactiveVal(as.Date("2012-03-31")),
+      rctv_dSnapshotDatePrevious = reactiveVal(as.Date("2012-02-29")),
       rctv_strGroupID = reactiveVal(NULL),
       rctv_strGroupLevel = reactiveVal("Site"),
       rctv_strSubjectID = reactiveVal(NULL)
@@ -51,20 +27,20 @@ test_that("mod_AESummary_Server works as expected", {
       test_html <- test_result$html
       expect_cleaned_html(test_html, call = call)
 
-      rctv_strGroupID("0X159")
+      rctv_strGroupID("0X1145")
       session$flushReact()
       test_result <- output$table
       test_html <- test_result$html
       expect_cleaned_html(test_html, call = call)
 
-      rctv_strSubjectID("0096")
+      rctv_strSubjectID("S75378")
       session$flushReact()
       test_result <- output$table
       test_html <- test_result$html
       expect_cleaned_html(test_html, call = call)
 
-      rctv_dSnapshotDate(as.Date("2019-01-01"))
-      rctv_dSnapshotDatePrevious(as.Date("2018-01-01"))
+      rctv_dSnapshotDate(as.Date("2012-02-29"))
+      rctv_dSnapshotDatePrevious(as.Date("2012-01-31"))
       session$flushReact()
       test_result <- output$table
       test_html <- test_result$html

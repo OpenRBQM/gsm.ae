@@ -128,8 +128,8 @@ EmptySummaryTable <- function() {
 }
 
 SummarizeAE <- function(
-    dfAnalyticsInput,
-    by = c("MetricID", "SnapshotDate", "GroupLevel", "GroupID", "SubjectID")
+  dfAnalyticsInput,
+  by = c("MetricID", "SnapshotDate", "GroupLevel", "GroupID", "SubjectID")
 ) {
   # I assume dfAnalyticsInput is valid, since it will always come from gsm.app
   # right now.
