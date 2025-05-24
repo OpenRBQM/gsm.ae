@@ -28,45 +28,8 @@ mod_AE_Server <- function(
   strMetricID_AE = "Analysis_kri0001",
   strMetricID_SAE = "Analysis_kri0002"
 ) {
-  dfAnalyticsInput <- dfAnalyticsInput %>%
-    dplyr::filter(.data$MetricID %in% c(strMetricID_AE, strMetricID_SAE)) %>%
-    dplyr::mutate(
-      MetricID = dplyr::case_match(
-        .data$MetricID,
-        strMetricID_AE ~ "AE",
-        strMetricID_SAE ~ "SAE"
-      ),
-      dplyr::across(
-        c("Numerator", "Denominator"),
-        as.integer
-      )
-    ) %>%
-    dplyr::arrange(
-      .data$GroupLevel,
-      .data$GroupID,
-      .data$SubjectID,
-      .data$MetricID,
-      .data$SnapshotDate
-    )
-  dfResults <- dfResults %>%
-    dplyr::filter(.data$MetricID %in% c(strMetricID_AE, strMetricID_SAE)) %>%
-    dplyr::mutate(
-      MetricID = dplyr::case_match(
-        .data$MetricID,
-        strMetricID_AE ~ "AE",
-        strMetricID_SAE ~ "SAE"
-      ),
-      dplyr::across(
-        c("Numerator", "Denominator"),
-        as.integer
-      )
-    ) %>%
-    dplyr::arrange(
-      .data$GroupLevel,
-      .data$GroupID,
-      .data$MetricID,
-      .data$SnapshotDate
-    )
+  dfAnalyticsInput <- PrepareGSMData(dfAnalyticsInput)
+  dfResults <- PrepareGSMData(dfResults)
 
   moduleServer(id, function(input, output, session) {
     rctv_dSnapshotDatePrevious <- reactive({
@@ -104,4 +67,33 @@ mod_AE_Server <- function(
       rctv_strSubjectID = rctv_strSubjectID
     )
   })
+}
+
+PrepareGSMData <- function(
+  df,
+  strMetricID_AE = "Analysis_kri0001",
+  strMetricID_SAE = "Analysis_kri0002"
+) {
+  df %>%
+    dplyr::filter(
+      .data$MetricID %in% c(strMetricID_AE, strMetricID_SAE),
+      .data$Denominator > 0
+    ) %>%
+    dplyr::mutate(
+      MetricID = dplyr::case_match(
+        .data$MetricID,
+        strMetricID_AE ~ "AE",
+        strMetricID_SAE ~ "SAE"
+      ),
+      dplyr::across(
+        c("Numerator", "Denominator"),
+        as.integer
+      )
+    ) %>%
+    dplyr::arrange(
+      .data$GroupLevel,
+      .data$GroupID,
+      .data$MetricID,
+      .data$SnapshotDate
+    )
 }
