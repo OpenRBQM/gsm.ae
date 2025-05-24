@@ -7,7 +7,7 @@ test_that("mod_AE_UI produces the expected UI", {
   })
 })
 
-test_that("mod_AE_Server works as expected", {
+test_that("mod_AE_Server initializes reactive variables", {
   call <- rlang::current_env()
   testServer(
     mod_AE_Server,
@@ -15,7 +15,7 @@ test_that("mod_AE_Server works as expected", {
       id = "testing",
       dfAnalyticsInput = gsm.app::sample_dfAnalyticsInput,
       dfResults = gsm.app::sample_dfResults,
-      rctv_dSnapshotDate = reactiveVal(as.Date("2019-01-01")),
+      rctv_dSnapshotDate = reactiveVal(as.Date("2012-03-31")),
       # rctv_dfAE = reactive({
       #   gsm.app::sample_fnFetchData("AE")
       # }),
@@ -27,27 +27,17 @@ test_that("mod_AE_Server works as expected", {
       rctv_strSubjectID = reactiveVal(NULL)
     ),
     {
-      test_result <- output$`dashboard-summary-table`
-      expect_type(test_result, "list")
-      expect_named(test_result, c("html", "deps"))
-      test_html <- test_result$html
-      expect_cleaned_html(test_html, call = call)
-
-      rctv_dSnapshotDate(as.Date("2019-01-01"))
-      session$flushReact()
-      test_result <- output$`dashboard-summary-table`
-      test_html <- test_result$html
-      expect_cleaned_html(test_html, call = call)
-      expect_false(is.na(rctv_dSnapshotDatePrevious()))
-
-      rctv_dSnapshotDate(as.Date("2018-01-01"))
-      session$flushReact()
+      # All mod_AE_Server really does is set up some reactives that are used
+      # deeper down.
+      expect_equal(rctv_dSnapshotDatePrevious(), as.Date("2012-02-29"))
+      rctv_dSnapshotDate(as.Date("2012-02-29"))
+      expect_equal(rctv_dSnapshotDatePrevious(), as.Date("2012-01-31"))
+      rctv_dSnapshotDate(as.Date("2012-01-31"))
       expect_true(is.na(rctv_dSnapshotDatePrevious()))
 
       expect_null(rctv_strGroupID_inferred())
-
-      rctv_strSubjectID("0358")
-      expect_equal(rctv_strGroupID_inferred(), "0X001")
+      rctv_strSubjectID("S75378")
+      expect_equal(rctv_strGroupID_inferred(), "0X1145")
     }
   )
 })
