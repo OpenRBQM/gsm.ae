@@ -91,9 +91,9 @@ PrepareGSMData <- function(
       )
     ) %>%
     dplyr::arrange(
+      .data$SnapshotDate,
       .data$GroupLevel,
       .data$GroupID,
-      .data$MetricID,
-      .data$SnapshotDate
+      .data$MetricID
     )
 }

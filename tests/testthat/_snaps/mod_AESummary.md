@@ -968,13 +968,13 @@
       <td headers="stub_1_1 Site" class="gt_row gt_center" style="white-space: nowrap;">22 (+12)</td></tr>
           <tr><th id="stub_1_2" scope="row" class="gt_row gt_right gt_stub">AE Rate</th>
       <td headers="stub_1_2 Study" class="gt_row gt_center gt_striped" style="white-space: nowrap;">0.073 (−0.047)</td>
-      <td headers="stub_1_2 Site" class="gt_row gt_center gt_striped" style="white-space: nowrap;">0.1000 (0)</td></tr>
+      <td headers="stub_1_2 Site" class="gt_row gt_center gt_striped" style="white-space: nowrap;">0.100 (+0.001)</td></tr>
           <tr><th id="stub_1_3" scope="row" class="gt_row gt_right gt_stub">SAE</th>
       <td headers="stub_1_3 Study" class="gt_row gt_center" style="white-space: nowrap;">288 (+111)</td>
       <td headers="stub_1_3 Site" class="gt_row gt_center" style="white-space: nowrap;">9 (+6)</td></tr>
           <tr><th id="stub_1_4" scope="row" class="gt_row gt_right gt_stub">SAE Rate</th>
       <td headers="stub_1_4 Study" class="gt_row gt_center gt_striped" style="white-space: nowrap;">0.037 (−0.024)</td>
-      <td headers="stub_1_4 Site" class="gt_row gt_center gt_striped" style="white-space: nowrap;">0.0410 (0)</td></tr>
+      <td headers="stub_1_4 Site" class="gt_row gt_center gt_striped" style="white-space: nowrap;">0.041 (+0.011)</td></tr>
           <tr><th id="stub_1_5" scope="row" class="gt_row gt_right gt_stub">Days on Study</th>
       <td headers="stub_1_5 Study" class="gt_row gt_center" style="white-space: nowrap;">7,812 (+4,930)</td>
       <td headers="stub_1_5 Site" class="gt_row gt_center" style="white-space: nowrap;">217 (+116)</td></tr>
@@ -1459,23 +1459,23 @@
           <tr><th id="stub_1_1" scope="row" class="gt_row gt_right gt_stub">AE</th>
       <td headers="stub_1_1 Study" class="gt_row gt_center" style="white-space: nowrap;">568 (+214)</td>
       <td headers="stub_1_1 Site" class="gt_row gt_center" style="white-space: nowrap;">22 (+12)</td>
-      <td headers="stub_1_1 Participant" class="gt_row gt_center" style="white-space: nowrap;">4 (−1)</td></tr>
+      <td headers="stub_1_1 Participant" class="gt_row gt_center" style="white-space: nowrap;">4 (+3)</td></tr>
           <tr><th id="stub_1_2" scope="row" class="gt_row gt_right gt_stub">AE Rate</th>
       <td headers="stub_1_2 Study" class="gt_row gt_center gt_striped" style="white-space: nowrap;">0.073 (−0.047)</td>
-      <td headers="stub_1_2 Site" class="gt_row gt_center gt_striped" style="white-space: nowrap;">0.1000 (0)</td>
-      <td headers="stub_1_2 Participant" class="gt_row gt_center gt_striped" style="white-space: nowrap;">0.0480 (0)</td></tr>
+      <td headers="stub_1_2 Site" class="gt_row gt_center gt_striped" style="white-space: nowrap;">0.100 (+0.001)</td>
+      <td headers="stub_1_2 Participant" class="gt_row gt_center gt_striped" style="white-space: nowrap;">0.048 (+0.029)</td></tr>
           <tr><th id="stub_1_3" scope="row" class="gt_row gt_right gt_stub">SAE</th>
       <td headers="stub_1_3 Study" class="gt_row gt_center" style="white-space: nowrap;">288 (+111)</td>
       <td headers="stub_1_3 Site" class="gt_row gt_center" style="white-space: nowrap;">9 (+6)</td>
       <td headers="stub_1_3 Participant" class="gt_row gt_center" style="white-space: nowrap;">3 (+2)</td></tr>
           <tr><th id="stub_1_4" scope="row" class="gt_row gt_right gt_stub">SAE Rate</th>
       <td headers="stub_1_4 Study" class="gt_row gt_center gt_striped" style="white-space: nowrap;">0.037 (−0.024)</td>
-      <td headers="stub_1_4 Site" class="gt_row gt_center gt_striped" style="white-space: nowrap;">0.0410 (0)</td>
-      <td headers="stub_1_4 Participant" class="gt_row gt_center gt_striped" style="white-space: nowrap;">0.0360 (0)</td></tr>
+      <td headers="stub_1_4 Site" class="gt_row gt_center gt_striped" style="white-space: nowrap;">0.041 (+0.011)</td>
+      <td headers="stub_1_4 Participant" class="gt_row gt_center gt_striped" style="white-space: nowrap;">0.036 (+0.017)</td></tr>
           <tr><th id="stub_1_5" scope="row" class="gt_row gt_right gt_stub">Days on Study</th>
       <td headers="stub_1_5 Study" class="gt_row gt_center" style="white-space: nowrap;">7,812 (+4,930)</td>
       <td headers="stub_1_5 Site" class="gt_row gt_center" style="white-space: nowrap;">217 (+116)</td>
-      <td headers="stub_1_5 Participant" class="gt_row gt_center" style="white-space: nowrap;">84 (+6)</td></tr>
+      <td headers="stub_1_5 Participant" class="gt_row gt_center" style="white-space: nowrap;">84 (+31)</td></tr>
           <tr><th id="stub_1_6" scope="row" class="gt_row gt_right gt_stub">Participants</th>
       <td headers="stub_1_6 Study" class="gt_row gt_center gt_striped" style="white-space: nowrap;">189 (+70)</td>
       <td headers="stub_1_6 Site" class="gt_row gt_center gt_striped" style="white-space: nowrap;">5 (+2)</td>
@@ -1959,23 +1959,23 @@
           <tr><th id="stub_1_1" scope="row" class="gt_row gt_right gt_stub">AE</th>
       <td headers="stub_1_1 Study" class="gt_row gt_center" style="white-space: nowrap;">354 (+237)</td>
       <td headers="stub_1_1 Site" class="gt_row gt_center" style="white-space: nowrap;">10 (+6)</td>
-      <td headers="stub_1_1 Participant" class="gt_row gt_center" style="white-space: nowrap;">1 (−4)</td></tr>
+      <td headers="stub_1_1 Participant" class="gt_row gt_center" style="white-space: nowrap;">1 (0)</td></tr>
           <tr><th id="stub_1_2" scope="row" class="gt_row gt_right gt_stub">AE Rate</th>
       <td headers="stub_1_2 Study" class="gt_row gt_center gt_striped" style="white-space: nowrap;">0.120 (−0.080)</td>
-      <td headers="stub_1_2 Site" class="gt_row gt_center gt_striped" style="white-space: nowrap;">0.0990 (0)</td>
-      <td headers="stub_1_2 Participant" class="gt_row gt_center gt_striped" style="white-space: nowrap;">0.0190 (0)</td></tr>
+      <td headers="stub_1_2 Site" class="gt_row gt_center gt_striped" style="white-space: nowrap;">0.099 (+0.004)</td>
+      <td headers="stub_1_2 Participant" class="gt_row gt_center gt_striped" style="white-space: nowrap;">0.019 (−0.023)</td></tr>
           <tr><th id="stub_1_3" scope="row" class="gt_row gt_right gt_stub">SAE</th>
       <td headers="stub_1_3 Study" class="gt_row gt_center" style="white-space: nowrap;">177 (+121)</td>
       <td headers="stub_1_3 Site" class="gt_row gt_center" style="white-space: nowrap;">3 (+1)</td>
       <td headers="stub_1_3 Participant" class="gt_row gt_center" style="white-space: nowrap;">1 (0)</td></tr>
           <tr><th id="stub_1_4" scope="row" class="gt_row gt_right gt_stub">SAE Rate</th>
       <td headers="stub_1_4 Study" class="gt_row gt_center gt_striped" style="white-space: nowrap;">0.061 (−0.034)</td>
-      <td headers="stub_1_4 Site" class="gt_row gt_center gt_striped" style="white-space: nowrap;">0.0300 (0)</td>
-      <td headers="stub_1_4 Participant" class="gt_row gt_center gt_striped" style="white-space: nowrap;">0.0190 (0)</td></tr>
+      <td headers="stub_1_4 Site" class="gt_row gt_center gt_striped" style="white-space: nowrap;">0.030 (−0.018)</td>
+      <td headers="stub_1_4 Participant" class="gt_row gt_center gt_striped" style="white-space: nowrap;">0.019 (−0.023)</td></tr>
           <tr><th id="stub_1_5" scope="row" class="gt_row gt_right gt_stub">Days on Study</th>
       <td headers="stub_1_5 Study" class="gt_row gt_center" style="white-space: nowrap;">2,882 (+2,294)</td>
       <td headers="stub_1_5 Site" class="gt_row gt_center" style="white-space: nowrap;">101 (+59)</td>
-      <td headers="stub_1_5 Participant" class="gt_row gt_center" style="white-space: nowrap;">53 (+6)</td></tr>
+      <td headers="stub_1_5 Participant" class="gt_row gt_center" style="white-space: nowrap;">53 (+29)</td></tr>
           <tr><th id="stub_1_6" scope="row" class="gt_row gt_right gt_stub">Participants</th>
       <td headers="stub_1_6 Study" class="gt_row gt_center gt_striped" style="white-space: nowrap;">119 (+79)</td>
       <td headers="stub_1_6 Site" class="gt_row gt_center gt_striped" style="white-space: nowrap;">3 (+1)</td>
