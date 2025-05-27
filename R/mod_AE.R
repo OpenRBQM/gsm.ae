@@ -22,6 +22,7 @@ mod_AE_Server <- function(
   dfAnalyticsInput,
   dfResults,
   rctv_dSnapshotDate,
+  rctv_dfAE_Study,
   rctv_strGroupID,
   rctv_strGroupLevel,
   rctv_strSubjectID,
@@ -62,6 +63,7 @@ mod_AE_Server <- function(
       dfAnalyticsInput = dfAnalyticsInput,
       rctv_dSnapshotDate = rctv_dSnapshotDate,
       rctv_dSnapshotDatePrevious = rctv_dSnapshotDatePrevious,
+      rctv_dfAE_Study = rctv_dfAE_Study,
       rctv_strGroupID = rctv_strGroupID_inferred,
       rctv_strGroupLevel = rctv_strGroupLevel,
       rctv_strSubjectID = rctv_strSubjectID

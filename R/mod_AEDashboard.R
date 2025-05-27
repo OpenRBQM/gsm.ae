@@ -8,11 +8,7 @@ mod_AEDashboard_UI <- function(id) {
   ns <- NS(id)
   bslib::layout_columns(
     mod_AESummary_UI(id = ns("summary")),
-    out_DashboardCard(
-      id = ns("charts"),
-      "Charts",
-      tags$em("Placeholder: Site rates of attributes compared to study (Relatedness, Grade, Action Taken, ongoing/resolved,outcome). Per Jon will assess if we can include any available.")
-    ),
+    mod_AECharts_UI(id = ns("charts")),
     out_DashboardCard(
       id = ns("data_quality"),
       "Data Quality",
@@ -52,6 +48,7 @@ mod_AEDashboard_Server <- function(
   dfAnalyticsInput,
   rctv_dSnapshotDate,
   rctv_dSnapshotDatePrevious,
+  rctv_dfAE_Study,
   rctv_strGroupID,
   rctv_strGroupLevel,
   rctv_strSubjectID
@@ -67,6 +64,13 @@ mod_AEDashboard_Server <- function(
       dfAnalyticsInput = dfAnalyticsInput,
       rctv_dSnapshotDate = rctv_dSnapshotDate,
       rctv_dSnapshotDatePrevious = rctv_dSnapshotDatePrevious,
+      rctv_strGroupID = rctv_strGroupID,
+      rctv_strGroupLevel = rctv_strGroupLevel,
+      rctv_strSubjectID = rctv_strSubjectID
+    )
+    mod_AECharts_Server(
+      "charts",
+      rctv_dfAE_Study = rctv_dfAE_Study,
       rctv_strGroupID = rctv_strGroupID,
       rctv_strGroupLevel = rctv_strGroupLevel,
       rctv_strSubjectID = rctv_strSubjectID

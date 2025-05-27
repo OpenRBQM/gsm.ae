@@ -22,7 +22,10 @@ pluginAE <- function(
         aest_dt = list(type = "Date"),
         aeser = list(type = "character"),
         SubjectID = list(type = "character"),
-        mincreated_dts = list(type = "character")
+        mincreated_dts = list(type = "character"),
+        aetoxgr = list(type = "character"),
+        GroupID = list(type = "character"),
+        GroupLevel = list(type = "character")
       ),
       SUBJ = list(
         SubjectID = list(type = "character")
