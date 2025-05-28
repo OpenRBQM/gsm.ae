@@ -22,7 +22,7 @@
             <div class="card bslib-card bslib-mb-spacing bslib-card-input html-fill-item html-fill-container" data-bslib-card-init data-full-screen="false" data-require-bs-caller="card()" data-require-bs-version="5" id="testing-dashboard-charts" style="min-height:300px;">
               <div class="card-body bslib-gap-spacing html-fill-item html-fill-container" style="margin-top:auto;margin-bottom:auto;flex:1 1 auto;">
                 <h5>Charts</h5>
-                <em>Placeholder: Site rates of attributes compared to study (Relatedness, Grade, Action Taken, ongoing/resolved,outcome). Per Jon will assess if we can include any available.</em>
+                <div class="shiny-plot-output html-fill-item" id="testing-dashboard-charts-plot" style="width:100%;height:400px;"></div>
               </div>
               <bslib-tooltip placement="auto" bsOptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
                 <template>Expand</template>

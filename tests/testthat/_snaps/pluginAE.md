@@ -40,6 +40,21 @@
       [1] "character"
       
       
+      $spec$AE$aetoxgr
+      $spec$AE$aetoxgr$type
+      [1] "character"
+      
+      
+      $spec$AE$GroupID
+      $spec$AE$GroupID$type
+      [1] "character"
+      
+      
+      $spec$AE$GroupLevel
+      $spec$AE$GroupLevel$type
+      [1] "character"
+      
+      
       
       $spec$SUBJ
       $spec$SUBJ$SubjectID
