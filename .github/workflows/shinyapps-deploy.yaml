@@ -90,8 +90,8 @@ jobs:
 
       - name: Set up .Renviron
         run: |
-          echo "GSMAPP_FAVICON=$FAVICON" >> .Renviron
-          echo "GSMAPP_FAVICONCOLOR=$FAVICONCOLOR" >> .Renviron
+          echo "GSMAPP_FAVICON=$GSMAPP_FAVICON" >> .Renviron
+          echo "GSMAPP_FAVICONCOLOR=$GSMAPP_FAVICONCOLOR" >> .Renviron
           echo "GSMAPP_TITLE=$APPTITLE" >> .Renviron
           echo "GITHUB_PAT=$GITHUB_PAT" >> .Renviron
 
