@@ -21,6 +21,9 @@ selected date.}
 \item{rctv_dfAE}{\verb{reactive dataframe} A \code{\link[shiny:reactive]{shiny::reactive()}} object that
 returns an adverse events domain dataframe.}
 
+\item{rctv_dfAE_Study}{\verb{reactive dataframe} A \code{\link[shiny:reactive]{shiny::reactive()}} object that
+returns a study-level adverse events domain dataframe.}
+
 \item{rctv_dfSUBJ}{\verb{reactive dataframe} A \code{\link[shiny:reactive]{shiny::reactive()}} object that
 returns a subject domain dataframe.}
 

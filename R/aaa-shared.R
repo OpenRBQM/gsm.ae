@@ -16,6 +16,8 @@
 #'   selected date.
 #' @param rctv_dfAE `reactive dataframe` A [shiny::reactive()] object that
 #'   returns an adverse events domain dataframe.
+#' @param rctv_dfAE_Study `reactive dataframe` A [shiny::reactive()] object that
+#'   returns a study-level adverse events domain dataframe.
 #' @param rctv_dfSUBJ `reactive dataframe` A [shiny::reactive()] object that
 #'   returns a subject domain dataframe.
 #' @param rctv_strGroupID `reactive character` A [shiny::reactiveVal()] object

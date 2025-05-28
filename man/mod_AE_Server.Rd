@@ -9,6 +9,7 @@ mod_AE_Server(
   dfAnalyticsInput,
   dfResults,
   rctv_dSnapshotDate,
+  rctv_dfAE_Study,
   rctv_strGroupID,
   rctv_strGroupLevel,
   rctv_strSubjectID,
@@ -25,6 +26,9 @@ mod_AE_Server(
 
 \item{rctv_dSnapshotDate}{\verb{reactive Date} A \code{\link[shiny:reactive]{shiny::reactive()}} object that
 returns the date of a data snapshot.}
+
+\item{rctv_dfAE_Study}{\verb{reactive dataframe} A \code{\link[shiny:reactive]{shiny::reactive()}} object that
+returns a study-level adverse events domain dataframe.}
 
 \item{rctv_strGroupID}{\verb{reactive character} A \code{\link[shiny:reactiveVal]{shiny::reactiveVal()}} object
 that returns the \code{GroupID} of the selected group (usually site), and can be

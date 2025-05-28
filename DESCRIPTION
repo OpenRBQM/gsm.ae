@@ -18,6 +18,7 @@ Depends:
 Imports: 
     bslib,
     dplyr,
+    ggplot2,
     glue,
     gsm.app (>= 2.4.0.9004),
     gsm.mapping,
