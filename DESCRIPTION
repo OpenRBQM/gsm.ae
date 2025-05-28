@@ -23,10 +23,12 @@ Imports:
     gsm.app (>= 2.4.0.9004),
     gsm.mapping,
     gt,
+    htmltools,
     magrittr,
     rlang,
     scales,
     shiny,
+    shinyWidgets,
     tidyr
 Suggests: 
     testthat (>= 3.0.0)

@@ -4,10 +4,23 @@
 #'
 #' @returns A [bslib::page_fillable()] with the AE plugin UI.
 #' @export
-mod_AE_UI <- function(id) {
+mod_AE_UI <- function(
+  id,
+  chrCategoricalFields = c(
+  aeser = "Serious?",
+  mdrpt_nsv = "Preferred Term",
+  mdrsoc_nsv = "System Organ Class",
+  aetoxgr = "Toxicity Grade",
+  aeongo = "Ongoing?",
+  aerel = "Related?"
+)
+) {
   ns <- NS(id)
   bslib::page_fillable(
-    mod_AEDashboard_UI(ns("dashboard"))
+    mod_AEDashboard_UI(
+      ns("dashboard"),
+      chrCategoricalFields = chrCategoricalFields
+    )
   )
 }
 
@@ -26,6 +39,14 @@ mod_AE_Server <- function(
   rctv_strGroupID,
   rctv_strGroupLevel,
   rctv_strSubjectID,
+  chrCategoricalFields = c(
+    aeser = "Serious?",
+    mdrpt_nsv = "Preferred Term",
+    mdrsoc_nsv = "System Organ Class",
+    aetoxgr = "Toxicity Grade",
+    aeongo = "Ongoing?",
+    aerel = "Related?"
+  ),
   strMetricID_AE = "Analysis_kri0001",
   strMetricID_SAE = "Analysis_kri0002"
 ) {
@@ -66,7 +87,8 @@ mod_AE_Server <- function(
       rctv_dfAE_Study = rctv_dfAE_Study,
       rctv_strGroupID = rctv_strGroupID_inferred,
       rctv_strGroupLevel = rctv_strGroupLevel,
-      rctv_strSubjectID = rctv_strSubjectID
+      rctv_strSubjectID = rctv_strSubjectID,
+      chrCategoricalFields = chrCategoricalFields
     )
   })
 }

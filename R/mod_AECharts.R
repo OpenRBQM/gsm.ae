@@ -1,37 +1,74 @@
-mod_AECharts_UI <- function(id) {
+#' Adverse Events Charts Panel UI
+#'
+#' @inheritParams shared-params
+#' @returns A [bslib::card()] for visualizing categorical variables in the AE
+#'   data.
+#' @keywords internal
+mod_AECharts_UI <- function(
+  id,
+  chrCategoricalFields = c(
+    aeser = "Serious?",
+    mdrpt_nsv = "Preferred Term",
+    mdrsoc_nsv = "System Organ Class",
+    aetoxgr = "Toxicity Grade",
+    aeongo = "Ongoing?",
+    aerel = "Related?"
+  )
+) {
   ns <- NS(id)
   out_DashboardCard(
     id = id,
     title = "Charts",
+    mod_AEChartsTitle_UI(
+      ns("title"),
+      chrCategoricalFields = chrCategoricalFields
+    ),
     plotOutput(ns("plot"))
   )
 }
 
+#' Adverse Events Charts Panel Server
+#'
+#' @inheritParams shared-params
+#' @returns A module server function.
+#' @keywords internal
 mod_AECharts_Server <- function(
   id,
   rctv_dfAE_Study,
-  rctv_strGroupID = rctv_strGroupID,
-  rctv_strGroupLevel = rctv_strGroupLevel,
-  rctv_strSubjectID
+  rctv_strGroupID,
+  rctv_strGroupLevel,
+  rctv_strSubjectID,
+  chrCategoricalFields = c(
+    aeser = "Serious?",
+    mdrpt_nsv = "Preferred Term",
+    mdrsoc_nsv = "System Organ Class",
+    aetoxgr = "Toxicity Grade",
+    aeongo = "Ongoing?",
+    aerel = "Related?"
+  )
 ) {
   moduleServer(id, function(input, output, session) {
+    rctv_strCategory <- mod_AEChartsTitle_Server(
+      "title",
+      rctv_strGroupID = rctv_strGroupID,
+      rctv_strGroupLevel = rctv_strGroupLevel,
+      rctv_strSubjectID = rctv_strSubjectID
+    )
+
     rctv_dfAE_Counts_Study <- reactive({
       req(rctv_dfAE_Study())
-      # req(rctv_strGroupLevel())
-      CountField(rctv_dfAE_Study(), "aetoxgr")
+      req(rctv_strCategory())
+      CountField(rctv_dfAE_Study(), rctv_strCategory())
     })
 
     rctv_dfAE_Counts_Group <- reactive({
       req(rctv_dfAE_Counts_Study())
       req(rctv_strGroupID())
-
-      if (is.null(rctv_strGroupID())) {
-        return(NULL)
-      }
+      req(rctv_strCategory())
 
       dfAE_Counts_Group <- CountField(
         rctv_dfAE_Study(),
-        "aetoxgr",
+        rctv_strCategory(),
         by = c("GroupLevel", "GroupID")
       ) %>%
         dplyr::filter(
@@ -41,7 +78,7 @@ mod_AECharts_Server <- function(
       rctv_dfAE_Counts_Study() %>%
         dplyr::left_join(
           dfAE_Counts_Group,
-          by = "aetoxgr",
+          by = rctv_strCategory(),
           suffix = c("_Study", "_Group")
         ) %>%
         dplyr::mutate(
@@ -51,8 +88,8 @@ mod_AECharts_Server <- function(
           )
         ) %>%
         dplyr::mutate(
-          y_min = as.numeric(factor(.data$aetoxgr)) - 0.5,
-          y_max = as.numeric(factor(.data$aetoxgr)) + 0.5
+          y_min = as.numeric(factor(.data[[rctv_strCategory()]])) - 0.5,
+          y_max = as.numeric(factor(.data[[rctv_strCategory()]])) + 0.5
         )
     })
 
@@ -60,14 +97,11 @@ mod_AECharts_Server <- function(
       req(rctv_dfAE_Counts_Study())
       req(rctv_strGroupID())
       req(rctv_strSubjectID())
-
-      if (is.null(rctv_strSubjectID())) {
-        return(NULL)
-      }
+      req(rctv_strCategory())
 
       dfAE_Counts_Subject <- CountField(
         rctv_dfAE_Study(),
-        "aetoxgr",
+        rctv_strCategory(),
         by = c("GroupLevel", "GroupID", "SubjectID")
       ) %>%
         dplyr::filter(
@@ -78,7 +112,7 @@ mod_AECharts_Server <- function(
       rctv_dfAE_Counts_Study() %>%
         dplyr::left_join(
           dfAE_Counts_Subject,
-          by = "aetoxgr",
+          by = rctv_strCategory(),
           suffix = c("_Study", "_Subject")
         ) %>%
         dplyr::mutate(
@@ -91,17 +125,18 @@ mod_AECharts_Server <- function(
 
     output$plot <- renderPlot({
       req(rctv_dfAE_Counts_Study())
+      req(rctv_strCategory())
       ggplot2::ggplot(rctv_dfAE_Counts_Study()) +
-        ggplot2::aes(y = .data$aetoxgr) +
+        ggplot2::aes(y = .data[[rctv_strCategory()]]) +
         ggplot2::geom_col(ggplot2::aes(x = .data$pct)) +
         ggplot2::scale_x_continuous(
           limits = c(0, 1),
           labels = scales::label_percent()
         ) +
-        ggplot2::theme_minimal() +
+        ggplot2::theme_minimal(base_size = 20) +
         ggplot2::labs(
           x = "% of AEs",
-          y = "Toxicity Grade"
+          y = chrCategoricalFields[[rctv_strCategory()]]
         ) +
         {if (length(rctv_strGroupID()) && NROW(rctv_dfAE_Counts_Group())) {
           ggplot2::geom_segment(

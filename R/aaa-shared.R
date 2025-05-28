@@ -5,6 +5,10 @@
 #' this package, because [shiny::testServer()] specifically expects an `id`
 #' argument in module server functions.
 #'
+#' @param chrCategoricalFields `character` A named vector of fields in `dfAE` to
+#'   treat as categorical, where the names are the column names and the values
+#'   are display values. Unnamed elements will be used as both the field name
+#'   and the display name. These fields are currently used in the Charts panel.
 #' @param id `character` The id for this element.
 #' @param dfAnalyticsInput `data.frame` Participant-level metric data.
 #' @param dfResults `data.frame` A stacked summary of analysis pipeline output.

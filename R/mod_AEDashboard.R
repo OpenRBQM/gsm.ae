@@ -4,11 +4,21 @@
 #' @returns A [bslib::layout_columns()] layout with information about the AE
 #'   domain.
 #' @keywords internal
-mod_AEDashboard_UI <- function(id) {
+mod_AEDashboard_UI <- function(
+  id,
+  chrCategoricalFields = c(
+    aeser = "Serious?",
+    mdrpt_nsv = "Preferred Term",
+    mdrsoc_nsv = "System Organ Class",
+    aetoxgr = "Toxicity Grade",
+    aeongo = "Ongoing?",
+    aerel = "Related?"
+  )
+) {
   ns <- NS(id)
   bslib::layout_columns(
     mod_AESummary_UI(id = ns("summary")),
-    mod_AECharts_UI(id = ns("charts")),
+    mod_AECharts_UI(id = ns("charts"), chrCategoricalFields = chrCategoricalFields),
     out_DashboardCard(
       id = ns("data_quality"),
       "Data Quality",
@@ -51,7 +61,15 @@ mod_AEDashboard_Server <- function(
   rctv_dfAE_Study,
   rctv_strGroupID,
   rctv_strGroupLevel,
-  rctv_strSubjectID
+  rctv_strSubjectID,
+  chrCategoricalFields = c(
+    aeser = "Serious?",
+    mdrpt_nsv = "Preferred Term",
+    mdrsoc_nsv = "System Organ Class",
+    aetoxgr = "Toxicity Grade",
+    aeongo = "Ongoing?",
+    aerel = "Related?"
+  )
 ) {
   # All dashboard card server functions will be called here. That's why this
   # function looks like it's unnecessary. Since it doesn't have other contents,
@@ -73,7 +91,8 @@ mod_AEDashboard_Server <- function(
       rctv_dfAE_Study = rctv_dfAE_Study,
       rctv_strGroupID = rctv_strGroupID,
       rctv_strGroupLevel = rctv_strGroupLevel,
-      rctv_strSubjectID = rctv_strSubjectID
+      rctv_strSubjectID = rctv_strSubjectID,
+      chrCategoricalFields = chrCategoricalFields
     )
   })
   # nocov end

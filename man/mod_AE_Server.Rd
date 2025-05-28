@@ -13,6 +13,9 @@ mod_AE_Server(
   rctv_strGroupID,
   rctv_strGroupLevel,
   rctv_strSubjectID,
+  chrCategoricalFields = c(aeser = "Serious?", mdrpt_nsv = "Preferred Term", mdrsoc_nsv =
+    "System Organ Class", aetoxgr = "Toxicity Grade", aeongo = "Ongoing?", aerel =
+    "Related?"),
   strMetricID_AE = "Analysis_kri0001",
   strMetricID_SAE = "Analysis_kri0002"
 )
@@ -39,6 +42,11 @@ object that returns the selected \code{GroupLevel}.}
 
 \item{rctv_strSubjectID}{\verb{reactive character} A \code{\link[shiny:reactive]{shiny::reactive()}} object
 that returns the \code{SubjectID} of the selected participant.}
+
+\item{chrCategoricalFields}{\code{character} A named vector of fields in \code{dfAE} to
+treat as categorical, where the names are the column names and the values
+are display values. Unnamed elements will be used as both the field name
+and the display name. These fields are currently used in the Charts panel.}
 
 \item{strMetricID_AE}{\verb{length-1 character} The ID of the adverse events
 metric. Defaults to \code{"Analysis_kri0001"}.}

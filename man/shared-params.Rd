@@ -4,6 +4,11 @@
 \alias{shared-params}
 \title{Parameters used in multiple functions}
 \arguments{
+\item{chrCategoricalFields}{\code{character} A named vector of fields in \code{dfAE} to
+treat as categorical, where the names are the column names and the values
+are display values. Unnamed elements will be used as both the field name
+and the display name. These fields are currently used in the Charts panel.}
+
 \item{id}{\code{character} The id for this element.}
 
 \item{dfAnalyticsInput}{\code{data.frame} Participant-level metric data.}

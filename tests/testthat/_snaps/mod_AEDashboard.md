@@ -21,6 +21,16 @@
           <div class="card bslib-card bslib-mb-spacing bslib-card-input html-fill-item html-fill-container" data-bslib-card-init data-full-screen="false" data-require-bs-caller="card()" data-require-bs-version="5" id="testing-charts" style="min-height:300px;">
             <div class="card-body bslib-gap-spacing html-fill-item html-fill-container" style="margin-top:auto;margin-bottom:auto;flex:1 1 auto;">
               <h5>Charts</h5>
+              <div class="inlineSelectInput">
+                Prevalence of 
+                <div class="form-group shiny-input-container shiny-input-container-inline">
+                  <label class="control-label shiny-label-null" for="testing-charts-title-category" id="testing-charts-title-category-label"></label>
+                  <div id="testing-charts-title-category" class="virtual-select" style="display:inline-block;" data-update="change">
+                    <script type="application/json" data-for="testing-charts-title-category">{"stateInput":true,"options":{"type":["transpose"],"choices":{"label":["Serious?","Preferred Term","System Organ Class","Toxicity Grade","Ongoing?","Related?"],"value":["aeser","mdrpt_nsv","mdrsoc_nsv","aetoxgr","aeongo","aerel"]}},"config":{"multiple":false,"search":false,"hideClearButton":true,"autoSelectFirstOption":true,"showSelectedOptionsFirst":false,"showValueAsTags":false,"optionsCount":10,"noOfDisplayValues":50,"allowNewOption":false,"disableSelectAll":true,"disableOptionGroupCheckbox":true,"disabled":false}}</script>
+                  </div>
+                </div>
+                <span id="testing-charts-title-grouping" class="shiny-html-output"></span>
+              </div>
               <div class="shiny-plot-output html-fill-item" id="testing-charts-plot" style="width:100%;height:400px;"></div>
             </div>
             <bslib-tooltip placement="auto" bsOptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
