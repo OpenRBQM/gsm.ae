@@ -4,15 +4,21 @@
 #' @returns A [bslib::layout_columns()] layout with information about the AE
 #'   domain.
 #' @keywords internal
-mod_AEDashboard_UI <- function(id) {
+mod_AEDashboard_UI <- function(
+  id,
+  chrCategoricalFields = c(
+    aeser = "Serious?",
+    mdrpt_nsv = "Preferred Term",
+    mdrsoc_nsv = "System Organ Class",
+    aetoxgr = "Toxicity Grade",
+    aeongo = "Ongoing?",
+    aerel = "Related?"
+  )
+) {
   ns <- NS(id)
   bslib::layout_columns(
     mod_AESummary_UI(id = ns("summary")),
-    out_DashboardCard(
-      id = ns("charts"),
-      "Charts",
-      tags$em("Placeholder: Site rates of attributes compared to study (Relatedness, Grade, Action Taken, ongoing/resolved,outcome). Per Jon will assess if we can include any available.")
-    ),
+    mod_AECharts_UI(id = ns("charts"), chrCategoricalFields = chrCategoricalFields),
     out_DashboardCard(
       id = ns("data_quality"),
       "Data Quality",
@@ -23,7 +29,7 @@ mod_AEDashboard_UI <- function(id) {
       "Top SOC",
       tags$em("Placeholder: Compare top SOC for the study to whatever is selected - either site or country e.g., Gastro site 25%, study 75%\nIn order to identify Systems or Organ Classes (SOCs) with particular issues in AEs, as a CM/RA, I would like to see counts/% by SOC, for site and (if data is subset) selected thing.")
     ),
-    col_widths = c(6, 6, 6, 6)
+    col_widths = c(-2, 4, 4, -2, -2, 4, 4, -2)
   )
 }
 
@@ -52,10 +58,24 @@ mod_AEDashboard_Server <- function(
   dfAnalyticsInput,
   rctv_dSnapshotDate,
   rctv_dSnapshotDatePrevious,
+  rctv_dfAE_Study,
   rctv_strGroupID,
   rctv_strGroupLevel,
-  rctv_strSubjectID
+  rctv_strSubjectID,
+  chrCategoricalFields = c(
+    aeser = "Serious?",
+    mdrpt_nsv = "Preferred Term",
+    mdrsoc_nsv = "System Organ Class",
+    aetoxgr = "Toxicity Grade",
+    aeongo = "Ongoing?",
+    aerel = "Related?"
+  )
 ) {
+  # All dashboard card server functions will be called here. That's why this
+  # function looks like it's unnecessary. Since it doesn't have other contents,
+  # there's nothing to test yet.
+  #
+  # nocov start
   moduleServer(id, function(input, output, session) {
     mod_AESummary_Server(
       "summary",
@@ -66,7 +86,14 @@ mod_AEDashboard_Server <- function(
       rctv_strGroupLevel = rctv_strGroupLevel,
       rctv_strSubjectID = rctv_strSubjectID
     )
-    # All dashboard card server functions will be called here (that's why this
-    # function looks like it's unnecessary).
+    mod_AECharts_Server(
+      "charts",
+      rctv_dfAE_Study = rctv_dfAE_Study,
+      rctv_strGroupID = rctv_strGroupID,
+      rctv_strGroupLevel = rctv_strGroupLevel,
+      rctv_strSubjectID = rctv_strSubjectID,
+      chrCategoricalFields = chrCategoricalFields
+    )
   })
+  # nocov end
 }

@@ -4,10 +4,20 @@
 \alias{mod_AE_UI}
 \title{Adverse Events Plugin UI}
 \usage{
-mod_AE_UI(id)
+mod_AE_UI(
+  id,
+  chrCategoricalFields = c(aeser = "Serious?", mdrpt_nsv = "Preferred Term", mdrsoc_nsv =
+    "System Organ Class", aetoxgr = "Toxicity Grade", aeongo = "Ongoing?", aerel =
+    "Related?")
+)
 }
 \arguments{
 \item{id}{\code{character} The id for this element.}
+
+\item{chrCategoricalFields}{\code{character} A named vector of fields in \code{dfAE} to
+treat as categorical, where the names are the column names and the values
+are display values. Unnamed elements will be used as both the field name
+and the display name. These fields are currently used in the Charts panel.}
 }
 \value{
 A \code{\link[bslib:page_fillable]{bslib::page_fillable()}} with the AE plugin UI.

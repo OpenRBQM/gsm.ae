@@ -35,8 +35,38 @@
       [1] "character"
       
       
-      $spec$AE$mincreated_dts
-      $spec$AE$mincreated_dts$type
+      $spec$AE$GroupID
+      $spec$AE$GroupID$type
+      [1] "character"
+      
+      
+      $spec$AE$GroupLevel
+      $spec$AE$GroupLevel$type
+      [1] "character"
+      
+      
+      $spec$AE$mdrpt_nsv
+      $spec$AE$mdrpt_nsv$type
+      [1] "character"
+      
+      
+      $spec$AE$mdrsoc_nsv
+      $spec$AE$mdrsoc_nsv$type
+      [1] "character"
+      
+      
+      $spec$AE$aetoxgr
+      $spec$AE$aetoxgr$type
+      [1] "character"
+      
+      
+      $spec$AE$aeongo
+      $spec$AE$aeongo$type
+      [1] "character"
+      
+      
+      $spec$AE$aerel
+      $spec$AE$aerel$type
       [1] "character"
       
       
@@ -50,8 +80,11 @@
       
       
       $config
-      $config$strField_Created
-      [1] "mincreated_dts"
+      $config$chrCategoricalFields
+                     aeser            mdrpt_nsv           mdrsoc_nsv 
+                "Serious?"     "Preferred Term" "System Organ Class" 
+                   aetoxgr               aeongo                aerel 
+          "Toxicity Grade"           "Ongoing?"           "Related?" 
       
       $config$strMetricID_AE
       [1] "Analysis_kri0001"

@@ -1,0 +1,10 @@
+.inlineSelectInput .form-group {
+  margin-bottom: 0;
+  display: inline-flex; /* Ensure it grows to fit its contents */
+  align-items: center;  /* Keep label and input aligned */
+  gap: 0.5rem; /* Space between label and input */
+}
+
+.inlineSelectInput .vscomp-dropbox-container {
+  min-width: max-content;
+}

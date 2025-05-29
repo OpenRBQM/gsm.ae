@@ -4,10 +4,23 @@
 #'
 #' @returns A [bslib::page_fillable()] with the AE plugin UI.
 #' @export
-mod_AE_UI <- function(id) {
+mod_AE_UI <- function(
+  id,
+  chrCategoricalFields = c(
+  aeser = "Serious?",
+  mdrpt_nsv = "Preferred Term",
+  mdrsoc_nsv = "System Organ Class",
+  aetoxgr = "Toxicity Grade",
+  aeongo = "Ongoing?",
+  aerel = "Related?"
+)
+) {
   ns <- NS(id)
   bslib::page_fillable(
-    mod_AEDashboard_UI(ns("dashboard"))
+    mod_AEDashboard_UI(
+      ns("dashboard"),
+      chrCategoricalFields = chrCategoricalFields
+    )
   )
 }
 
@@ -22,32 +35,23 @@ mod_AE_Server <- function(
   dfAnalyticsInput,
   dfResults,
   rctv_dSnapshotDate,
+  rctv_dfAE_Study,
   rctv_strGroupID,
   rctv_strGroupLevel,
   rctv_strSubjectID,
+  chrCategoricalFields = c(
+    aeser = "Serious?",
+    mdrpt_nsv = "Preferred Term",
+    mdrsoc_nsv = "System Organ Class",
+    aetoxgr = "Toxicity Grade",
+    aeongo = "Ongoing?",
+    aerel = "Related?"
+  ),
   strMetricID_AE = "Analysis_kri0001",
   strMetricID_SAE = "Analysis_kri0002"
 ) {
-  dfAnalyticsInput <- dfAnalyticsInput %>%
-    dplyr::filter(.data$MetricID %in% c(strMetricID_AE, strMetricID_SAE)) %>%
-    dplyr::mutate(
-      MetricID = dplyr::case_match(
-        .data$MetricID,
-        strMetricID_AE ~ "AE",
-        strMetricID_SAE ~ "SAE"
-      ),
-      dplyr::across(
-        c("Numerator", "Denominator"),
-        as.integer
-      )
-    ) %>%
-    dplyr::arrange(
-      .data$GroupLevel,
-      .data$GroupID,
-      .data$SubjectID,
-      .data$MetricID,
-      .data$SnapshotDate
-    )
+  dfAnalyticsInput <- PrepareGSMData(dfAnalyticsInput)
+  dfResults <- PrepareGSMData(dfResults)
 
   moduleServer(id, function(input, output, session) {
     rctv_dSnapshotDatePrevious <- reactive({
@@ -80,9 +84,40 @@ mod_AE_Server <- function(
       dfAnalyticsInput = dfAnalyticsInput,
       rctv_dSnapshotDate = rctv_dSnapshotDate,
       rctv_dSnapshotDatePrevious = rctv_dSnapshotDatePrevious,
+      rctv_dfAE_Study = rctv_dfAE_Study,
       rctv_strGroupID = rctv_strGroupID_inferred,
       rctv_strGroupLevel = rctv_strGroupLevel,
-      rctv_strSubjectID = rctv_strSubjectID
+      rctv_strSubjectID = rctv_strSubjectID,
+      chrCategoricalFields = chrCategoricalFields
     )
   })
+}
+
+PrepareGSMData <- function(
+  df,
+  strMetricID_AE = "Analysis_kri0001",
+  strMetricID_SAE = "Analysis_kri0002"
+) {
+  df %>%
+    dplyr::filter(
+      .data$MetricID %in% c(strMetricID_AE, strMetricID_SAE),
+      .data$Denominator > 0
+    ) %>%
+    dplyr::mutate(
+      MetricID = dplyr::case_match(
+        .data$MetricID,
+        strMetricID_AE ~ "AE",
+        strMetricID_SAE ~ "SAE"
+      ),
+      dplyr::across(
+        c("Numerator", "Denominator"),
+        as.integer
+      )
+    ) %>%
+    dplyr::arrange(
+      .data$SnapshotDate,
+      .data$GroupLevel,
+      .data$GroupID,
+      .data$MetricID
+    )
 }

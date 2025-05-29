@@ -31,13 +31,14 @@ mod_AESummary_Server <- function(
   # dfAnalyticsInput for everything to make it easier, even though I'm
   # duplicating some work from dfResults.
   dfResults_Study <- SummarizeAE(
-    dfAnalyticsInput, c("MetricID", "SnapshotDate", "GroupLevel")
+    dfAnalyticsInput, c("SnapshotDate", "MetricID", "GroupLevel")
   )
   dfResults_Group <- SummarizeAE(
-    dfAnalyticsInput, c("MetricID", "SnapshotDate", "GroupLevel", "GroupID")
+    dfAnalyticsInput, c("SnapshotDate", "MetricID", "GroupLevel", "GroupID")
   )
   dfResults_Subject <- SummarizeAE(
-    dfAnalyticsInput, c("MetricID", "SnapshotDate", "GroupLevel", "GroupID", "SubjectID")
+    dfAnalyticsInput,
+    c("SnapshotDate", "MetricID", "GroupLevel", "GroupID", "SubjectID")
   )
 
   moduleServer(id, function(input, output, session) {
@@ -128,8 +129,8 @@ EmptySummaryTable <- function() {
 }
 
 SummarizeAE <- function(
-    dfAnalyticsInput,
-    by = c("MetricID", "SnapshotDate", "GroupLevel", "GroupID", "SubjectID")
+  dfAnalyticsInput,
+  by = c("SnapshotDate", "MetricID", "GroupLevel", "GroupID", "SubjectID")
 ) {
   # I assume dfAnalyticsInput is valid, since it will always come from gsm.app
   # right now.
@@ -146,6 +147,8 @@ SummarizeAE <- function(
       names_from = "MetricID",
       values_from = c("n", "days", "rate", "participants", "participants0")
     ) %>%
+    # Make sure it's sorted by SnapshotDate, or lag won't work.
+    dplyr::arrange(.data$SnapshotDate) %>%
     dplyr::mutate(
       d_AE = FormatDelta(.data$n_AE - dplyr::lag(.data$n_AE)),
       d_rate_AE = dplyr::case_when(
@@ -183,7 +186,8 @@ SummarizeAE <- function(
           "days_AE"
         ),
         FormatCount
-      )
+      ),
+      .by = dplyr::any_of(setdiff(by, "SnapshotDate"))
     ) %>%
     dplyr::mutate(
       AE = GlueDelta(.data$n_AE, .data$d_AE),
