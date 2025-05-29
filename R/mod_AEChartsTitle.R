@@ -55,22 +55,19 @@ mod_AEChartsTitle_Server <- function(
 ) {
   moduleServer(id, function(input, output, session) {
     output$grouping <- renderUI({
-      groups <- list(
-        HTML(
-          'Study (<span style="color:#595959;">&#9607;</span>)'
-        ),
+      groups <- c(
+        'Study (<span style="color:#595959;">&#9644;</span>)',
         if (length(rctv_strGroupID())) {
-          HTML(
-            glue::glue(
-              ', {rctv_strGroupLevel()} (<span style="color:red;">&vert;</span>)'
-            )
+          glue::glue(
+            ', {rctv_strGroupLevel()} (<span style="color:red;">&vert;</span>)'
           )
         },
         if (length(rctv_strSubjectID())) {
-          HTML(", and Participant (&bull;)")
+          ", and Participant (&bull;)"
         }
-      )
-      span("by", !!!groups)
+      ) %>%
+        purrr::compact()
+      span("by", HTML(rlang::inject({paste0(!!!groups)})))
     })
     return(reactive({input$category}))
   })

@@ -37,7 +37,7 @@
     Output
       <span>
         by
-        Study (<span style="color:#595959;">&#9607;</span>)
+        Study (<span style="color:#595959;">&#9644;</span>)
       </span>
 
 ---
@@ -47,8 +47,7 @@
     Output
       <span>
         by
-        Study (<span style="color:#595959;">&#9607;</span>)
-        , Site (<span style="color:red;">&vert;</span>)
+        Study (<span style="color:#595959;">&#9644;</span>), Site (<span style="color:red;">&vert;</span>)
       </span>
 
 ---
@@ -58,8 +57,6 @@
     Output
       <span>
         by
-        Study (<span style="color:#595959;">&#9607;</span>)
-        , Site (<span style="color:red;">&vert;</span>)
-        , and Participant (&bull;)
+        Study (<span style="color:#595959;">&#9644;</span>), Site (<span style="color:red;">&vert;</span>), and Participant (&bull;)
       </span>
 

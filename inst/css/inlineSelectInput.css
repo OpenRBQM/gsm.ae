@@ -4,3 +4,7 @@
   align-items: center;  /* Keep label and input aligned */
   gap: 0.5rem; /* Space between label and input */
 }
+
+.inlineSelectInput .vscomp-dropbox-container {
+  min-width: max-content;
+}
