@@ -66,7 +66,9 @@ mod_AEChartsTitle_Server <- function(
             )
           )
         },
-        if (length(rctv_strSubjectID())) HTML(", and Participant (&bull;)")
+        if (length(rctv_strSubjectID())) {
+          HTML(", and Participant (&bull;)")
+        }
       )
       span("by", !!!groups)
     })

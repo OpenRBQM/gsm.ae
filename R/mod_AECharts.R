@@ -86,10 +86,6 @@ mod_AECharts_Server <- function(
             dplyr::starts_with("pct"),
             ~ tidyr::replace_na(.x, 0)
           )
-        ) %>%
-        dplyr::mutate(
-          y_min = as.numeric(factor(.data[[rctv_strCategory()]])) - 0.5,
-          y_max = as.numeric(factor(.data[[rctv_strCategory()]])) + 0.5
         )
     })
 
@@ -123,11 +119,75 @@ mod_AECharts_Server <- function(
         )
     })
 
+    rctv_chrTop5_Study <- reactive({
+      req(rctv_dfAE_Counts_Study())
+      req(rctv_strCategory())
+      if (!NROW(rctv_dfAE_Counts_Study())) {
+        return(character()) # nocov
+      }
+      rctv_dfAE_Counts_Study() %>%
+        dplyr::arrange(dplyr::desc(.data$pct)) %>%
+        dplyr::pull(.data[[rctv_strCategory()]]) %>%
+        head(5) %>%
+        as.character()
+    })
+
+    rctv_chrTop5_Group <- reactive({
+      req(rctv_strCategory())
+      if (!length(rctv_strGroupID()) || !NROW(rctv_dfAE_Counts_Group())) {
+        return(character())
+      }
+      rctv_dfAE_Counts_Group() %>%
+        dplyr::arrange(dplyr::desc(.data$pct_Group)) %>%
+        dplyr::pull(.data[[rctv_strCategory()]]) %>%
+        head(5) %>%
+        as.character()
+    })
+
+    rctv_chrTop5_Subject <- reactive({
+      req(rctv_strCategory())
+      if (!length(rctv_strSubjectID()) || !NROW(rctv_dfAE_Counts_Subject())) {
+        return(character())
+      }
+      rctv_dfAE_Counts_Subject() %>%
+        dplyr::arrange(dplyr::desc(.data$pct_Subject)) %>%
+        dplyr::pull(.data[[rctv_strCategory()]]) %>%
+        head(5) %>%
+        as.character()
+    })
+
+    rctv_chrTop5 <- reactive({
+      req(rctv_strCategory())
+      c(
+        rctv_chrTop5_Subject(),
+        rctv_chrTop5_Group(),
+        rctv_chrTop5_Study()
+      ) %>%
+        unique() %>%
+        head(5) %>%
+        sort()
+    })
+
     output$plot <- renderPlot({
       req(rctv_dfAE_Counts_Study())
       req(rctv_strCategory())
-      ggplot2::ggplot(rctv_dfAE_Counts_Study()) +
-        ggplot2::aes(y = .data[[rctv_strCategory()]]) +
+      strCategory <- rctv_strCategory()
+      chrTop5 <- rctv_chrTop5()
+      rctv_dfAE_Counts_Study() %>%
+        dplyr::mutate(
+          category = dplyr::if_else(
+            .data[[strCategory]] %in% chrTop5,
+            .data[[strCategory]],
+            "Other"
+          ) %>%
+            factor(levels = c(chrTop5, "Other"), ordered = TRUE)
+        ) %>%
+        dplyr::summarize(
+          pct = sum(pct),
+          .by = "category"
+        ) %>%
+        ggplot2::ggplot() +
+        ggplot2::aes(y = .data$category) +
         ggplot2::geom_col(ggplot2::aes(x = .data$pct)) +
         ggplot2::scale_x_continuous(
           limits = c(0, 1),
@@ -136,9 +196,24 @@ mod_AECharts_Server <- function(
         ggplot2::theme_minimal(base_size = 20) +
         ggplot2::labs(
           x = "% of AEs",
-          y = chrCategoricalFields[[rctv_strCategory()]]
+          y = chrCategoricalFields[[strCategory]]
         ) +
         {if (length(rctv_strGroupID()) && NROW(rctv_dfAE_Counts_Group())) {
+          dfAE_Counts_Group <- rctv_dfAE_Counts_Group() %>%
+            dplyr::mutate(
+              category = dplyr::if_else(
+                .data[[strCategory]] %in% chrTop5,
+                .data[[strCategory]],
+                "Other"
+              ) %>%
+                factor(levels = c(chrTop5, "Other"), ordered = TRUE),
+              y_min = as.numeric(.data$category) - 0.5,
+              y_max = as.numeric(.data$category) + 0.5
+            ) %>%
+            dplyr::summarize(
+              pct_Group = sum(pct_Group),
+              .by = c("y_min", "y_max")
+            )
           ggplot2::geom_segment(
             ggplot2::aes(
               x = .data$pct_Group,
@@ -146,15 +221,28 @@ mod_AECharts_Server <- function(
               y = .data$y_min,
               yend = .data$y_max
             ),
-            data = rctv_dfAE_Counts_Group(),
+            data = dfAE_Counts_Group,
             linewidth = 0.8,
             color = "red"
           )
         }} +
         {if (length(rctv_strSubjectID()) && NROW(rctv_dfAE_Counts_Subject())) {
+          dfAE_Counts_Subject <- rctv_dfAE_Counts_Subject() %>%
+            dplyr::mutate(
+              category = dplyr::if_else(
+                .data[[strCategory]] %in% chrTop5,
+                .data[[strCategory]],
+                "Other"
+              ) %>%
+                factor(levels = c(chrTop5, "Other"), ordered = TRUE)
+            ) %>%
+            dplyr::summarize(
+              pct_Subject = sum(pct_Subject),
+              .by = "category"
+            )
           ggplot2::geom_point(
-            ggplot2::aes(x = .data$pct_Subject),
-            data = rctv_dfAE_Counts_Subject()
+            ggplot2::aes(y = .data$category, x = .data$pct_Subject),
+            data = dfAE_Counts_Subject
           )
         }} +
         ggplot2::theme(legend.position = "none")
