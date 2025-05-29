@@ -65,8 +65,7 @@ mod_AEChartsTitle_Server <- function(
         if (length(rctv_strSubjectID())) {
           ", and Participant (&bull;)"
         }
-      ) %>%
-        purrr::compact()
+      )
       span("by", HTML(rlang::inject({paste0(!!!groups)})))
     })
     return(reactive({input$category}))

@@ -29,7 +29,8 @@ Imports:
     scales,
     shiny,
     shinyWidgets,
-    tidyr
+    tidyr,
+    utils
 Suggests: 
     testthat (>= 3.0.0)
 Remotes:

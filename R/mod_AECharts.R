@@ -128,7 +128,7 @@ mod_AECharts_Server <- function(
       rctv_dfAE_Counts_Study() %>%
         dplyr::arrange(dplyr::desc(.data$pct)) %>%
         dplyr::pull(.data[[rctv_strCategory()]]) %>%
-        head(5) %>%
+        utils::head(5) %>%
         as.character()
     })
 
@@ -140,7 +140,7 @@ mod_AECharts_Server <- function(
       rctv_dfAE_Counts_Group() %>%
         dplyr::arrange(dplyr::desc(.data$pct_Group)) %>%
         dplyr::pull(.data[[rctv_strCategory()]]) %>%
-        head(5) %>%
+        utils::head(5) %>%
         as.character()
     })
 
@@ -152,7 +152,7 @@ mod_AECharts_Server <- function(
       rctv_dfAE_Counts_Subject() %>%
         dplyr::arrange(dplyr::desc(.data$pct_Subject)) %>%
         dplyr::pull(.data[[rctv_strCategory()]]) %>%
-        head(5) %>%
+        utils::head(5) %>%
         as.character()
     })
 
@@ -164,7 +164,7 @@ mod_AECharts_Server <- function(
         rctv_chrTop5_Study()
       ) %>%
         unique() %>%
-        head(5) %>%
+        utils::head(5) %>%
         sort()
     })
 
@@ -183,7 +183,7 @@ mod_AECharts_Server <- function(
             factor(levels = c(chrTop5, "Other"), ordered = TRUE)
         ) %>%
         dplyr::summarize(
-          pct = sum(pct),
+          pct = sum(.data$pct),
           .by = "category"
         ) %>%
         ggplot2::ggplot() +
@@ -211,7 +211,7 @@ mod_AECharts_Server <- function(
               y_max = as.numeric(.data$category) + 0.5
             ) %>%
             dplyr::summarize(
-              pct_Group = sum(pct_Group),
+              pct_Group = sum(.data$pct_Group),
               .by = c("y_min", "y_max")
             )
           ggplot2::geom_segment(
@@ -237,7 +237,7 @@ mod_AECharts_Server <- function(
                 factor(levels = c(chrTop5, "Other"), ordered = TRUE)
             ) %>%
             dplyr::summarize(
-              pct_Subject = sum(pct_Subject),
+              pct_Subject = sum(.data$pct_Subject),
               .by = "category"
             )
           ggplot2::geom_point(
