@@ -43,9 +43,13 @@
 <span>  <span class="va">dfAnalyticsInput</span>,</span>
 <span>  <span class="va">rctv_dSnapshotDate</span>,</span>
 <span>  <span class="va">rctv_dSnapshotDatePrevious</span>,</span>
+<span>  <span class="va">rctv_dfAE_Study</span>,</span>
 <span>  <span class="va">rctv_strGroupID</span>,</span>
 <span>  <span class="va">rctv_strGroupLevel</span>,</span>
-<span>  <span class="va">rctv_strSubjectID</span></span>
+<span>  <span class="va">rctv_strSubjectID</span>,</span>
+<span>  chrCategoricalFields <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>aeser <span class="op">=</span> <span class="st">"Serious?"</span>, mdrpt_nsv <span class="op">=</span> <span class="st">"Preferred Term"</span>, mdrsoc_nsv <span class="op">=</span></span>
+<span>    <span class="st">"System Organ Class"</span>, aetoxgr <span class="op">=</span> <span class="st">"Toxicity Grade"</span>, aeongo <span class="op">=</span> <span class="st">"Ongoing?"</span>, aerel <span class="op">=</span></span>
+<span>    <span class="st">"Related?"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -73,6 +77,11 @@ object that returns the date of a data snapshot immediately before
 selected date.</p></dd>
 
 
+<dt id="arg-rctv-dfae-study">rctv_dfAE_Study<a class="anchor" aria-label="anchor" href="#arg-rctv-dfae-study"></a></dt>
+<dd><p><code>reactive dataframe</code> A <code><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">shiny::reactive()</a></code> object that
+returns a study-level adverse events domain dataframe.</p></dd>
+
+
 <dt id="arg-rctv-strgroupid">rctv_strGroupID<a class="anchor" aria-label="anchor" href="#arg-rctv-strgroupid"></a></dt>
 <dd><p><code>reactive character</code> A <code><a href="https://rdrr.io/pkg/shiny/man/reactiveVal.html" class="external-link">shiny::reactiveVal()</a></code> object
 that returns the <code>GroupID</code> of the selected group (usually site), and can be
@@ -87,6 +96,13 @@ object that returns the selected <code>GroupLevel</code>.</p></dd>
 <dt id="arg-rctv-strsubjectid">rctv_strSubjectID<a class="anchor" aria-label="anchor" href="#arg-rctv-strsubjectid"></a></dt>
 <dd><p><code>reactive character</code> A <code><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">shiny::reactive()</a></code> object
 that returns the <code>SubjectID</code> of the selected participant.</p></dd>
+
+
+<dt id="arg-chrcategoricalfields">chrCategoricalFields<a class="anchor" aria-label="anchor" href="#arg-chrcategoricalfields"></a></dt>
+<dd><p><code>character</code> A named vector of fields in <code>dfAE</code> to
+treat as categorical, where the names are the column names and the values
+are display values. Unnamed elements will be used as both the field name
+and the display name. These fields are currently used in the Charts panel.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -103,7 +119,7 @@ that returns the <code>SubjectID</code> of the selected participant.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer></div>
