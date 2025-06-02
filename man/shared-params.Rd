@@ -9,6 +9,10 @@ treat as categorical, where the names are the column names and the values
 are display values. Unnamed elements will be used as both the field name
 and the display name. These fields are currently used in the Charts panel.}
 
+\item{chrFields}{\code{character} A named vector of fields in \code{dfAE} to display in
+a drop-down menu, where the names are display values and the values are
+column names. Passed to \code{\link[shinyWidgets:virtualSelectInput]{shinyWidgets::virtualSelectInput()}} as \code{choices}.}
+
 \item{id}{\code{character} The id for this element.}
 
 \item{dfAnalyticsInput}{\code{data.frame} Participant-level metric data.}

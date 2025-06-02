@@ -1,10 +1,10 @@
-#' Adverse Events Charts Panel UI
+#' Adverse Events Prevalence Panel UI
 #'
 #' @inheritParams shared-params
 #' @returns A [bslib::card()] for visualizing categorical variables in the AE
 #'   data.
 #' @keywords internal
-mod_AECharts_UI <- function(
+mod_AEPrevalence_UI <- function(
   id,
   chrCategoricalFields = c(
     aeser = "Serious?",
@@ -18,21 +18,25 @@ mod_AECharts_UI <- function(
   ns <- NS(id)
   out_DashboardCard(
     id = id,
-    title = "Charts",
+    title = "Prevalence",
     mod_AEChartsTitle_UI(
       ns("title"),
-      chrCategoricalFields = chrCategoricalFields
+      chrDescriptor = "Prevalence",
+      chrFields = rlang::set_names(
+        names(chrCategoricalFields),
+        chrCategoricalFields
+      )
     ),
     plotOutput(ns("plot"))
   )
 }
 
-#' Adverse Events Charts Panel Server
+#' Adverse Events Prevalence Panel Server
 #'
 #' @inheritParams shared-params
 #' @returns A module server function.
 #' @keywords internal
-mod_AECharts_Server <- function(
+mod_AEPrevalence_Server <- function(
   id,
   rctv_dfAE_Study,
   rctv_strGroupID,

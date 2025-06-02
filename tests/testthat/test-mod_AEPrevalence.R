@@ -1,11 +1,11 @@
-test_that("mod_AECharts_UI produces the expected UI", {
-  test_result <- mod_AECharts_UI("testing")
+test_that("mod_AEPrevalence_UI produces the expected UI", {
+  test_result <- mod_AEPrevalence_UI("testing")
   expect_s3_class(test_result, c("bslib_fragment", "shiny.tag"))
   class(test_result) <- "shiny.tag"
   expect_cleaned_html({
     test_result
   })
-  test_result <- mod_AECharts_UI(
+  test_result <- mod_AEPrevalence_UI(
     "testing",
     chrCategoricalFields = c(other = "Other Thing")
   )
@@ -15,9 +15,9 @@ test_that("mod_AECharts_UI produces the expected UI", {
   })
 })
 
-test_that("mod_AECharts_Server works as expected", {
+test_that("mod_AEPrevalence_Server works as expected", {
   testServer(
-    mod_AECharts_Server,
+    mod_AEPrevalence_Server,
     args = list(
       id = "testing",
       rctv_dfAE_Study = reactive({
@@ -28,7 +28,7 @@ test_that("mod_AECharts_Server works as expected", {
       rctv_strSubjectID = reactiveVal(NULL)
     ),
     {
-      session$setInputs(`title-category` = "aeser")
+      session$setInputs(`title-field` = "aeser")
       test_result <- output$plot
       expect_type(test_result, "list")
       expect_setequal(
@@ -36,7 +36,7 @@ test_that("mod_AECharts_Server works as expected", {
         c("N", "Y")
       )
 
-      session$setInputs(`title-category` = "aetoxgr")
+      session$setInputs(`title-field` = "aetoxgr")
       test_result <- output$plot
       expect_setequal(
         test_result$coordmap$panels[[1]]$domain$discrete_limits$y,

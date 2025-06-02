@@ -7,13 +7,13 @@
 mod_AE_UI <- function(
   id,
   chrCategoricalFields = c(
-  aeser = "Serious?",
-  mdrpt_nsv = "Preferred Term",
-  mdrsoc_nsv = "System Organ Class",
-  aetoxgr = "Toxicity Grade",
-  aeongo = "Ongoing?",
-  aerel = "Related?"
-)
+    aeser = "Serious?",
+    mdrpt_nsv = "Preferred Term",
+    mdrsoc_nsv = "System Organ Class",
+    aetoxgr = "Toxicity Grade",
+    aeongo = "Ongoing?",
+    aerel = "Related?"
+  )
 ) {
   ns <- NS(id)
   bslib::page_fillable(

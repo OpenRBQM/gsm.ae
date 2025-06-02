@@ -4,27 +4,12 @@
       test_result
     Output
       <div class="inlineSelectInput">
-        Prevalence of 
+        Descriptor
+         of 
         <div class="form-group shiny-input-container shiny-input-container-inline">
-          <label class="control-label shiny-label-null" for="testing-category" id="testing-category-label"></label>
-          <div id="testing-category" class="virtual-select" style="display:inline-block;" data-update="change">
-            <script type="application/json" data-for="testing-category">{"stateInput":true,"options":{"type":["transpose"],"choices":{"label":["Serious?","Preferred Term","System Organ Class","Toxicity Grade","Ongoing?","Related?"],"value":["aeser","mdrpt_nsv","mdrsoc_nsv","aetoxgr","aeongo","aerel"]}},"config":{"multiple":false,"search":false,"hideClearButton":true,"autoSelectFirstOption":true,"showSelectedOptionsFirst":false,"showValueAsTags":false,"optionsCount":10,"noOfDisplayValues":50,"allowNewOption":false,"disableSelectAll":true,"disableOptionGroupCheckbox":true,"disabled":false}}</script>
-          </div>
-        </div>
-        <span id="testing-grouping" class="shiny-html-output"></span>
-      </div>
-
----
-
-    Code
-      test_result
-    Output
-      <div class="inlineSelectInput">
-        Prevalence of 
-        <div class="form-group shiny-input-container shiny-input-container-inline">
-          <label class="control-label shiny-label-null" for="testing-category" id="testing-category-label"></label>
-          <div id="testing-category" class="virtual-select" style="display:inline-block;" data-update="change">
-            <script type="application/json" data-for="testing-category">{"stateInput":true,"options":{"type":["transpose"],"choices":{"label":["Other Thing"],"value":["other"]}},"config":{"multiple":false,"search":false,"hideClearButton":true,"autoSelectFirstOption":true,"showSelectedOptionsFirst":false,"showValueAsTags":false,"optionsCount":10,"noOfDisplayValues":50,"allowNewOption":false,"disableSelectAll":true,"disableOptionGroupCheckbox":true,"disabled":false}}</script>
+          <label class="control-label shiny-label-null" for="testing-field" id="testing-field-label"></label>
+          <div id="testing-field" class="virtual-select" style="display:inline-block;" data-update="change">
+            <script type="application/json" data-for="testing-field">{"stateInput":true,"options":{"type":["transpose"],"choices":{"label":["Label","Label 2"],"value":["value","value2"]}},"config":{"multiple":false,"search":false,"hideClearButton":true,"autoSelectFirstOption":true,"showSelectedOptionsFirst":false,"showValueAsTags":false,"optionsCount":10,"noOfDisplayValues":50,"allowNewOption":false,"disableSelectAll":true,"disableOptionGroupCheckbox":true,"disabled":false}}</script>
           </div>
         </div>
         <span id="testing-grouping" class="shiny-html-output"></span>

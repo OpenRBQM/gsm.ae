@@ -24,6 +24,7 @@ Imports:
     gsm.mapping,
     gt,
     htmltools,
+    lubridate,
     magrittr,
     rlang,
     scales,

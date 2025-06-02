@@ -20,9 +20,19 @@
       
       $spec
       $spec$AE
+      $spec$AE$aeen_dt
+      $spec$AE$aeen_dt$type
+      [1] "Date"
+      
+      
       $spec$AE$aest_dt
       $spec$AE$aest_dt$type
       [1] "Date"
+      
+      
+      $spec$AE$mincreated_dts
+      $spec$AE$mincreated_dts$type
+      [1] "datetime"
       
       
       $spec$AE$aeser

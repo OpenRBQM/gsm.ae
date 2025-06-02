@@ -9,6 +9,9 @@
 #'   treat as categorical, where the names are the column names and the values
 #'   are display values. Unnamed elements will be used as both the field name
 #'   and the display name. These fields are currently used in the Charts panel.
+#' @param chrFields `character` A named vector of fields in `dfAE` to display in
+#'   a drop-down menu, where the names are display values and the values are
+#'   column names. Passed to [shinyWidgets::virtualSelectInput()] as `choices`.
 #' @param id `character` The id for this element.
 #' @param dfAnalyticsInput `data.frame` Participant-level metric data.
 #' @param dfResults `data.frame` A stacked summary of analysis pipeline output.

@@ -36,7 +36,9 @@ pluginAE <- function(
     lSpec = list(
       AE = c(
         list(
+          aeen_dt = list(type = "Date"),
           aest_dt = list(type = "Date"),
+          mincreated_dts = list(type = "datetime"),
           aeser = list(type = "character"),
           SubjectID = list(type = "character"),
           GroupID = list(type = "character"),

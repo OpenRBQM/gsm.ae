@@ -5,22 +5,8 @@
 #'   dropdown, then a span that will be filled with information about the
 #'   grouping.
 #' @keywords internal
-mod_AEChartsTitle_UI <- function(
-  id,
-  chrCategoricalFields = c(
-    aeser = "Serious?",
-    mdrpt_nsv = "Preferred Term",
-    mdrsoc_nsv = "System Organ Class",
-    aetoxgr = "Toxicity Grade",
-    aeongo = "Ongoing?",
-    aerel = "Related?"
-  )
-) {
+mod_AEChartsTitle_UI <- function(id, chrDescriptor, chrFields) {
   ns <- NS(id)
-  chrCategoricalFields <- rlang::set_names(
-    names(chrCategoricalFields),
-    chrCategoricalFields
-  )
   div(
     class = "inlineSelectInput",
     htmltools::htmlDependency(
@@ -30,11 +16,12 @@ mod_AEChartsTitle_UI <- function(
       package = "gsm.ae",
       stylesheet = "inlineSelectInput.css"
     ),
-    "Prevalence of ",
+    chrDescriptor,
+    " of ",
     shinyWidgets::virtualSelectInput(
-      ns("category"),
+      ns("field"),
       NULL,
-      chrCategoricalFields,
+      chrFields,
       inline = TRUE
     ),
     uiOutput(ns("grouping"), inline = TRUE)
@@ -68,6 +55,6 @@ mod_AEChartsTitle_Server <- function(
       )
       span("by", HTML(rlang::inject({paste0(!!!groups)})))
     })
-    return(reactive({input$category}))
+    return(reactive({input$field}))
   })
 }
