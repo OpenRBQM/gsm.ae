@@ -9,6 +9,7 @@
 #'   treat as categorical, where the names are the column names and the values
 #'   are display values. Unnamed elements will be used as both the field name
 #'   and the display name. These fields are currently used in the Charts panel.
+#' @param chrColors `character` Colors to use for a scale, labels, etc.
 #' @param chrFields `character` A named vector of fields in `dfAE` to display in
 #'   a drop-down menu, where the names are display values and the values are
 #'   column names. Passed to [shinyWidgets::virtualSelectInput()] as `choices`.
@@ -36,6 +37,8 @@
 #'   that returns the `SubjectID` of the selected participant.
 #' @param session `environment` Session from which to make a child scope (the
 #'   default should almost always be used).
+#' @param strDescriptor `length-1 character` A word to describe the contents of
+#'   a chart.
 #' @param strField_Created `length-1 character` The field that indicates when
 #'   the adverse event was logged. Defaults to `"mincreated_dts"`.
 #' @param strField_GroupActive `length-1 character` The field that indicates

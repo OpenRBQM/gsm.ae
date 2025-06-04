@@ -30,6 +30,7 @@ Imports:
     scales,
     shiny,
     shinyWidgets,
+    stringr,
     tidyr,
     utils
 Suggests: 

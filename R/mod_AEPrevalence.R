@@ -21,7 +21,7 @@ mod_AEPrevalence_UI <- function(
     title = "Prevalence",
     mod_AEChartsTitle_UI(
       ns("title"),
-      chrDescriptor = "Prevalence",
+      strDescriptor = "Prevalence",
       chrFields = rlang::set_names(
         names(chrCategoricalFields),
         chrCategoricalFields

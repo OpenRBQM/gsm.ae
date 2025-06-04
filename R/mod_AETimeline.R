@@ -10,7 +10,7 @@ mod_AETimeline_UI <- function(id) {
     title = "Timeline",
     mod_AEChartsTitle_UI(
       ns("title"),
-      chrDescriptor = "Timeline",
+      strDescriptor = "Timeline",
       chrFields = c(
         "AE Created" = "mincreated_dts",
         "AE Start" = "aest_dt",
@@ -39,216 +39,95 @@ mod_AETimeline_Server <- function(
       aest_dt = "AE Start",
       aeen_dt = "AE End"
     )
+    chrColors <- c("#1b9e77", "#d95f02", "#7570b3")
 
-    rctv_strField <- mod_AEChartsTitle_Server(
+    rctv_strField <- mod_AEChartsTitle_Server_Color(
       "title",
+      chrColors = chrColors,
       rctv_strGroupID = rctv_strGroupID,
       rctv_strGroupLevel = rctv_strGroupLevel,
       rctv_strSubjectID = rctv_strSubjectID
     )
 
-    rctv_strFieldLevels <- reactive({
-      # A sorted vector of all months, in case some months are missing from the
-      # data.
-      req(rctv_dfAE_Study())
-      req(rctv_strField())
-      dfAE_Study <- rctv_dfAE_Study()
-      strField <- rctv_strField()
-      dMin <- min(as.Date(dfAE_Study[[strField]]), na.rm = TRUE)
-      dMax <- max(as.Date(dfAE_Study[[strField]]), na.rm = TRUE)
-      dSeq <- as.Date(dMin:dMax)
-      months <- lubridate::month(dSeq, label = TRUE)
-      years <- lubridate::year(dSeq)
-      rev(unique(glue::glue("{months} {years}")))
+    rctv_dfAE_Study_Prepared <- reactive({
+      dplyr::mutate(
+        rctv_dfAE_Study(),
+        mincreated_dts = as.Date(.data$mincreated_dts),
+        aest_dt = as.Date(.data$aest_dt),
+        aeen_dt = as.Date(.data$aeen_dt)
+      )
     })
 
-    rctv_dfAE_Study_my <- reactive({
-      req(rctv_dfAE_Study())
-      req(rctv_strField())
-      strField <- rctv_strField()
-      rctv_dfAE_Study() %>%
-        dplyr::arrange(dplyr::desc(.data[[strField]])) %>%
-        dplyr::mutate(
-          month = lubridate::month(.data[[strField]], label = TRUE),
-          year = lubridate::year(.data[[strField]])
-        ) %>%
-        dplyr::mutate(
-          my = factor(
-            glue::glue("{.data$month} {.data$year}"),
-            levels = rctv_strFieldLevels()
-          ),
-          .keep = "unused"
-        )
-    })
-
-    rctv_dfAE_Counts_Study <- reactive({
-      req(rctv_dfAE_Study_my())
-      CountField(rctv_dfAE_Study_my(), "my")
-    })
-
-    rctv_dfAE_Counts_Group <- reactive({
-      req(rctv_dfAE_Counts_Study())
-      req(rctv_strGroupID())
-      req(rctv_dfAE_Study_my())
-
-      dfAE_Counts_Group <- CountField(
-        rctv_dfAE_Study_my(),
-        "my",
-        by = c("GroupLevel", "GroupID")
+    rctv_dfAE_Group <- reactive({
+      req(rctv_dfAE_Study_Prepared())
+      req(rctv_strGroupLevel())
+      if (is.null(rctv_strGroupID())) {
+        return(NULL)
+      }
+      dplyr::filter(
+        rctv_dfAE_Study_Prepared(),
+        .data$GroupLevel == rctv_strGroupLevel(),
+        .data$GroupID == rctv_strGroupID()
       ) %>%
-        dplyr::filter(
-          .data$GroupLevel == rctv_strGroupLevel(),
-          .data$GroupID == rctv_strGroupID()
-        )
-      rctv_dfAE_Counts_Study() %>%
-        dplyr::left_join(
-          dfAE_Counts_Group,
-          by = "my",
-          suffix = c("_Study", "_Group")
-        ) %>%
-        dplyr::mutate(
-          dplyr::across(
-            dplyr::starts_with("pct"),
-            ~ tidyr::replace_na(.x, 0)
-          )
-        )
+        dplyr::select(dplyr::where(lubridate::is.Date)) %>%
+        dplyr::mutate(level = rctv_strGroupLevel())
     })
 
-    rctv_dfAE_Counts_Subject <- reactive({
-      req(rctv_dfAE_Counts_Study())
-      req(rctv_strGroupID())
-      req(rctv_strSubjectID())
-      req(rctv_dfAE_Study_my())
-
-      dfAE_Counts_Subject <- CountField(
-        rctv_dfAE_Study_my(),
-        "my",
-        by = c("GroupLevel", "GroupID", "SubjectID")
+    rctv_dfAE_Subject <- reactive({
+      req(rctv_dfAE_Study_Prepared())
+      if (is.null(rctv_strSubjectID())) {
+        return(NULL)
+      }
+      dplyr::filter(
+        rctv_dfAE_Study_Prepared(),
+        .data$SubjectID == rctv_strSubjectID()
       ) %>%
-        dplyr::filter(
-          .data$GroupLevel == rctv_strGroupLevel(),
-          .data$GroupID == rctv_strGroupID(),
-          .data$SubjectID == rctv_strSubjectID()
-        )
-      rctv_dfAE_Counts_Study() %>%
-        dplyr::left_join(
-          dfAE_Counts_Subject,
-          by = "my",
-          suffix = c("_Study", "_Subject")
-        ) %>%
-        dplyr::mutate(
-          dplyr::across(
-            dplyr::starts_with("pct"),
-            ~ tidyr::replace_na(.x, 0)
-          )
-        )
+        dplyr::select(dplyr::where(lubridate::is.Date)) %>%
+        dplyr::mutate(level = "Subject")
     })
-  #
-  #   rctv_chrTop5_Study <- reactive({
-  #     req(rctv_dfAE_Counts_Study())
-  #     req(rctv_strCategory())
-  #     if (!NROW(rctv_dfAE_Counts_Study())) {
-  #       return(character()) # nocov
-  #     }
-  #     rctv_dfAE_Counts_Study() %>%
-  #       dplyr::arrange(dplyr::desc(.data$pct)) %>%
-  #       dplyr::pull(.data[[rctv_strCategory()]]) %>%
-  #       utils::head(5) %>%
-  #       as.character()
-  #   })
-  #
-  #   rctv_chrTop5_Group <- reactive({
-  #     req(rctv_strCategory())
-  #     if (!length(rctv_strGroupID()) || !NROW(rctv_dfAE_Counts_Group())) {
-  #       return(character())
-  #     }
-  #     rctv_dfAE_Counts_Group() %>%
-  #       dplyr::arrange(dplyr::desc(.data$pct_Group)) %>%
-  #       dplyr::pull(.data[[rctv_strCategory()]]) %>%
-  #       utils::head(5) %>%
-  #       as.character()
-  #   })
-  #
-  #   rctv_chrTop5_Subject <- reactive({
-  #     req(rctv_strCategory())
-  #     if (!length(rctv_strSubjectID()) || !NROW(rctv_dfAE_Counts_Subject())) {
-  #       return(character())
-  #     }
-  #     rctv_dfAE_Counts_Subject() %>%
-  #       dplyr::arrange(dplyr::desc(.data$pct_Subject)) %>%
-  #       dplyr::pull(.data[[rctv_strCategory()]]) %>%
-  #       utils::head(5) %>%
-  #       as.character()
-  #   })
-  #
-  #   rctv_chrTop5 <- reactive({
-  #     req(rctv_strCategory())
-  #     c(
-  #       rctv_chrTop5_Subject(),
-  #       rctv_chrTop5_Group(),
-  #       rctv_chrTop5_Study()
-  #     ) %>%
-  #       unique() %>%
-  #       utils::head(5) %>%
-  #       sort()
-  #   })
 
-    ## End break ----
     output$plot <- renderPlot({
-      req(rctv_dfAE_Counts_Study())
+      req(rctv_dfAE_Study_Prepared())
+      req(rctv_strGroupLevel())
       req(rctv_strField())
       strField <- rctv_strField()
-      rctv_dfAE_Counts_Study() %>%
-        dplyr::summarize(
-          pct = sum(.data$pct),
-          .by = "my"
+      rctv_dfAE_Study_Prepared() %>%
+        dplyr::select(dplyr::where(lubridate::is.Date)) %>%
+        dplyr::mutate(level = "Study") %>%
+        dplyr::bind_rows(rctv_dfAE_Group(), rctv_dfAE_Subject()) %>%
+        dplyr::mutate(
+          level = factor(
+            .data$level,
+            levels = c("Study", rctv_strGroupLevel(), "Subject")
+          )
         ) %>%
         ggplot2::ggplot() +
-        ggplot2::aes(y = .data$my) +
-        ggplot2::geom_col(ggplot2::aes(x = .data$pct)) +
-        ggplot2::scale_x_continuous(
-          limits = c(0, 1),
-          labels = scales::label_percent()
+        ggplot2::aes(x = .data[[strField]], fill = level) +
+        ggplot2::geom_bar() +
+        ggplot2::geom_label(
+          ggplot2::aes(
+            label = ggplot2::after_stat(.data$count),
+            y = ggplot2::after_stat(.data$count)/2
+          ),
+          fill = "white",
+          stat = "count"
         ) +
+        ggplot2::scale_x_date(
+          date_breaks = "month",
+          date_labels = "%b %Y"
+        ) +
+        ggplot2::scale_y_continuous(breaks = NULL) +
+        ggplot2::scale_fill_discrete(type = chrColors, guide = "none") +
         ggplot2::theme_minimal(base_size = 20) +
-        ggplot2::labs(
-          x = "% of AEs",
-          y = chrFields[[strField]]
+        ggplot2::theme(
+          panel.spacing.y = ggplot2::unit(2, "lines"),
+          strip.text.y.right = ggplot2::element_blank()
         ) +
-        {if (length(rctv_strGroupID()) && NROW(rctv_dfAE_Counts_Group())) {
-          dfAE_Counts_Group <- rctv_dfAE_Counts_Group() %>%
-            dplyr::mutate(
-              y_min = as.numeric(.data$my) - 0.5,
-              y_max = as.numeric(.data$my) + 0.5
-            ) %>%
-            dplyr::summarize(
-              pct_Group = sum(.data$pct_Group),
-              .by = c("y_min", "y_max")
-            )
-          ggplot2::geom_segment(
-            ggplot2::aes(
-              x = .data$pct_Group,
-              xend = .data$pct_Group,
-              y = .data$y_min,
-              yend = .data$y_max
-            ),
-            data = dfAE_Counts_Group,
-            linewidth = 0.8,
-            color = "red"
-          )
-        }} +
-        {if (length(rctv_strSubjectID()) && NROW(rctv_dfAE_Counts_Subject())) {
-          dfAE_Counts_Subject <- rctv_dfAE_Counts_Subject() %>%
-            dplyr::summarize(
-              pct_Subject = sum(.data$pct_Subject),
-              .by = "my"
-            )
-          ggplot2::geom_point(
-            ggplot2::aes(y = .data$my, x = .data$pct_Subject),
-            data = dfAE_Counts_Subject
-          )
-        }} +
-        ggplot2::theme(legend.position = "none")
+        ggplot2::facet_grid(rows = "level", scales = "free_y") +
+        ggplot2::labs(
+          x = chrFields[[strField]],
+          y = "# AEs"
+        )
     })
   })
 }

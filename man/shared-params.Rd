@@ -9,6 +9,8 @@ treat as categorical, where the names are the column names and the values
 are display values. Unnamed elements will be used as both the field name
 and the display name. These fields are currently used in the Charts panel.}
 
+\item{chrColors}{\code{character} Colors to use for a scale, labels, etc.}
+
 \item{chrFields}{\code{character} A named vector of fields in \code{dfAE} to display in
 a drop-down menu, where the names are display values and the values are
 column names. Passed to \code{\link[shinyWidgets:virtualSelectInput]{shinyWidgets::virtualSelectInput()}} as \code{choices}.}
@@ -48,6 +50,9 @@ that returns the \code{SubjectID} of the selected participant.}
 
 \item{session}{\code{environment} Session from which to make a child scope (the
 default should almost always be used).}
+
+\item{strDescriptor}{\verb{length-1 character} A word to describe the contents of
+a chart.}
 
 \item{strField_Created}{\verb{length-1 character} The field that indicates when
 the adverse event was logged. Defaults to \code{"mincreated_dts"}.}

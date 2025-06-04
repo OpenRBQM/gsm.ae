@@ -4,10 +4,13 @@
 \alias{mod_AEChartsTitle_UI}
 \title{Charts Panel Title Block UI}
 \usage{
-mod_AEChartsTitle_UI(id, chrDescriptor, chrFields)
+mod_AEChartsTitle_UI(id, strDescriptor, chrFields)
 }
 \arguments{
 \item{id}{\code{character} The id for this element.}
+
+\item{strDescriptor}{\verb{length-1 character} A word to describe the contents of
+a chart.}
 
 \item{chrFields}{\code{character} A named vector of fields in \code{dfAE} to display in
 a drop-down menu, where the names are display values and the values are
