@@ -3,7 +3,14 @@
 #' @inheritParams shared-params
 #' @returns A [bslib::card()] for visualizing date variables in the AE data.
 #' @keywords internal
-mod_AETimeline_UI <- function(id) {
+mod_AETimeline_UI <- function(
+  id,
+  chrDateFields = c(
+    mincreated_dts = "AE Created",
+    aest_dt = "AE Start",
+    aeen_dt = "AE End"
+  )
+) {
   ns <- NS(id)
   out_DashboardCard(
     id = id,
@@ -11,11 +18,7 @@ mod_AETimeline_UI <- function(id) {
     mod_AEChartsTitle_UI(
       ns("title"),
       strDescriptor = "Timeline",
-      chrFields = c(
-        "AE Created" = "mincreated_dts",
-        "AE Start" = "aest_dt",
-        "AE End" = "aeen_dt"
-      )
+      chrFields = SwapNamesForValues(chrDateFields)
     ),
     plotOutput(ns("plot"))
   )
@@ -31,14 +34,14 @@ mod_AETimeline_Server <- function(
   rctv_dfAE_Study,
   rctv_strGroupID,
   rctv_strGroupLevel,
-  rctv_strSubjectID
+  rctv_strSubjectID,
+  chrDateFields = c(
+    mincreated_dts = "AE Created",
+    aest_dt = "AE Start",
+    aeen_dt = "AE End"
+  )
 ) {
   moduleServer(id, function(input, output, session) {
-    chrFields <- c(
-      mincreated_dts = "AE Created",
-      aest_dt = "AE Start",
-      aeen_dt = "AE End"
-    )
     chrColors <- c("#1b9e77", "#d95f02", "#7570b3")
 
     rctv_strField <- mod_AEChartsTitle_Server_Color(
@@ -135,7 +138,7 @@ mod_AETimeline_Server <- function(
         ) +
         ggplot2::facet_grid(rows = "level", scales = "free_y") +
         ggplot2::labs(
-          x = chrFields[[strField]],
+          x = chrDateFields[[strField]],
           y = "# AEs"
         )
     })

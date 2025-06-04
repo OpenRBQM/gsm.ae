@@ -33,8 +33,9 @@ that returns the \code{SubjectID} of the selected participant.}
 
 \item{chrCategoricalFields}{\code{character} A named vector of fields in \code{dfAE} to
 treat as categorical, where the names are the column names and the values
-are display values. Unnamed elements will be used as both the field name
-and the display name. These fields are currently used in the Charts panel.}
+are what to display to users. Unnamed elements will be used as both the
+field name and the display name. These fields are currently used in the
+Prevalence panel.}
 }
 \value{
 A module server function.

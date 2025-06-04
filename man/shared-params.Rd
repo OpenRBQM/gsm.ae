@@ -6,14 +6,25 @@
 \arguments{
 \item{chrCategoricalFields}{\code{character} A named vector of fields in \code{dfAE} to
 treat as categorical, where the names are the column names and the values
-are display values. Unnamed elements will be used as both the field name
-and the display name. These fields are currently used in the Charts panel.}
+are what to display to users. Unnamed elements will be used as both the
+field name and the display name. These fields are currently used in the
+Prevalence panel.}
+
+\item{chrDateFields}{\code{character} A named vector of fields in \code{dfAE} to treat
+as dates, where the names are the column names and the values are what to
+display to users. Unnamed elements will be used as both the field name and
+the display name. These fields are currently used in the Timeline panel.}
 
 \item{chrColors}{\code{character} Colors to use for a scale, labels, etc.}
 
 \item{chrFields}{\code{character} A named vector of fields in \code{dfAE} to display in
 a drop-down menu, where the names are display values and the values are
 column names. Passed to \code{\link[shinyWidgets:virtualSelectInput]{shinyWidgets::virtualSelectInput()}} as \code{choices}.}
+
+\item{envCall}{\code{environment} The environment from which this function was
+called, for use in better error messages. This value should usually be left
+as the default, or passed from the calling function if the calling function
+also has an \code{envCall} argument.}
 
 \item{id}{\code{character} The id for this element.}
 

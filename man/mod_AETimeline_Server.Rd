@@ -9,7 +9,9 @@ mod_AETimeline_Server(
   rctv_dfAE_Study,
   rctv_strGroupID,
   rctv_strGroupLevel,
-  rctv_strSubjectID
+  rctv_strSubjectID,
+  chrDateFields = c(mincreated_dts = "AE Created", aest_dt = "AE Start", aeen_dt =
+    "AE End")
 )
 }
 \arguments{
@@ -27,6 +29,11 @@ object that returns the selected \code{GroupLevel}.}
 
 \item{rctv_strSubjectID}{\verb{reactive character} A \code{\link[shiny:reactive]{shiny::reactive()}} object
 that returns the \code{SubjectID} of the selected participant.}
+
+\item{chrDateFields}{\code{character} A named vector of fields in \code{dfAE} to treat
+as dates, where the names are the column names and the values are what to
+display to users. Unnamed elements will be used as both the field name and
+the display name. These fields are currently used in the Timeline panel.}
 }
 \value{
 A module server function.

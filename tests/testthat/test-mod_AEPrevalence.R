@@ -44,7 +44,7 @@ test_that("mod_AEPrevalence_Server works as expected", {
       )
 
       rctv_strGroupID("0X1145")
-      session$flushReact();
+      session$flushReact()
       test_result <- output$plot
       expect_setequal(
         test_result$coordmap$panels[[1]]$domain$discrete_limits$y,

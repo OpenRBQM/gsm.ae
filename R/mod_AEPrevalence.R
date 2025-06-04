@@ -22,10 +22,7 @@ mod_AEPrevalence_UI <- function(
     mod_AEChartsTitle_UI(
       ns("title"),
       strDescriptor = "Prevalence",
-      chrFields = rlang::set_names(
-        names(chrCategoricalFields),
-        chrCategoricalFields
-      )
+      chrFields = SwapNamesForValues(chrCategoricalFields)
     ),
     plotOutput(ns("plot"))
   )
@@ -258,7 +255,17 @@ CountField <- function(df, field, by = NULL) {
   if (!NROW(df)) {
     return(df)
   }
+
   df %>%
+    dplyr::mutate(
+      dplyr::across(
+        dplyr::all_of(field),
+        ~ dplyr::case_when(
+          is.na(.x) | .x == "" ~ "NO VALUE",
+          .default = .x
+        )
+      )
+    ) %>%
     dplyr::summarize(n = dplyr::n(), .by = dplyr::all_of(c(field, by))) %>%
     dplyr::mutate(
       pct = .data$n / sum(.data$n),

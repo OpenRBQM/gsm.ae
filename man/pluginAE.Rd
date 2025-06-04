@@ -8,6 +8,8 @@ pluginAE(
   chrCategoricalFields = c(aeser = "Serious?", mdrpt_nsv = "Preferred Term", mdrsoc_nsv =
     "System Organ Class", aetoxgr = "Toxicity Grade", aeongo = "Ongoing?", aerel =
     "Related?"),
+  chrDateFields = c(mincreated_dts = "AE Created", aest_dt = "AE Start", aeen_dt =
+    "AE End"),
   strMetricID_AE = "Analysis_kri0001",
   strMetricID_SAE = "Analysis_kri0002"
 )
@@ -15,8 +17,14 @@ pluginAE(
 \arguments{
 \item{chrCategoricalFields}{\code{character} A named vector of fields in \code{dfAE} to
 treat as categorical, where the names are the column names and the values
-are display values. Unnamed elements will be used as both the field name
-and the display name. These fields are currently used in the Charts panel.}
+are what to display to users. Unnamed elements will be used as both the
+field name and the display name. These fields are currently used in the
+Prevalence panel.}
+
+\item{chrDateFields}{\code{character} A named vector of fields in \code{dfAE} to treat
+as dates, where the names are the column names and the values are what to
+display to users. Unnamed elements will be used as both the field name and
+the display name. These fields are currently used in the Timeline panel.}
 
 \item{strMetricID_AE}{\verb{length-1 character} The ID of the adverse events
 metric. Defaults to \code{"Analysis_kri0001"}.}

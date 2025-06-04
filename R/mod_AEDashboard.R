@@ -13,13 +13,18 @@ mod_AEDashboard_UI <- function(
     aetoxgr = "Toxicity Grade",
     aeongo = "Ongoing?",
     aerel = "Related?"
+  ),
+  chrDateFields = c(
+    mincreated_dts = "AE Created",
+    aest_dt = "AE Start",
+    aeen_dt = "AE End"
   )
 ) {
   ns <- NS(id)
   bslib::layout_columns(
     mod_AESummary_UI(id = ns("summary")),
     mod_AEPrevalence_UI(id = ns("prevalence"), chrCategoricalFields = chrCategoricalFields),
-    mod_AETimeline_UI(id = ns("timeline")),
+    mod_AETimeline_UI(id = ns("timeline"), chrDateFields = chrDateFields),
     col_widths = c(4, 4, 4)
   )
 }
@@ -60,8 +65,16 @@ mod_AEDashboard_Server <- function(
     aetoxgr = "Toxicity Grade",
     aeongo = "Ongoing?",
     aerel = "Related?"
+  ),
+  chrDateFields = c(
+    mincreated_dts = "AE Created",
+    aest_dt = "AE Start",
+    aeen_dt = "AE End"
   )
 ) {
+  # Leaving these with nocov because this just calls all the server functions
+  # without doing anything fancy with them.
+  #
   # nocov start
   moduleServer(id, function(input, output, session) {
     mod_AESummary_Server(
@@ -86,7 +99,8 @@ mod_AEDashboard_Server <- function(
       rctv_dfAE_Study = rctv_dfAE_Study,
       rctv_strGroupID = rctv_strGroupID,
       rctv_strGroupLevel = rctv_strGroupLevel,
-      rctv_strSubjectID = rctv_strSubjectID
+      rctv_strSubjectID = rctv_strSubjectID,
+      chrDateFields = chrDateFields
     )
   })
   # nocov end

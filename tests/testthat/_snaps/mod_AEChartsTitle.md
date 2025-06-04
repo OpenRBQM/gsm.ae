@@ -45,3 +45,33 @@
         Study (<span style="color:#595959;">&#9644;</span>), Site (<span style="color:red;">&vert;</span>) and Participant (&bull;)
       </span>
 
+# mod_AEChartsTitle_Server_Color works as expected
+
+    Code
+      test_html
+    Output
+      <span>
+        by
+        <span style="font-weight: bold; padding: 3px; color: white; background-color:#1b9e77;">Study</span>
+      </span>
+
+---
+
+    Code
+      test_result$html
+    Output
+      <span>
+        by
+        <span style="font-weight: bold; padding: 3px; color: white; background-color:#1b9e77;">Study</span> and <span style="font-weight: bold; padding: 3px; color: white; background-color:#d95f02;">Site</span>
+      </span>
+
+---
+
+    Code
+      test_result$html
+    Output
+      <span>
+        by
+        <span style="font-weight: bold; padding: 3px; color: white; background-color:#1b9e77;">Study</span>, <span style="font-weight: bold; padding: 3px; color: white; background-color:#d95f02;">Site</span> and <span style="font-weight: bold; padding: 3px; color: white; background-color:#7570b3;">Participant</span>
+      </span>
+

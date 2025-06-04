@@ -13,13 +13,19 @@ mod_AE_UI <- function(
     aetoxgr = "Toxicity Grade",
     aeongo = "Ongoing?",
     aerel = "Related?"
+  ),
+  chrDateFields = c(
+    mincreated_dts = "AE Created",
+    aest_dt = "AE Start",
+    aeen_dt = "AE End"
   )
 ) {
   ns <- NS(id)
   bslib::page_fillable(
     mod_AEDashboard_UI(
       ns("dashboard"),
-      chrCategoricalFields = chrCategoricalFields
+      chrCategoricalFields = chrCategoricalFields,
+      chrDateFields = chrDateFields
     )
   )
 }
@@ -31,21 +37,26 @@ mod_AE_UI <- function(
 #' @returns A module server function.
 #' @export
 mod_AE_Server <- function(
-  id,
-  dfAnalyticsInput,
-  dfResults,
-  rctv_dSnapshotDate,
-  rctv_dfAE_Study,
-  rctv_strGroupID,
-  rctv_strGroupLevel,
-  rctv_strSubjectID,
-  chrCategoricalFields = c(
-    aeser = "Serious?",
-    mdrpt_nsv = "Preferred Term",
-    mdrsoc_nsv = "System Organ Class",
-    aetoxgr = "Toxicity Grade",
-    aeongo = "Ongoing?",
-    aerel = "Related?"
+    id,
+    dfAnalyticsInput,
+    dfResults,
+    rctv_dSnapshotDate,
+    rctv_dfAE_Study,
+    rctv_strGroupID,
+    rctv_strGroupLevel,
+    rctv_strSubjectID,
+    chrCategoricalFields = c(
+      aeser = "Serious?",
+      mdrpt_nsv = "Preferred Term",
+      mdrsoc_nsv = "System Organ Class",
+      aetoxgr = "Toxicity Grade",
+      aeongo = "Ongoing?",
+      aerel = "Related?"
+    ),
+    chrDateFields = c(
+      mincreated_dts = "AE Created",
+    aest_dt = "AE Start",
+    aeen_dt = "AE End"
   ),
   strMetricID_AE = "Analysis_kri0001",
   strMetricID_SAE = "Analysis_kri0002"
@@ -88,7 +99,8 @@ mod_AE_Server <- function(
       rctv_strGroupID = rctv_strGroupID_inferred,
       rctv_strGroupLevel = rctv_strGroupLevel,
       rctv_strSubjectID = rctv_strSubjectID,
-      chrCategoricalFields = chrCategoricalFields
+      chrCategoricalFields = chrCategoricalFields,
+      chrDateFields = chrDateFields
     )
   })
 }

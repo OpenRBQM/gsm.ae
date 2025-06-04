@@ -4,10 +4,19 @@
 \alias{mod_AETimeline_UI}
 \title{Adverse Events Timeline Panel UI}
 \usage{
-mod_AETimeline_UI(id)
+mod_AETimeline_UI(
+  id,
+  chrDateFields = c(mincreated_dts = "AE Created", aest_dt = "AE Start", aeen_dt =
+    "AE End")
+)
 }
 \arguments{
 \item{id}{\code{character} The id for this element.}
+
+\item{chrDateFields}{\code{character} A named vector of fields in \code{dfAE} to treat
+as dates, where the names are the column names and the values are what to
+display to users. Unnamed elements will be used as both the field name and
+the display name. These fields are currently used in the Timeline panel.}
 }
 \value{
 A \code{\link[bslib:card]{bslib::card()}} for visualizing date variables in the AE data.

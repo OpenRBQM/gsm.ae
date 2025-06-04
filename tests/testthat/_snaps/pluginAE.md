@@ -20,26 +20,6 @@
       
       $spec
       $spec$AE
-      $spec$AE$aeen_dt
-      $spec$AE$aeen_dt$type
-      [1] "Date"
-      
-      
-      $spec$AE$aest_dt
-      $spec$AE$aest_dt$type
-      [1] "Date"
-      
-      
-      $spec$AE$mincreated_dts
-      $spec$AE$mincreated_dts$type
-      [1] "datetime"
-      
-      
-      $spec$AE$aeser
-      $spec$AE$aeser$type
-      [1] "character"
-      
-      
       $spec$AE$SubjectID
       $spec$AE$SubjectID$type
       [1] "character"
@@ -52,6 +32,11 @@
       
       $spec$AE$GroupLevel
       $spec$AE$GroupLevel$type
+      [1] "character"
+      
+      
+      $spec$AE$aeser
+      $spec$AE$aeser$type
       [1] "character"
       
       
@@ -80,6 +65,21 @@
       [1] "character"
       
       
+      $spec$AE$mincreated_dts
+      $spec$AE$mincreated_dts$type
+      [1] "Date"
+      
+      
+      $spec$AE$aest_dt
+      $spec$AE$aest_dt$type
+      [1] "Date"
+      
+      
+      $spec$AE$aeen_dt
+      $spec$AE$aeen_dt$type
+      [1] "Date"
+      
+      
       
       $spec$SUBJ
       $spec$SUBJ$SubjectID
@@ -95,6 +95,10 @@
                 "Serious?"     "Preferred Term" "System Organ Class" 
                    aetoxgr               aeongo                aerel 
           "Toxicity Grade"           "Ongoing?"           "Related?" 
+      
+      $config$chrDateFields
+      mincreated_dts        aest_dt        aeen_dt 
+        "AE Created"     "AE Start"       "AE End" 
       
       $config$strMetricID_AE
       [1] "Analysis_kri0001"
