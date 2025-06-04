@@ -76,16 +76,16 @@ mod_AEChartsTitle_Server_Color <- function(
     output$grouping <- renderUI({
       groups <- c(
         glue::glue(
-          '<span style="font-weight: bold; color:{chrColors[[1]]};">Study</span>'
+          '<span style="font-weight: bold; padding: 3px; color: white; background-color:{chrColors[[1]]};">Study</span>'
         ),
         if (length(rctv_strGroupID())) {
           glue::glue(
-            '<span style="font-weight: bold; color:{chrColors[[2]]};">{rctv_strGroupLevel()}</span>'
+            '<span style="font-weight: bold; padding: 3px; color: white; background-color:{chrColors[[2]]};">{rctv_strGroupLevel()}</span>'
           )
         },
         if (length(rctv_strSubjectID())) {
           glue::glue(
-            '<span style="font-weight: bold; color:{chrColors[[3]]};">Participant</span>'
+            '<span style="font-weight: bold; padding: 3px; color: white; background-color:{chrColors[[3]]};">Participant</span>'
           )
         }
       )
