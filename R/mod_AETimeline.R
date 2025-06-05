@@ -43,7 +43,6 @@ mod_AETimeline_Server <- function(
 ) {
   moduleServer(id, function(input, output, session) {
     chrColors <- c("#1b9e77", "#d95f02", "#7570b3")
-
     rctv_strField <- mod_AEChartsTitle_Server_Color(
       "title",
       chrColors = chrColors,
