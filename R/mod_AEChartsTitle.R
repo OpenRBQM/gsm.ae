@@ -5,22 +5,8 @@
 #'   dropdown, then a span that will be filled with information about the
 #'   grouping.
 #' @keywords internal
-mod_AEChartsTitle_UI <- function(
-  id,
-  chrCategoricalFields = c(
-    aeser = "Serious?",
-    mdrpt_nsv = "Preferred Term",
-    mdrsoc_nsv = "System Organ Class",
-    aetoxgr = "Toxicity Grade",
-    aeongo = "Ongoing?",
-    aerel = "Related?"
-  )
-) {
+mod_AEChartsTitle_UI <- function(id, strDescriptor, chrFields) {
   ns <- NS(id)
-  chrCategoricalFields <- rlang::set_names(
-    names(chrCategoricalFields),
-    chrCategoricalFields
-  )
   div(
     class = "inlineSelectInput",
     htmltools::htmlDependency(
@@ -30,11 +16,12 @@ mod_AEChartsTitle_UI <- function(
       package = "gsm.ae",
       stylesheet = "inlineSelectInput.css"
     ),
-    "Prevalence of ",
+    strDescriptor,
+    " of ",
     shinyWidgets::virtualSelectInput(
-      ns("category"),
+      ns("field"),
       NULL,
-      chrCategoricalFields,
+      chrFields,
       inline = TRUE
     ),
     uiOutput(ns("grouping"), inline = TRUE)
@@ -59,15 +46,51 @@ mod_AEChartsTitle_Server <- function(
         'Study (<span style="color:#595959;">&#9644;</span>)',
         if (length(rctv_strGroupID())) {
           glue::glue(
-            ', {rctv_strGroupLevel()} (<span style="color:red;">&vert;</span>)'
+            '{rctv_strGroupLevel()} (<span style="color:red;">&vert;</span>)'
           )
         },
         if (length(rctv_strSubjectID())) {
-          ", and Participant (&bull;)"
+          "Participant (&bull;)"
         }
       )
-      span("by", HTML(rlang::inject({paste0(!!!groups)})))
+      span("by", HTML(stringr::str_flatten_comma(groups, last = " and ")))
     })
-    return(reactive({input$category}))
+    return(reactive({input$field}))
+  })
+}
+
+#' Charts Panel Title Block Server (by color)
+#'
+#' @inheritParams shared-params
+#'
+#' @returns A [shiny::reactive()] with the selected category.
+#' @keywords internal
+mod_AEChartsTitle_Server_Color <- function(
+  id,
+  chrColors = c("#1b9e77", "#d95f02", "#7570b3"),
+  rctv_strGroupID,
+  rctv_strGroupLevel,
+  rctv_strSubjectID
+) {
+  moduleServer(id, function(input, output, session) {
+    output$grouping <- renderUI({
+      groups <- c(
+        glue::glue(
+          '<span style="font-weight: bold; padding: 3px; color: white; background-color:{chrColors[[1]]};">Study</span>'
+        ),
+        if (length(rctv_strGroupID())) {
+          glue::glue(
+            '<span style="font-weight: bold; padding: 3px; color: white; background-color:{chrColors[[2]]};">{rctv_strGroupLevel()}</span>'
+          )
+        },
+        if (length(rctv_strSubjectID())) {
+          glue::glue(
+            '<span style="font-weight: bold; padding: 3px; color: white; background-color:{chrColors[[3]]};">Participant</span>'
+          )
+        }
+      )
+      span("by", HTML(stringr::str_flatten_comma(groups, last = " and ")))
+    })
+    return(reactive({input$field}))
   })
 }

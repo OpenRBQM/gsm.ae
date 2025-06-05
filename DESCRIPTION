@@ -24,11 +24,13 @@ Imports:
     gsm.mapping,
     gt,
     htmltools,
+    lubridate,
     magrittr,
     rlang,
     scales,
     shiny,
     shinyWidgets,
+    stringr,
     tidyr,
     utils
 Suggests: 

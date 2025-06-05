@@ -1,10 +1,10 @@
-#' Adverse Events Charts Panel UI
+#' Adverse Events Prevalence Panel UI
 #'
 #' @inheritParams shared-params
 #' @returns A [bslib::card()] for visualizing categorical variables in the AE
 #'   data.
 #' @keywords internal
-mod_AECharts_UI <- function(
+mod_AEPrevalence_UI <- function(
   id,
   chrCategoricalFields = c(
     aeser = "Serious?",
@@ -18,21 +18,22 @@ mod_AECharts_UI <- function(
   ns <- NS(id)
   out_DashboardCard(
     id = id,
-    title = "Charts",
+    title = "Prevalence (Differentiated)",
     mod_AEChartsTitle_UI(
       ns("title"),
-      chrCategoricalFields = chrCategoricalFields
+      strDescriptor = "Prevalence",
+      chrFields = SwapNamesForValues(chrCategoricalFields)
     ),
     plotOutput(ns("plot"))
   )
 }
 
-#' Adverse Events Charts Panel Server
+#' Adverse Events Prevalence Panel Server
 #'
 #' @inheritParams shared-params
 #' @returns A module server function.
 #' @keywords internal
-mod_AECharts_Server <- function(
+mod_AEPrevalence_Server <- function(
   id,
   rctv_dfAE_Study,
   rctv_strGroupID,
@@ -254,7 +255,17 @@ CountField <- function(df, field, by = NULL) {
   if (!NROW(df)) {
     return(df)
   }
+
   df %>%
+    dplyr::mutate(
+      dplyr::across(
+        dplyr::all_of(field),
+        ~ dplyr::case_when(
+          is.na(.x) | .x == "" ~ "NO VALUE",
+          .default = .x
+        )
+      )
+    ) %>%
     dplyr::summarize(n = dplyr::n(), .by = dplyr::all_of(c(field, by))) %>%
     dplyr::mutate(
       pct = .data$n / sum(.data$n),
