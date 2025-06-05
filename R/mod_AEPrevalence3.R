@@ -4,7 +4,7 @@
 #' @returns A [bslib::card()] for visualizing categorical variables in the AE
 #'   data.
 #' @keywords internal
-mod_AEPrevalence_UI2 <- function(
+mod_AEPrevalence_UI3 <- function(
     id,
     chrCategoricalFields = c(
       aeser = "Serious?",
@@ -18,7 +18,7 @@ mod_AEPrevalence_UI2 <- function(
   ns <- NS(id)
   out_DashboardCard(
     id = id,
-    title = "Prevalence (Grouped)",
+    title = "Prevalence (Faceted)",
     mod_AEChartsTitle_UI(
       ns("title"),
       strDescriptor = "Prevalence",
@@ -33,7 +33,7 @@ mod_AEPrevalence_UI2 <- function(
 #' @inheritParams shared-params
 #' @returns A module server function.
 #' @keywords internal
-mod_AEPrevalence_Server2 <- function(
+mod_AEPrevalence_Server3 <- function(
     id,
     rctv_dfAE_Study,
     rctv_strGroupID,
@@ -116,26 +116,19 @@ mod_AEPrevalence_Server2 <- function(
           ),
           category = factor(.data[[strCategory]])
         ) %>%
-        dplyr::summarize(
-          n = dplyr::n(),
-          .by = dplyr::all_of(c("level", "category"))
-        ) %>%
-        dplyr::mutate(
-          pct = .data$n/sum(.data$n),
-          .by = "level"
-        ) %>%
         ggplot2::ggplot() +
-        ggplot2::aes(x = .data$category, y = pct, fill = .data$level) +
-        ggplot2::geom_col(position = "dodge") +
-        # ggplot2::geom_label(
-        #   ggplot2::aes(
-        #     label = .data$n,
-        #     y = .data$pct/2
-        #   ),
-        #   fill = "white",
-        #   size = 14,
-        #   size.unit = "pt"
-        # ) +
+        ggplot2::aes(x = .data$category, fill = .data$level) +
+        ggplot2::geom_bar() +
+        ggplot2::geom_label(
+          ggplot2::aes(
+            label = ggplot2::after_stat(.data$count),
+            y = ggplot2::after_stat(.data$count)/2
+          ),
+          fill = "white",
+          size = 14,
+          size.unit = "pt",
+          stat = "count"
+        ) +
         ggplot2::scale_y_continuous(
           breaks = NULL,
           # Ensure low-value labels don't get cut off.
@@ -147,10 +140,10 @@ mod_AEPrevalence_Server2 <- function(
           panel.spacing.y = ggplot2::unit(1.5, "lines"),
           strip.text.y.right = ggplot2::element_blank()
         ) +
-        # ggplot2::facet_grid(rows = "level", scales = "free_y") +
+        ggplot2::facet_grid(rows = "level", scales = "free_y") +
         ggplot2::labs(
           x = chrCategoricalFields[[strCategory]],
-          y = "% of AEs"
+          y = "# AEs"
         )
     })
   })

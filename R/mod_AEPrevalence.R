@@ -18,7 +18,7 @@ mod_AEPrevalence_UI <- function(
   ns <- NS(id)
   out_DashboardCard(
     id = id,
-    title = "Prevalence",
+    title = "Prevalence (Differentiated)",
     mod_AEChartsTitle_UI(
       ns("title"),
       strDescriptor = "Prevalence",
