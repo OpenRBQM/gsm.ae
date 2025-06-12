@@ -16,7 +16,7 @@ mod_AEDashboard_Server(
   chrCategoricalFields = c(aeser = "Serious?", mdrpt_nsv = "Preferred Term", mdrsoc_nsv =
     "System Organ Class", aetoxgr = "Toxicity Grade", aeongo = "Ongoing?", aerel =
     "Related?"),
-  chrDateFields = c(mincreated_dts = "AE Created", aest_dt = "AE Start", aeen_dt =
+  chrDateFields = c(mincreated_dts = "AE Entry Date", aest_dt = "AE Start", aeen_dt =
     "AE End")
 )
 }

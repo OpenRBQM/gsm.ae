@@ -15,7 +15,7 @@ mod_AEDashboard_UI <- function(
     aerel = "Related?"
   ),
   chrDateFields = c(
-    mincreated_dts = "AE Created",
+    mincreated_dts = "AE Entry Date",
     aest_dt = "AE Start",
     aeen_dt = "AE End"
   )
@@ -69,7 +69,7 @@ mod_AEDashboard_Server <- function(
     aerel = "Related?"
   ),
   chrDateFields = c(
-    mincreated_dts = "AE Created",
+    mincreated_dts = "AE Entry Date",
     aest_dt = "AE Start",
     aeen_dt = "AE End"
   )

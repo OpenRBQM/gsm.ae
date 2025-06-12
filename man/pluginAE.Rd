@@ -8,7 +8,7 @@ pluginAE(
   chrCategoricalFields = c(aeser = "Serious?", mdrpt_nsv = "Preferred Term", mdrsoc_nsv =
     "System Organ Class", aetoxgr = "Toxicity Grade", aeongo = "Ongoing?", aerel =
     "Related?"),
-  chrDateFields = c(mincreated_dts = "AE Created", aest_dt = "AE Start", aeen_dt =
+  chrDateFields = c(mincreated_dts = "AE Entry Date", aest_dt = "AE Start", aeen_dt =
     "AE End"),
   strMetricID_AE = "Analysis_kri0001",
   strMetricID_SAE = "Analysis_kri0002"

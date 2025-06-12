@@ -97,8 +97,8 @@
           "Toxicity Grade"           "Ongoing?"           "Related?" 
       
       $config$chrDateFields
-      mincreated_dts        aest_dt        aeen_dt 
-        "AE Created"     "AE Start"       "AE End" 
+       mincreated_dts         aest_dt         aeen_dt 
+      "AE Entry Date"      "AE Start"        "AE End" 
       
       $config$strMetricID_AE
       [1] "Analysis_kri0001"

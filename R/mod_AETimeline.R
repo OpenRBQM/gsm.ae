@@ -6,7 +6,7 @@
 mod_AETimeline_UI <- function(
   id,
   chrDateFields = c(
-    mincreated_dts = "AE Created",
+    mincreated_dts = "AE Entry Date",
     aest_dt = "AE Start",
     aeen_dt = "AE End"
   )
@@ -36,7 +36,7 @@ mod_AETimeline_Server <- function(
   rctv_strGroupLevel,
   rctv_strSubjectID,
   chrDateFields = c(
-    mincreated_dts = "AE Created",
+    mincreated_dts = "AE Entry Date",
     aest_dt = "AE Start",
     aeen_dt = "AE End"
   )
@@ -54,9 +54,10 @@ mod_AETimeline_Server <- function(
     rctv_dfAE_Study_Prepared <- reactive({
       dplyr::mutate(
         rctv_dfAE_Study(),
-        mincreated_dts = as.Date(.data$mincreated_dts),
-        aest_dt = as.Date(.data$aest_dt),
-        aeen_dt = as.Date(.data$aeen_dt)
+        dplyr::across(
+          dplyr::any_of(names(chrDateFields)),
+          as.Date
+        )
       )
     })
 

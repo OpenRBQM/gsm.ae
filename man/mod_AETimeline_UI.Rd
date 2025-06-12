@@ -6,7 +6,7 @@
 \usage{
 mod_AETimeline_UI(
   id,
-  chrDateFields = c(mincreated_dts = "AE Created", aest_dt = "AE Start", aeen_dt =
+  chrDateFields = c(mincreated_dts = "AE Entry Date", aest_dt = "AE Start", aeen_dt =
     "AE End")
 )
 }

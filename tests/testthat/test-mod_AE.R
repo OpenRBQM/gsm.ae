@@ -1,5 +1,12 @@
 test_that("mod_AE_UI produces the expected UI", {
-  test_result <- mod_AE_UI("testing")
+  # Capture/accept this warning until we verify that it goes away (which this
+  # test should tell me).
+  expect_warning(
+    {
+      test_result <- mod_AE_UI("testing")
+    },
+    "extra widths will be ignored"
+  )
   expect_s3_class(test_result, c("bslib_page", "shiny.tag.list", "list"))
   class(test_result) <- "shiny.tag.list"
   expect_cleaned_html({
@@ -36,8 +43,16 @@ test_that("mod_AE_Server initializes reactive variables", {
       expect_true(is.na(rctv_dSnapshotDatePrevious()))
 
       expect_null(rctv_strGroupID_inferred())
-      rctv_strSubjectID("S75378")
-      expect_equal(rctv_strGroupID_inferred(), "0X1145")
+      sample_strSubjectID <- gsm.app::sample_dfAnalyticsInput %>%
+        dplyr::filter(GroupLevel == "Site") %>%
+        dplyr::pull("SubjectID") %>%
+        .[[1]]
+      rctv_strSubjectID(sample_strSubjectID)
+      expected_strGroupID <- gsm.app::sample_dfAnalyticsInput %>%
+        dplyr::filter(GroupLevel == "Site") %>%
+        dplyr::pull("GroupID") %>%
+        .[[1]]
+      expect_equal(rctv_strGroupID_inferred(), expected_strGroupID)
     }
   )
 })

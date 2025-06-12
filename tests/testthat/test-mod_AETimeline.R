@@ -26,7 +26,7 @@ test_that("mod_AETimeline_Server works as expected", {
       # This is super fragile, but it will work for now.
       expect_length(test_result$coordmap$panels, 1)
       expect_equal(
-        test_result$coordmap$panels[[1]]$domain$top, 241
+        test_result$coordmap$panels[[1]]$domain$top, 175
       )
 
       session$setInputs(`title-field` = "aest_dt")
@@ -34,7 +34,7 @@ test_that("mod_AETimeline_Server works as expected", {
       test_result <- output$plot
       expect_length(test_result$coordmap$panels, 1)
       expect_equal(
-        test_result$coordmap$panels[[1]]$domain$top, 241
+        test_result$coordmap$panels[[1]]$domain$top, 175
       )
 
       session$setInputs(`title-field` = "aeen_dt")
@@ -42,32 +42,32 @@ test_that("mod_AETimeline_Server works as expected", {
       test_result <- output$plot
       expect_length(test_result$coordmap$panels, 1)
       expect_equal(
-        test_result$coordmap$panels[[1]]$domain$top, 238
+        test_result$coordmap$panels[[1]]$domain$top, 168
       )
 
-      rctv_strGroupID("0X1145")
+      rctv_strGroupID("0X1221")
       session$flushReact()
       test_result <- output$plot
       expect_length(test_result$coordmap$panels, 2)
       expect_equal(
-        test_result$coordmap$panels[[1]]$domain$top, 238
+        test_result$coordmap$panels[[1]]$domain$top, 168
       )
       expect_equal(
-        test_result$coordmap$panels[[2]]$domain$top, 12
+        test_result$coordmap$panels[[2]]$domain$top, 5
       )
 
-      rctv_strSubjectID("S75378")
+      rctv_strSubjectID("S38022")
       session$flushReact()
       test_result <- output$plot
       expect_length(test_result$coordmap$panels, 3)
       expect_equal(
-        test_result$coordmap$panels[[1]]$domain$top, 238
+        test_result$coordmap$panels[[1]]$domain$top, 168
       )
       expect_equal(
-        test_result$coordmap$panels[[2]]$domain$top, 12
+        test_result$coordmap$panels[[2]]$domain$top, 5
       )
       expect_equal(
-        test_result$coordmap$panels[[3]]$domain$top, 3
+        test_result$coordmap$panels[[3]]$domain$top, 2
       )
     }
   )
