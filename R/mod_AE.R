@@ -61,8 +61,16 @@ mod_AE_Server <- function(
   strMetricID_AE = "Analysis_kri0001",
   strMetricID_SAE = "Analysis_kri0002"
 ) {
-  dfAnalyticsInput <- PrepareGSMData(dfAnalyticsInput)
-  dfResults <- PrepareGSMData(dfResults)
+  dfAnalyticsInput <- PrepareGSMData(
+    dfAnalyticsInput,
+    strMetricID_AE = strMetricID_AE,
+    strMetricID_SAE = strMetricID_SAE
+  )
+  dfResults <- PrepareGSMData(
+    dfResults,
+    strMetricID_AE = strMetricID_AE,
+    strMetricID_SAE = strMetricID_SAE
+  )
 
   moduleServer(id, function(input, output, session) {
     rctv_dSnapshotDatePrevious <- reactive({

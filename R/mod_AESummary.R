@@ -95,6 +95,19 @@ mod_AESummary_Server <- function(
       if (NROW(dfResults_Subject)) {
         df$Participant <- unlist(dfResults_Subject)
       }
+      df <- df %>%
+        # DEBT: I should just do this when I make the datasets, but this is a
+        # quick way to separate things back out for a new look.
+        tidyr::separate_wider_regex(
+          dplyr::any_of(c("Study", rctv_strGroupLevel(), "Participant")),
+          c(
+            Current = "^\\S+",
+            "\\s+\\(",
+            Previous = "[^)]+",
+            "\\)"
+          ),
+          names_sep = "_"
+        )
 
       return(df)
     })
@@ -103,11 +116,27 @@ mod_AESummary_Server <- function(
       gt::gt(
         rctv_dfAESummary(),
         rowname_col = "observation",
-        caption = "( ) = change since last snapshot"
+        caption = "\u0394 = change since previous snapshot"
       ) %>%
         gt::cols_align("center") %>%
         gt::cols_align("right", "observation") %>%
         gt::opt_row_striping() %>%
+        gt::tab_spanner(
+          label = "Study",
+          columns = dplyr::starts_with("Study_")
+        ) %>%
+        gt::tab_spanner(
+          label = glue::glue("{rctv_strGroupLevel()} ({rctv_strGroupID()})"),
+          columns = dplyr::starts_with(rctv_strGroupLevel())
+        ) %>%
+        gt::tab_spanner(
+          label = glue::glue("Participant ({rctv_strSubjectID()})"),
+          columns = dplyr::starts_with("Participant_")
+        ) %>%
+        gt::cols_label(
+          dplyr::ends_with("_Current") ~ "Value",
+          dplyr::ends_with("_Previous") ~ "\u0394"
+        ) %>%
         gt::tab_style(
           style = gt::cell_text(whitespace = "nowrap"),
           locations = gt::cells_body()
