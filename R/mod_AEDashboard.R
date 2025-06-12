@@ -27,7 +27,7 @@ mod_AEDashboard_UI <- function(
     mod_AEPrevalence_UI3(id = ns("prevalence3"), chrCategoricalFields = chrCategoricalFields),
     mod_AESummary_UI(id = ns("summary")),
     mod_AETimeline_UI(id = ns("timeline"), chrDateFields = chrDateFields),
-    col_widths = c(4, 4, 4, 4, 4, 4)
+    col_widths = c(4, 4, 4, 4, 4)
   )
 }
 

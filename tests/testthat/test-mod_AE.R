@@ -1,12 +1,5 @@
 test_that("mod_AE_UI produces the expected UI", {
-  # Capture/accept this warning until we verify that it goes away (which this
-  # test should tell me).
-  expect_warning(
-    {
-      test_result <- mod_AE_UI("testing")
-    },
-    "extra widths will be ignored"
-  )
+  test_result <- mod_AE_UI("testing")
   expect_s3_class(test_result, c("bslib_page", "shiny.tag.list", "list"))
   class(test_result) <- "shiny.tag.list"
   expect_cleaned_html({

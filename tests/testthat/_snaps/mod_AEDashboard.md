@@ -3,7 +3,7 @@
     Code
       test_result
     Output
-      <bslib-layout-columns class="bslib-grid grid bslib-mb-spacing html-fill-item" col-widths-sm="4,4,4,4,4,4" data-require-bs-caller="layout_columns()" data-require-bs-version="5">
+      <bslib-layout-columns class="bslib-grid grid bslib-mb-spacing html-fill-item" col-widths-sm="4,4,4,4,4" data-require-bs-caller="layout_columns()" data-require-bs-version="5">
         <div class="bslib-grid-item bslib-gap-spacing html-fill-container">
           <div class="card bslib-card bslib-mb-spacing bslib-card-input html-fill-item html-fill-container" data-bslib-card-init data-full-screen="false" data-require-bs-caller="card()" data-require-bs-version="5" id="testing-prevalence" style="min-height:300px;">
             <div class="card-body bslib-gap-spacing html-fill-item html-fill-container" style="margin-top:auto;margin-bottom:auto;flex:1 1 auto;">

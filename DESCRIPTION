@@ -20,7 +20,7 @@ Imports:
     dplyr,
     ggplot2,
     glue,
-    gsm.app (>= 2.4.0.9004),
+    gsm.app (>= 2.5.1),
     gsm.mapping,
     gt,
     htmltools,
