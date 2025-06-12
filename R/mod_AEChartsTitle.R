@@ -65,25 +65,29 @@ mod_AEChartsTitle_Server <- function(
 #' @keywords internal
 mod_AEChartsTitle_Server_Color <- function(
   id,
-  chrColors = c("#1b9e77", "#d95f02", "#7570b3"),
+  chrColors = c(Study = "#1b9e77", Group = "#d95f02", Subject = "#7570b3"),
   rctv_strGroupID,
   rctv_strGroupLevel,
   rctv_strSubjectID
 ) {
+  chrNames <- c("Study", "Group", "Subject")
+  if (!setequal(names(chrColors), chrNames)) {
+    names(chrColors) <- chrNames
+  }
   moduleServer(id, function(input, output, session) {
     output$grouping <- renderUI({
       groups <- c(
         glue::glue(
-          '<span style="font-weight: bold; padding: 3px; color: white; background-color:{chrColors[[1]]};">Study</span>'
+          '<span style="font-weight: bold; padding: 3px; color: white; background-color:{chrColors[["Study"]]};">Study</span>'
         ),
         if (length(rctv_strGroupID())) {
           glue::glue(
-            '<span style="font-weight: bold; padding: 3px; color: white; background-color:{chrColors[[2]]};">{rctv_strGroupLevel()}</span>'
+            '<span style="font-weight: bold; padding: 3px; color: white; background-color:{chrColors[["Group"]]};">{rctv_strGroupLevel()} ({rctv_strGroupID()})</span>'
           )
         },
         if (length(rctv_strSubjectID())) {
           glue::glue(
-            '<span style="font-weight: bold; padding: 3px; color: white; background-color:{chrColors[[3]]};">Participant</span>'
+            '<span style="font-weight: bold; padding: 3px; color: white; background-color:{chrColors[["Subject"]]};">Participant ({rctv_strSubjectID()})</span>'
           )
         }
       )

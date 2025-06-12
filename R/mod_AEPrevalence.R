@@ -48,7 +48,7 @@ mod_AEPrevalence_Server <- function(
   )
 ) {
   moduleServer(id, function(input, output, session) {
-    chrColors <- c("#1b9e77", "#d95f02", "#7570b3")
+    chrColors <- c(Study = "#1b9e77", Group = "#d95f02", Subject = "#7570b3")
     rctv_strCategory <- mod_AEChartsTitle_Server_Color(
       "title",
       chrColors = chrColors,

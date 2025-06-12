@@ -60,7 +60,7 @@
     Output
       <span>
         by
-        <span style="font-weight: bold; padding: 3px; color: white; background-color:#1b9e77;">Study</span> and <span style="font-weight: bold; padding: 3px; color: white; background-color:#d95f02;">Site</span>
+        <span style="font-weight: bold; padding: 3px; color: white; background-color:#1b9e77;">Study</span> and <span style="font-weight: bold; padding: 3px; color: white; background-color:#d95f02;">Site (12345)</span>
       </span>
 
 ---
@@ -70,6 +70,36 @@
     Output
       <span>
         by
-        <span style="font-weight: bold; padding: 3px; color: white; background-color:#1b9e77;">Study</span>, <span style="font-weight: bold; padding: 3px; color: white; background-color:#d95f02;">Site</span> and <span style="font-weight: bold; padding: 3px; color: white; background-color:#7570b3;">Participant</span>
+        <span style="font-weight: bold; padding: 3px; color: white; background-color:#1b9e77;">Study</span>, <span style="font-weight: bold; padding: 3px; color: white; background-color:#d95f02;">Site (12345)</span> and <span style="font-weight: bold; padding: 3px; color: white; background-color:#7570b3;">Participant (6789)</span>
+      </span>
+
+# mod_AEChartsTitle_Server_Color sets names if necessary
+
+    Code
+      test_html
+    Output
+      <span>
+        by
+        <span style="font-weight: bold; padding: 3px; color: white; background-color:#1b9e77;">Study</span>
+      </span>
+
+---
+
+    Code
+      test_result$html
+    Output
+      <span>
+        by
+        <span style="font-weight: bold; padding: 3px; color: white; background-color:#1b9e77;">Study</span> and <span style="font-weight: bold; padding: 3px; color: white; background-color:#d95f02;">Site (12345)</span>
+      </span>
+
+---
+
+    Code
+      test_result$html
+    Output
+      <span>
+        by
+        <span style="font-weight: bold; padding: 3px; color: white; background-color:#1b9e77;">Study</span>, <span style="font-weight: bold; padding: 3px; color: white; background-color:#d95f02;">Site (12345)</span> and <span style="font-weight: bold; padding: 3px; color: white; background-color:#7570b3;">Participant (6789)</span>
       </span>
 
