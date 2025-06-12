@@ -10,8 +10,8 @@ mod_AETimeline_Server(
   rctv_strGroupID,
   rctv_strGroupLevel,
   rctv_strSubjectID,
-  chrDateFields = c(mincreated_dts = "AE Entry Date", aest_dt = "AE Start", aeen_dt =
-    "AE End")
+  chrDateFields = c(mincreated_dts = "AE Entry Date", aest_dt = "AE Start Date", aeen_dt
+    = "AE End Date")
 )
 }
 \arguments{

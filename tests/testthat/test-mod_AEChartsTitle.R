@@ -1,7 +1,6 @@
 test_that("mod_AEChartsTitle_UI produces the expected UI", {
   test_result <- mod_AEChartsTitle_UI(
     "testing",
-    "Descriptor",
     c("Label" = "value", "Label 2" = "value2")
   )
   expect_s3_class(test_result, c("bslib_fragment", "shiny.tag"))

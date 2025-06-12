@@ -7,8 +7,6 @@
         <div class="card-body bslib-gap-spacing html-fill-item html-fill-container" style="margin-top:auto;margin-bottom:auto;flex:1 1 auto;">
           <h5>Prevalence</h5>
           <div class="inlineSelectInput">
-            Prevalence
-             of 
             <div class="form-group shiny-input-container shiny-input-container-inline">
               <label class="control-label shiny-label-null" for="testing-title-field" id="testing-title-field-label"></label>
               <div id="testing-title-field" class="virtual-select" style="display:inline-block;" data-update="change">
@@ -35,8 +33,6 @@
         <div class="card-body bslib-gap-spacing html-fill-item html-fill-container" style="margin-top:auto;margin-bottom:auto;flex:1 1 auto;">
           <h5>Prevalence</h5>
           <div class="inlineSelectInput">
-            Prevalence
-             of 
             <div class="form-group shiny-input-container shiny-input-container-inline">
               <label class="control-label shiny-label-null" for="testing-title-field" id="testing-title-field-label"></label>
               <div id="testing-title-field" class="virtual-select" style="display:inline-block;" data-update="change">

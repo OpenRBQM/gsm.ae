@@ -4,8 +4,6 @@
       test_result
     Output
       <div class="inlineSelectInput">
-        Descriptor
-         of 
         <div class="form-group shiny-input-container shiny-input-container-inline">
           <label class="control-label shiny-label-null" for="testing-field" id="testing-field-label"></label>
           <div id="testing-field" class="virtual-select" style="display:inline-block;" data-update="change">

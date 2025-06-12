@@ -16,8 +16,8 @@ mod_AE_UI <- function(
   ),
   chrDateFields = c(
     mincreated_dts = "AE Entry Date",
-    aest_dt = "AE Start",
-    aeen_dt = "AE End"
+    aest_dt = "AE Start Date",
+    aeen_dt = "AE End Date"
   )
 ) {
   ns <- NS(id)
@@ -55,8 +55,8 @@ mod_AE_Server <- function(
     ),
     chrDateFields = c(
       mincreated_dts = "AE Entry Date",
-    aest_dt = "AE Start",
-    aeen_dt = "AE End"
+    aest_dt = "AE Start Date",
+    aeen_dt = "AE End Date"
   ),
   strMetricID_AE = "Analysis_kri0001",
   strMetricID_SAE = "Analysis_kri0002"

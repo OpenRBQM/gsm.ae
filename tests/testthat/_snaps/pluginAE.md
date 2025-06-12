@@ -98,7 +98,7 @@
       
       $config$chrDateFields
        mincreated_dts         aest_dt         aeen_dt 
-      "AE Entry Date"      "AE Start"        "AE End" 
+      "AE Entry Date" "AE Start Date"   "AE End Date" 
       
       $config$strMetricID_AE
       [1] "Analysis_kri0001"

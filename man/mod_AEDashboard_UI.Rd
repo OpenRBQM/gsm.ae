@@ -9,8 +9,8 @@ mod_AEDashboard_UI(
   chrCategoricalFields = c(aeser = "Serious?", mdrpt_nsv = "Preferred Term", mdrsoc_nsv =
     "System Organ Class", aetoxgr = "Toxicity Grade", aeongo = "Ongoing?", aerel =
     "Related?"),
-  chrDateFields = c(mincreated_dts = "AE Entry Date", aest_dt = "AE Start", aeen_dt =
-    "AE End")
+  chrDateFields = c(mincreated_dts = "AE Entry Date", aest_dt = "AE Start Date", aeen_dt
+    = "AE End Date")
 )
 }
 \arguments{

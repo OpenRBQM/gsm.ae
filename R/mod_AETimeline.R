@@ -7,8 +7,8 @@ mod_AETimeline_UI <- function(
   id,
   chrDateFields = c(
     mincreated_dts = "AE Entry Date",
-    aest_dt = "AE Start",
-    aeen_dt = "AE End"
+    aest_dt = "AE Start Date",
+    aeen_dt = "AE End Date"
   )
 ) {
   ns <- NS(id)
@@ -17,7 +17,6 @@ mod_AETimeline_UI <- function(
     title = "Timeline",
     mod_AEChartsTitle_UI(
       ns("title"),
-      strDescriptor = "Timeline",
       chrFields = SwapNamesForValues(chrDateFields)
     ),
     plotOutput(ns("plot"))
@@ -37,8 +36,8 @@ mod_AETimeline_Server <- function(
   rctv_strSubjectID,
   chrDateFields = c(
     mincreated_dts = "AE Entry Date",
-    aest_dt = "AE Start",
-    aeen_dt = "AE End"
+    aest_dt = "AE Start Date",
+    aeen_dt = "AE End Date"
   )
 ) {
   moduleServer(id, function(input, output, session) {
@@ -114,7 +113,7 @@ mod_AETimeline_Server <- function(
         ) %>%
         ggplot2::ggplot() +
         ggplot2::aes(x = .data$date, fill = .data$level) +
-        ggplot2::geom_bar() +
+        ggplot2::geom_bar(color = "black") +
         ggplot2::geom_label(
           ggplot2::aes(
             label = ggplot2::after_stat(.data$count),

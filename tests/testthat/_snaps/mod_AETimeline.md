@@ -7,12 +7,10 @@
         <div class="card-body bslib-gap-spacing html-fill-item html-fill-container" style="margin-top:auto;margin-bottom:auto;flex:1 1 auto;">
           <h5>Timeline</h5>
           <div class="inlineSelectInput">
-            Timeline
-             of 
             <div class="form-group shiny-input-container shiny-input-container-inline">
               <label class="control-label shiny-label-null" for="testing-title-field" id="testing-title-field-label"></label>
               <div id="testing-title-field" class="virtual-select" style="display:inline-block;" data-update="change">
-                <script type="application/json" data-for="testing-title-field">{"stateInput":true,"options":{"type":["transpose"],"choices":{"label":["AE Entry Date","AE Start","AE End"],"value":["mincreated_dts","aest_dt","aeen_dt"]}},"config":{"multiple":false,"search":false,"hideClearButton":true,"autoSelectFirstOption":true,"showSelectedOptionsFirst":false,"showValueAsTags":false,"optionsCount":10,"noOfDisplayValues":50,"allowNewOption":false,"disableSelectAll":true,"disableOptionGroupCheckbox":true,"disabled":false}}</script>
+                <script type="application/json" data-for="testing-title-field">{"stateInput":true,"options":{"type":["transpose"],"choices":{"label":["AE Entry Date","AE Start Date","AE End Date"],"value":["mincreated_dts","aest_dt","aeen_dt"]}},"config":{"multiple":false,"search":false,"hideClearButton":true,"autoSelectFirstOption":true,"showSelectedOptionsFirst":false,"showValueAsTags":false,"optionsCount":10,"noOfDisplayValues":50,"allowNewOption":false,"disableSelectAll":true,"disableOptionGroupCheckbox":true,"disabled":false}}</script>
               </div>
             </div>
             <span id="testing-title-grouping" class="shiny-html-output"></span>

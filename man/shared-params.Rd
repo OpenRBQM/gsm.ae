@@ -62,9 +62,6 @@ that returns the \code{SubjectID} of the selected participant.}
 \item{session}{\code{environment} Session from which to make a child scope (the
 default should almost always be used).}
 
-\item{strDescriptor}{\verb{length-1 character} A word to describe the contents of
-a chart.}
-
 \item{strField_Created}{\verb{length-1 character} The field that indicates when
 the adverse event was logged. Defaults to \code{"mincreated_dts"}.}
 

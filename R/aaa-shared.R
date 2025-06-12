@@ -46,8 +46,6 @@
 #'   that returns the `SubjectID` of the selected participant.
 #' @param session `environment` Session from which to make a child scope (the
 #'   default should almost always be used).
-#' @param strDescriptor `length-1 character` A word to describe the contents of
-#'   a chart.
 #' @param strField_Created `length-1 character` The field that indicates when
 #'   the adverse event was logged. Defaults to `"mincreated_dts"`.
 #' @param strField_GroupActive `length-1 character` The field that indicates

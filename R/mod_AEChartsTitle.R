@@ -5,7 +5,7 @@
 #'   dropdown, then a span that will be filled with information about the
 #'   grouping.
 #' @keywords internal
-mod_AEChartsTitle_UI <- function(id, strDescriptor, chrFields) {
+mod_AEChartsTitle_UI <- function(id, chrFields) {
   ns <- NS(id)
   div(
     class = "inlineSelectInput",
@@ -16,8 +16,6 @@ mod_AEChartsTitle_UI <- function(id, strDescriptor, chrFields) {
       package = "gsm.ae",
       stylesheet = "inlineSelectInput.css"
     ),
-    strDescriptor,
-    " of ",
     shinyWidgets::virtualSelectInput(
       ns("field"),
       NULL,

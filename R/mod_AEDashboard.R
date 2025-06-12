@@ -16,8 +16,8 @@ mod_AEDashboard_UI <- function(
   ),
   chrDateFields = c(
     mincreated_dts = "AE Entry Date",
-    aest_dt = "AE Start",
-    aeen_dt = "AE End"
+    aest_dt = "AE Start Date",
+    aeen_dt = "AE End Date"
   )
 ) {
   ns <- NS(id)
@@ -67,8 +67,8 @@ mod_AEDashboard_Server <- function(
   ),
   chrDateFields = c(
     mincreated_dts = "AE Entry Date",
-    aest_dt = "AE Start",
-    aeen_dt = "AE End"
+    aest_dt = "AE Start Date",
+    aeen_dt = "AE End Date"
   )
 ) {
   # Leaving these with nocov because this just calls all the server functions
@@ -87,22 +87,6 @@ mod_AEDashboard_Server <- function(
     )
     mod_AEPrevalence_Server(
       "prevalence",
-      rctv_dfAE_Study = rctv_dfAE_Study,
-      rctv_strGroupID = rctv_strGroupID,
-      rctv_strGroupLevel = rctv_strGroupLevel,
-      rctv_strSubjectID = rctv_strSubjectID,
-      chrCategoricalFields = chrCategoricalFields
-    )
-    mod_AEPrevalence_Server2(
-      "prevalence2",
-      rctv_dfAE_Study = rctv_dfAE_Study,
-      rctv_strGroupID = rctv_strGroupID,
-      rctv_strGroupLevel = rctv_strGroupLevel,
-      rctv_strSubjectID = rctv_strSubjectID,
-      chrCategoricalFields = chrCategoricalFields
-    )
-    mod_AEPrevalence_Server3(
-      "prevalence3",
       rctv_dfAE_Study = rctv_dfAE_Study,
       rctv_strGroupID = rctv_strGroupID,
       rctv_strGroupLevel = rctv_strGroupLevel,

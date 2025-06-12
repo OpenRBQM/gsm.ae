@@ -43,7 +43,7 @@ test_that("mod_AEPrevalence_Server works as expected", {
         as.character(1:5)
       )
 
-      rctv_strGroupID("0X1145")
+      rctv_strGroupID("0X1221")
       session$flushReact()
       test_result <- output$plot
       expect_setequal(
@@ -51,7 +51,7 @@ test_that("mod_AEPrevalence_Server works as expected", {
         as.character(1:5)
       )
 
-      rctv_strSubjectID("S75378")
+      rctv_strSubjectID("S38022")
       session$flushReact()
       test_result <- output$plot
       expect_setequal(
@@ -60,12 +60,4 @@ test_that("mod_AEPrevalence_Server works as expected", {
       )
     }
   )
-})
-
-test_that("CountField works as expected", {
-  expect_null(CountField(NULL, field = "whatever"))
-  df <- dplyr::tibble(a = character())
-  expect_identical(CountField(df, field = "whatever"), df)
-
-  # Normal use is tested via usage.
 })

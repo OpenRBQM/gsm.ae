@@ -21,7 +21,6 @@ mod_AEPrevalence_UI <- function(
     title = "Prevalence",
     mod_AEChartsTitle_UI(
       ns("title"),
-      strDescriptor = "Prevalence",
       chrFields = SwapNamesForValues(chrCategoricalFields)
     ),
     plotOutput(ns("plot"))
@@ -49,226 +48,144 @@ mod_AEPrevalence_Server <- function(
   )
 ) {
   moduleServer(id, function(input, output, session) {
-    rctv_strCategory <- mod_AEChartsTitle_Server(
+    chrColors <- c("#1b9e77", "#d95f02", "#7570b3")
+    rctv_strCategory <- mod_AEChartsTitle_Server_Color(
       "title",
+      chrColors = chrColors,
       rctv_strGroupID = rctv_strGroupID,
       rctv_strGroupLevel = rctv_strGroupLevel,
       rctv_strSubjectID = rctv_strSubjectID
     )
-
-    rctv_dfAE_Counts_Study <- reactive({
+    rctv_chrTop5 <- reactive({
       req(rctv_dfAE_Study())
       req(rctv_strCategory())
-      CountField(rctv_dfAE_Study(), rctv_strCategory())
-    })
-
-    rctv_dfAE_Counts_Group <- reactive({
-      req(rctv_dfAE_Counts_Study())
-      req(rctv_strGroupID())
-      req(rctv_strCategory())
-
-      dfAE_Counts_Group <- CountField(
-        rctv_dfAE_Study(),
-        rctv_strCategory(),
-        by = c("GroupLevel", "GroupID")
-      ) %>%
-        dplyr::filter(
-          .data$GroupLevel == rctv_strGroupLevel(),
-          .data$GroupID == rctv_strGroupID()
-        )
-      rctv_dfAE_Counts_Study() %>%
-        dplyr::left_join(
-          dfAE_Counts_Group,
-          by = rctv_strCategory(),
-          suffix = c("_Study", "_Group")
-        ) %>%
-        dplyr::mutate(
-          dplyr::across(
-            dplyr::starts_with("pct"),
-            ~ tidyr::replace_na(.x, 0)
-          )
-        )
-    })
-
-    rctv_dfAE_Counts_Subject <- reactive({
-      req(rctv_dfAE_Counts_Study())
-      req(rctv_strGroupID())
-      req(rctv_strSubjectID())
-      req(rctv_strCategory())
-
-      dfAE_Counts_Subject <- CountField(
-        rctv_dfAE_Study(),
-        rctv_strCategory(),
-        by = c("GroupLevel", "GroupID", "SubjectID")
-      ) %>%
-        dplyr::filter(
-          .data$GroupLevel == rctv_strGroupLevel(),
-          .data$GroupID == rctv_strGroupID(),
-          .data$SubjectID == rctv_strSubjectID()
-        )
-      rctv_dfAE_Counts_Study() %>%
-        dplyr::left_join(
-          dfAE_Counts_Subject,
-          by = rctv_strCategory(),
-          suffix = c("_Study", "_Subject")
-        ) %>%
-        dplyr::mutate(
-          dplyr::across(
-            dplyr::starts_with("pct"),
-            ~ tidyr::replace_na(.x, 0)
-          )
-        )
-    })
-
-    rctv_chrTop5_Study <- reactive({
-      req(rctv_dfAE_Counts_Study())
-      req(rctv_strCategory())
-      if (!NROW(rctv_dfAE_Counts_Study())) {
+      if (!NROW(rctv_dfAE_Study())) {
         return(character()) # nocov
       }
-      rctv_dfAE_Counts_Study() %>%
-        dplyr::arrange(dplyr::desc(.data$pct)) %>%
-        dplyr::pull(.data[[rctv_strCategory()]]) %>%
+      strCategory <- rctv_strCategory()
+      rctv_dfAE_Study() %>%
+        dplyr::count(.data[[strCategory]], sort = TRUE) %>%
+        dplyr::pull(strCategory) %>%
         utils::head(5) %>%
         as.character()
     })
 
-    rctv_chrTop5_Group <- reactive({
-      req(rctv_strCategory())
-      if (!length(rctv_strGroupID()) || !NROW(rctv_dfAE_Counts_Group())) {
-        return(character())
+    rctv_dfAE_Group <- reactive({
+      req(rctv_dfAE_Study())
+      strGroupID <- rctv_strGroupID()
+      if (is.null(strGroupID)) {
+        return(NULL)
       }
-      rctv_dfAE_Counts_Group() %>%
-        dplyr::arrange(dplyr::desc(.data$pct_Group)) %>%
-        dplyr::pull(.data[[rctv_strCategory()]]) %>%
-        utils::head(5) %>%
-        as.character()
-    })
 
-    rctv_chrTop5_Subject <- reactive({
-      req(rctv_strCategory())
-      if (!length(rctv_strSubjectID()) || !NROW(rctv_dfAE_Counts_Subject())) {
-        return(character())
-      }
-      rctv_dfAE_Counts_Subject() %>%
-        dplyr::arrange(dplyr::desc(.data$pct_Subject)) %>%
-        dplyr::pull(.data[[rctv_strCategory()]]) %>%
-        utils::head(5) %>%
-        as.character()
-    })
+      dfAE_Study <- rctv_dfAE_Study()
+      strGroupLevel <- rctv_strGroupLevel()
+      strCategory <- rctv_strCategory()
 
-    rctv_chrTop5 <- reactive({
-      req(rctv_strCategory())
-      c(
-        rctv_chrTop5_Subject(),
-        rctv_chrTop5_Group(),
-        rctv_chrTop5_Study()
+      dplyr::filter(
+        dfAE_Study,
+        .data$GroupLevel == strGroupLevel,
+        .data$GroupID == strGroupID
       ) %>%
-        unique() %>%
-        utils::head(5) %>%
-        sort()
+        dplyr::mutate(level = strGroupLevel) %>%
+        dplyr::select(dplyr::all_of(c("level", strCategory)))
     })
+
+    rctv_dfAE_Subject <- reactive({
+      req(rctv_dfAE_Study())
+      strSubjectID <- rctv_strSubjectID()
+      if (is.null(strSubjectID)) {
+        return(NULL)
+      }
+
+      dfAE_Study <- rctv_dfAE_Study()
+      strCategory <- rctv_strCategory()
+      dfAE_Study %>%
+        dplyr::filter(.data$SubjectID == strSubjectID) %>%
+        dplyr::mutate(level = "Subject") %>%
+        dplyr::select(dplyr::all_of(c("level", strCategory)))
+    })
+
+    txt2pct <- scales::label_percent(1)
 
     output$plot <- renderPlot({
-      req(rctv_dfAE_Counts_Study())
+      req(rctv_dfAE_Study())
+      req(rctv_strGroupLevel())
       req(rctv_strCategory())
+      req(rctv_chrTop5())
       strCategory <- rctv_strCategory()
+      strGroupLevel <- rctv_strGroupLevel()
+      dfAE_Study <- rctv_dfAE_Study()
+      dfAE_Group <- rctv_dfAE_Group()
+      dfAE_Subject <- rctv_dfAE_Subject()
       chrTop5 <- rctv_chrTop5()
-      rctv_dfAE_Counts_Study() %>%
+      dfAE_Study %>%
+        dplyr::select(dplyr::all_of(strCategory)) %>%
+        dplyr::mutate(level = "Study") %>%
+        dplyr::bind_rows(
+          dfAE_Group,
+          dfAE_Subject
+        ) %>%
         dplyr::mutate(
-          category = dplyr::if_else(
-            .data[[strCategory]] %in% chrTop5,
+          level = factor(
+            .data$level,
+            levels = c("Study", strGroupLevel, "Subject")
+          ),
+          category = forcats::fct_other(
             .data[[strCategory]],
-            "Other"
-          ) %>%
-            factor(levels = c(chrTop5, "Other"), ordered = TRUE)
+            keep = chrTop5
+          )
         ) %>%
         dplyr::summarize(
-          pct = sum(.data$pct),
-          .by = "category"
+          n = dplyr::n(),
+          .by = dplyr::all_of(c("level", "category"))
+        ) %>%
+        dplyr::mutate(
+          pct = .data$n/sum(.data$n),
+          .by = "level"
         ) %>%
         ggplot2::ggplot() +
-        ggplot2::aes(y = .data$category) +
-        ggplot2::geom_col(ggplot2::aes(x = .data$pct)) +
-        ggplot2::scale_x_continuous(
-          limits = c(0, 1),
-          labels = scales::label_percent()
+        ggplot2::aes(
+          x = .data$pct,
+          y = .data$category,
+          fill = .data$level,
+          width = 0.9 * dplyr::case_match(
+            as.character(.data$level),
+            "Study" ~ 1,
+            "Subject" ~ 0.25,
+            .default = 0.5
+          )
         ) +
+        ggplot2::geom_col(
+          position = "identity",
+          color = "black"
+        ) +
+        ggplot2::geom_label(
+          ggplot2::aes(
+            label = txt2pct(.data$pct),
+            y = as.numeric(.data$category) + dplyr::case_match(
+              as.character(.data$level),
+              "Study" ~ 0.3,
+              "Subject" ~ -0.3,
+              .default = 0
+            )
+          ),
+          x = 1.1,
+          color = "white",
+          size = 14,
+          size.unit = "pt",
+          fontface = "bold"
+        ) +
+        ggplot2::scale_x_continuous(
+          breaks = NULL,
+          limits = c(0, 1.2)
+        ) +
+        scale_fill_StudyGroupSubject() +
         theme_AE() +
         ggplot2::labs(
           x = "% of AEs",
           y = chrCategoricalFields[[strCategory]]
         ) +
-        {if (length(rctv_strGroupID()) && NROW(rctv_dfAE_Counts_Group())) {
-          dfAE_Counts_Group <- rctv_dfAE_Counts_Group() %>%
-            dplyr::mutate(
-              category = dplyr::if_else(
-                .data[[strCategory]] %in% chrTop5,
-                .data[[strCategory]],
-                "Other"
-              ) %>%
-                factor(levels = c(chrTop5, "Other"), ordered = TRUE),
-              y_min = as.numeric(.data$category) - 0.5,
-              y_max = as.numeric(.data$category) + 0.5
-            ) %>%
-            dplyr::summarize(
-              pct_Group = sum(.data$pct_Group),
-              .by = c("y_min", "y_max")
-            )
-          ggplot2::geom_segment(
-            ggplot2::aes(
-              x = .data$pct_Group,
-              xend = .data$pct_Group,
-              y = .data$y_min,
-              yend = .data$y_max
-            ),
-            data = dfAE_Counts_Group,
-            linewidth = 0.8,
-            color = "red"
-          )
-        }} +
-        {if (length(rctv_strSubjectID()) && NROW(rctv_dfAE_Counts_Subject())) {
-          dfAE_Counts_Subject <- rctv_dfAE_Counts_Subject() %>%
-            dplyr::mutate(
-              category = dplyr::if_else(
-                .data[[strCategory]] %in% chrTop5,
-                .data[[strCategory]],
-                "Other"
-              ) %>%
-                factor(levels = c(chrTop5, "Other"), ordered = TRUE)
-            ) %>%
-            dplyr::summarize(
-              pct_Subject = sum(.data$pct_Subject),
-              .by = "category"
-            )
-          ggplot2::geom_point(
-            ggplot2::aes(y = .data$category, x = .data$pct_Subject),
-            data = dfAE_Counts_Subject
-          )
-        }} +
         ggplot2::theme(legend.position = "none")
     })
   })
-}
-
-CountField <- function(df, field, by = NULL) {
-  if (!NROW(df)) {
-    return(df)
-  }
-
-  df %>%
-    dplyr::mutate(
-      dplyr::across(
-        dplyr::all_of(field),
-        ~ dplyr::case_when(
-          is.na(.x) | .x == "" ~ "NO VALUE",
-          .default = .x
-        )
-      )
-    ) %>%
-    dplyr::summarize(n = dplyr::n(), .by = dplyr::all_of(c(field, by))) %>%
-    dplyr::mutate(
-      pct = .data$n / sum(.data$n),
-      .by = dplyr::all_of(by)
-    )
 }
