@@ -42,7 +42,11 @@ mod_AETimeline_Server <- function(
   )
 ) {
   moduleServer(id, function(input, output, session) {
-    chrColors <- c("#1b9e77", "#d95f02", "#7570b3")
+    chrColors <- c(
+      Study = "#1b9e77",
+      Group = "#d95f02",
+      Subject = "#7570b3"
+    )
     rctv_strField <- mod_AEChartsTitle_Server_Color(
       "title",
       chrColors = chrColors,
@@ -130,8 +134,8 @@ mod_AETimeline_Server <- function(
           # Ensure low-value labels don't get cut off.
           expand = ggplot2::expansion(mult = c(0.1, 0))
         ) +
-        ggplot2::scale_fill_discrete(type = chrColors, guide = "none") +
-        ggplot2::theme_minimal(base_size = 20) +
+        scale_fill_StudyGroupSubject() +
+        theme_AE() +
         ggplot2::theme(
           panel.spacing.y = ggplot2::unit(1.5, "lines"),
           strip.text.y.right = ggplot2::element_blank()

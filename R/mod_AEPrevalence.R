@@ -18,7 +18,7 @@ mod_AEPrevalence_UI <- function(
   ns <- NS(id)
   out_DashboardCard(
     id = id,
-    title = "Prevalence (Differentiated)",
+    title = "Prevalence",
     mod_AEChartsTitle_UI(
       ns("title"),
       strDescriptor = "Prevalence",
@@ -194,7 +194,7 @@ mod_AEPrevalence_Server <- function(
           limits = c(0, 1),
           labels = scales::label_percent()
         ) +
-        ggplot2::theme_minimal(base_size = 20) +
+        theme_AE() +
         ggplot2::labs(
           x = "% of AEs",
           y = chrCategoricalFields[[strCategory]]

@@ -5,7 +5,7 @@
     Output
       <div class="card bslib-card bslib-mb-spacing bslib-card-input html-fill-item html-fill-container" data-bslib-card-init data-full-screen="false" data-require-bs-caller="card()" data-require-bs-version="5" id="testing" style="min-height:300px;">
         <div class="card-body bslib-gap-spacing html-fill-item html-fill-container" style="margin-top:auto;margin-bottom:auto;flex:1 1 auto;">
-          <h5>Prevalence (Differentiated)</h5>
+          <h5>Prevalence</h5>
           <div class="inlineSelectInput">
             Prevalence
              of 
@@ -33,7 +33,7 @@
     Output
       <div class="card bslib-card bslib-mb-spacing bslib-card-input html-fill-item html-fill-container" data-bslib-card-init data-full-screen="false" data-require-bs-caller="card()" data-require-bs-version="5" id="testing" style="min-height:300px;">
         <div class="card-body bslib-gap-spacing html-fill-item html-fill-container" style="margin-top:auto;margin-bottom:auto;flex:1 1 auto;">
-          <h5>Prevalence (Differentiated)</h5>
+          <h5>Prevalence</h5>
           <div class="inlineSelectInput">
             Prevalence
              of 
