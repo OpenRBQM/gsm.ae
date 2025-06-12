@@ -6,7 +6,7 @@
 \usage{
 mod_AEChartsTitle_Server_Color(
   id,
-  chrColors = c("#1b9e77", "#d95f02", "#7570b3"),
+  chrColors = c(Study = "#1b9e77", Group = "#d95f02", Subject = "#7570b3"),
   rctv_strGroupID,
   rctv_strGroupLevel,
   rctv_strSubjectID
