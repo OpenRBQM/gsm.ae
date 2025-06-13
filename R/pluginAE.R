@@ -24,8 +24,8 @@ pluginAE <- function(
     aest_dt = "AE Start Date",
     aeen_dt = "AE End Date"
   ),
-  strMetricID_AE = "Analysis_kri0001",
-  strMetricID_SAE = "Analysis_kri0002"
+  chrMetricID_AE = c(Site = "Analysis_kri0001", Country = "Analysis_cou0001"),
+  chrMetricID_SAE = c(Site = "Analysis_kri0002", Country = "Analysis_cou0002")
 ) {
   chrCategoricalFields <- ValidateNames(chrCategoricalFields)
   chrDateFields <- ValidateNames(chrDateFields)
@@ -66,7 +66,7 @@ pluginAE <- function(
     fnShinyServer = mod_AE_Server,
     chrCategoricalFields = chrCategoricalFields,
     chrDateFields = chrDateFields,
-    strMetricID_AE = strMetricID_AE,
-    strMetricID_SAE = strMetricID_SAE
+    chrMetricID_AE = chrMetricID_AE,
+    chrMetricID_SAE = chrMetricID_SAE
   )
 }

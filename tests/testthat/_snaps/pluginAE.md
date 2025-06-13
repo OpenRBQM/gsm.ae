@@ -100,11 +100,13 @@
        mincreated_dts         aest_dt         aeen_dt 
       "AE Entry Date" "AE Start Date"   "AE End Date" 
       
-      $config$strMetricID_AE
-      [1] "Analysis_kri0001"
+      $config$chrMetricID_AE
+                    Site            Country 
+      "Analysis_kri0001" "Analysis_cou0001" 
       
-      $config$strMetricID_SAE
-      [1] "Analysis_kri0002"
+      $config$chrMetricID_SAE
+                    Site            Country 
+      "Analysis_kri0002" "Analysis_cou0002" 
       
       
       $packages

@@ -18,6 +18,14 @@
 #' @param chrFields `character` A named vector of fields in `dfAE` to display in
 #'   a drop-down menu, where the names are display values and the values are
 #'   column names. Passed to [shinyWidgets::virtualSelectInput()] as `choices`.
+#' @param chrMetricID_AE `character` The ID(s) of the adverse events metric(c).
+#'   The default value is named by `GroupLevel`, but the names are not currently
+#'   used. It is advisable to only provide one `MetricID` per `GroupLevel`,
+#'   though.
+#' @param chrMetricID_SAE `character` The ID(s) of the serious adverse events
+#'   metric(s). The default value is named by `GroupLevel`, but the names are
+#'   not currently used. It is advisable to only provide one `MetricID` per
+#'   `GroupLevel`, though.
 #' @param envCall `environment` The environment from which this function was
 #'   called, for use in better error messages. This value should usually be left
 #'   as the default, or passed from the calling function if the calling function
@@ -53,10 +61,6 @@
 #'   `"site_active_dt"`.
 #' @param strField_StudyActive `length-1 character` The field that indicates
 #'   when the study became active. Defaults to `"act_fpfv"`.
-#' @param strMetricID_AE `length-1 character` The ID of the adverse events
-#'   metric. Defaults to `"Analysis_kri0001"`.
-#' @param strMetricID_SAE `length-1 character` The ID of the serious adverse
-#'   events metric. Defaults to `"Analysis_kri0001"`.
 #'
 #' @name shared-params
 #' @keywords internal

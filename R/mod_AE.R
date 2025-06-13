@@ -37,39 +37,39 @@ mod_AE_UI <- function(
 #' @returns A module server function.
 #' @export
 mod_AE_Server <- function(
-    id,
-    dfAnalyticsInput,
-    dfResults,
-    rctv_dSnapshotDate,
-    rctv_dfAE_Study,
-    rctv_strGroupID,
-    rctv_strGroupLevel,
-    rctv_strSubjectID,
-    chrCategoricalFields = c(
-      aeser = "Serious?",
-      mdrpt_nsv = "Preferred Term",
-      mdrsoc_nsv = "System Organ Class",
-      aetoxgr = "Toxicity Grade",
-      aeongo = "Ongoing?",
-      aerel = "Related?"
-    ),
-    chrDateFields = c(
-      mincreated_dts = "AE Entry Date",
+  id,
+  dfAnalyticsInput,
+  dfResults,
+  rctv_dSnapshotDate,
+  rctv_dfAE_Study,
+  rctv_strGroupID,
+  rctv_strGroupLevel,
+  rctv_strSubjectID,
+  chrCategoricalFields = c(
+    aeser = "Serious?",
+    mdrpt_nsv = "Preferred Term",
+    mdrsoc_nsv = "System Organ Class",
+    aetoxgr = "Toxicity Grade",
+    aeongo = "Ongoing?",
+    aerel = "Related?"
+  ),
+  chrDateFields = c(
+    mincreated_dts = "AE Entry Date",
     aest_dt = "AE Start Date",
     aeen_dt = "AE End Date"
   ),
-  strMetricID_AE = "Analysis_kri0001",
-  strMetricID_SAE = "Analysis_kri0002"
+  chrMetricID_AE = c(Site = "Analysis_kri0001", Country = "Analysis_cou0001"),
+  chrMetricID_SAE = c(Site = "Analysis_kri0002", Country = "Analysis_cou0002")
 ) {
   dfAnalyticsInput <- PrepareGSMData(
     dfAnalyticsInput,
-    strMetricID_AE = strMetricID_AE,
-    strMetricID_SAE = strMetricID_SAE
+    chrMetricID_AE = chrMetricID_AE,
+    chrMetricID_SAE = chrMetricID_SAE
   )
   dfResults <- PrepareGSMData(
     dfResults,
-    strMetricID_AE = strMetricID_AE,
-    strMetricID_SAE = strMetricID_SAE
+    chrMetricID_AE = chrMetricID_AE,
+    chrMetricID_SAE = chrMetricID_SAE
   )
 
   moduleServer(id, function(input, output, session) {
@@ -115,19 +115,19 @@ mod_AE_Server <- function(
 
 PrepareGSMData <- function(
   df,
-  strMetricID_AE = "Analysis_kri0001",
-  strMetricID_SAE = "Analysis_kri0002"
+  chrMetricID_AE = c(Site = "Analysis_kri0001", Country = "Analysis_cou0001"),
+  chrMetricID_SAE = c(Site = "Analysis_kri0002", Country = "Analysis_cou0002")
 ) {
   df %>%
     dplyr::filter(
-      .data$MetricID %in% c(strMetricID_AE, strMetricID_SAE),
+      .data$MetricID %in% c(chrMetricID_AE, chrMetricID_SAE),
       .data$Denominator > 0
     ) %>%
     dplyr::mutate(
       MetricID = dplyr::case_match(
         .data$MetricID,
-        strMetricID_AE ~ "AE",
-        strMetricID_SAE ~ "SAE"
+        chrMetricID_AE ~ "AE",
+        chrMetricID_SAE ~ "SAE"
       ),
       dplyr::across(
         c("Numerator", "Denominator"),

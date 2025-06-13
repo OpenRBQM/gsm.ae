@@ -21,6 +21,16 @@ the display name. These fields are currently used in the Timeline panel.}
 a drop-down menu, where the names are display values and the values are
 column names. Passed to \code{\link[shinyWidgets:virtualSelectInput]{shinyWidgets::virtualSelectInput()}} as \code{choices}.}
 
+\item{chrMetricID_AE}{\code{character} The ID(s) of the adverse events metric(c).
+The default value is named by \code{GroupLevel}, but the names are not currently
+used. It is advisable to only provide one \code{MetricID} per \code{GroupLevel},
+though.}
+
+\item{chrMetricID_SAE}{\code{character} The ID(s) of the serious adverse events
+metric(s). The default value is named by \code{GroupLevel}, but the names are
+not currently used. It is advisable to only provide one \code{MetricID} per
+\code{GroupLevel}, though.}
+
 \item{envCall}{\code{environment} The environment from which this function was
 called, for use in better error messages. This value should usually be left
 as the default, or passed from the calling function if the calling function
@@ -71,12 +81,6 @@ when the group (usually site or country) became active. Defaults to
 
 \item{strField_StudyActive}{\verb{length-1 character} The field that indicates
 when the study became active. Defaults to \code{"act_fpfv"}.}
-
-\item{strMetricID_AE}{\verb{length-1 character} The ID of the adverse events
-metric. Defaults to \code{"Analysis_kri0001"}.}
-
-\item{strMetricID_SAE}{\verb{length-1 character} The ID of the serious adverse
-events metric. Defaults to \code{"Analysis_kri0001"}.}
 }
 \description{
 Reused parameter definitions are gathered here for easier usage. Note: We
