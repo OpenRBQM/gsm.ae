@@ -33,10 +33,10 @@ mod_AEDashboard_UI <- function(
 #' @inheritParams shared-params
 #' @returns A [bslib::card()] with appropriate size and title.
 #' @keywords internal
-out_DashboardCard <- function(id, title, ...) {
+out_DashboardCard <- function(id, strTitle, ...) {
   bslib::card(
     id = id,
-    bslib::card_title(title),
+    bslib::card_title(strTitle),
     full_screen = TRUE,
     min_height = "300px",
     ...

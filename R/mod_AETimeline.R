@@ -14,7 +14,7 @@ mod_AETimeline_UI <- function(
   ns <- NS(id)
   out_DashboardCard(
     id = id,
-    title = "Timeline",
+    strTitle = "Timeline",
     mod_AEChartsTitle_UI(
       ns("title"),
       chrFields = SwapNamesForValues(chrDateFields)

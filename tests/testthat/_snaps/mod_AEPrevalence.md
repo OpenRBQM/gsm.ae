@@ -3,7 +3,7 @@
     Code
       test_result
     Output
-      <div class="card bslib-card bslib-mb-spacing bslib-card-input html-fill-item html-fill-container" data-bslib-card-init data-full-screen="false" data-require-bs-caller="card()" data-require-bs-version="5" id="testing" style="min-height:300px;">
+      <div class="card bslib-card bslib-mb-spacing bslib-card-input html-fill-item html-fill-container" data-bslib-card-init data-full-screen="false" data-require-bs-caller="card()" data-require-bs-version="5" id="testing-card" style="min-height:300px;">
         <div class="card-body bslib-gap-spacing html-fill-item html-fill-container" style="margin-top:auto;margin-bottom:auto;flex:1 1 auto;">
           <h5>Prevalence</h5>
           <div class="inlineSelectInput">
@@ -15,7 +15,7 @@
             </div>
             <span id="testing-title-grouping" class="shiny-html-output"></span>
           </div>
-          <div class="shiny-plot-output html-fill-item" id="testing-plot" style="width:100%;height:400px;"></div>
+          <div class="shiny-html-output html-fill-item html-fill-container" id="testing-expandable"></div>
         </div>
         <bslib-tooltip placement="auto" bsOptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
           <template>Expand</template>
@@ -29,7 +29,7 @@
     Code
       test_result
     Output
-      <div class="card bslib-card bslib-mb-spacing bslib-card-input html-fill-item html-fill-container" data-bslib-card-init data-full-screen="false" data-require-bs-caller="card()" data-require-bs-version="5" id="testing" style="min-height:300px;">
+      <div class="card bslib-card bslib-mb-spacing bslib-card-input html-fill-item html-fill-container" data-bslib-card-init data-full-screen="false" data-require-bs-caller="card()" data-require-bs-version="5" id="testing-card" style="min-height:300px;">
         <div class="card-body bslib-gap-spacing html-fill-item html-fill-container" style="margin-top:auto;margin-bottom:auto;flex:1 1 auto;">
           <h5>Prevalence</h5>
           <div class="inlineSelectInput">
@@ -41,7 +41,7 @@
             </div>
             <span id="testing-title-grouping" class="shiny-html-output"></span>
           </div>
-          <div class="shiny-plot-output html-fill-item" id="testing-plot" style="width:100%;height:400px;"></div>
+          <div class="shiny-html-output html-fill-item html-fill-container" id="testing-expandable"></div>
         </div>
         <bslib-tooltip placement="auto" bsOptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
           <template>Expand</template>
@@ -49,4 +49,25 @@
         </bslib-tooltip>
         <script data-bslib-card-init>bslib.Card.initializeAllCards();</script>
       </div>
+
+# mod_AEPrevalence_Server displays the expanded UI
+
+    Code
+      test_html
+    Output
+      <div class="shiny-plot-output html-fill-item" id="testing-plot" style="width:100%;height:400px;"></div>
+
+---
+
+    Code
+      test_html
+    Output
+      <bslib-layout-columns class="bslib-grid grid bslib-mb-spacing html-fill-item" data-require-bs-caller="layout_columns()" data-require-bs-version="5">
+        <div class="bslib-grid-item bslib-gap-spacing html-fill-container">
+          <div class="shiny-plot-output html-fill-item" id="testing-plot" style="width:100%;height:400px;"></div>
+        </div>
+        <div class="bslib-grid-item bslib-gap-spacing html-fill-container">
+          <div class="shiny-html-output gt_shiny" id="testing-table"></div>
+        </div>
+      </bslib-layout-columns>
 

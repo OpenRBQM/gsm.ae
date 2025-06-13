@@ -8,7 +8,7 @@ mod_AESummary_UI <- function(id) {
   ns <- NS(id)
   out_DashboardCard(
     id = id,
-    title = "Summary",
+    strTitle = "Summary",
     gt::gt_output(ns("table"))
   )
 }

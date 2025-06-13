@@ -42,6 +42,9 @@ also has an \code{envCall} argument.}
 
 \item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output.}
 
+\item{ns}{\code{function} A namespace function, such as the one returned by
+\code{\link[shiny:NS]{shiny::NS()}}.}
+
 \item{rctv_dSnapshotDate}{\verb{reactive Date} A \code{\link[shiny:reactive]{shiny::reactive()}} object that
 returns the date of a data snapshot.}
 

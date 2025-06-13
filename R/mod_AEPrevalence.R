@@ -17,13 +17,13 @@ mod_AEPrevalence_UI <- function(
 ) {
   ns <- NS(id)
   out_DashboardCard(
-    id = id,
-    title = "Prevalence",
+    id = ns("card"),
+    strTitle = "Prevalence",
     mod_AEChartsTitle_UI(
       ns("title"),
       chrFields = SwapNamesForValues(chrCategoricalFields)
     ),
-    plotOutput(ns("plot"))
+    uiOutput(ns("expandable"), fill = TRUE)
   )
 }
 
@@ -48,6 +48,14 @@ mod_AEPrevalence_Server <- function(
   )
 ) {
   moduleServer(id, function(input, output, session) {
+    output$expandable <- renderUI({
+      if (isTruthy(input$card_full_screen)) {
+        out_AEPrevalence_Expanded(session$ns)
+      } else {
+        out_AEPrevalence_Collapsed(session$ns)
+      }
+    })
+
     chrColors <- c(Study = "#1b9e77", Group = "#d95f02", Subject = "#7570b3")
     rctv_strCategory <- mod_AEChartsTitle_Server_Color(
       "title",
@@ -118,6 +126,12 @@ mod_AEPrevalence_Server <- function(
       dfAE_Group <- rctv_dfAE_Group()
       dfAE_Subject <- rctv_dfAE_Subject()
       chrTop5 <- rctv_chrTop5()
+      chrLevels <- c(
+        "Study",
+        if (NROW(dfAE_Group)) strGroupLevel,
+        if (NROW(dfAE_Subject)) "Subject"
+      )
+
       dfAE_Study %>%
         dplyr::select(dplyr::all_of(strCategory)) %>%
         dplyr::mutate(level = "Study") %>%
@@ -126,10 +140,7 @@ mod_AEPrevalence_Server <- function(
           dfAE_Subject
         ) %>%
         dplyr::mutate(
-          level = factor(
-            .data$level,
-            levels = c("Study", strGroupLevel, "Subject")
-          ),
+          level = factor(.data$level, levels = chrLevels),
           category = forcats::fct_other(
             .data[[strCategory]],
             keep = chrTop5
@@ -142,6 +153,11 @@ mod_AEPrevalence_Server <- function(
         dplyr::mutate(
           pct = .data$n/sum(.data$n),
           .by = "level"
+        ) %>%
+        tidyr::complete(
+          .data$level,
+          .data$category,
+          fill = list(n = 0, pct = 0)
         ) %>%
         ggplot2::ggplot() +
         ggplot2::aes(
@@ -187,5 +203,100 @@ mod_AEPrevalence_Server <- function(
         ) +
         ggplot2::theme(legend.position = "none")
     })
+
+    output$table <- gt::render_gt({
+      req(rctv_dfAE_Study())
+      req(rctv_strGroupLevel())
+      req(rctv_strCategory())
+      strCategory <- rctv_strCategory()
+      strCategoryName <- chrCategoricalFields[[strCategory]]
+      strGroupLevel <- rctv_strGroupLevel()
+      strGroupID <- rctv_strGroupID()
+      strSubjectID <- rctv_strSubjectID()
+      dfAE_Study <- rctv_dfAE_Study()
+      dfAE_Group <- rctv_dfAE_Group()
+      dfAE_Subject <- rctv_dfAE_Subject()
+      dfAE_Study %>%
+        dplyr::select(dplyr::all_of(strCategory)) %>%
+        dplyr::mutate(level = "Study") %>%
+        dplyr::bind_rows(
+          dfAE_Group,
+          dfAE_Subject
+        ) %>%
+        dplyr::mutate(
+          level = factor(
+            .data$level,
+            levels = c("Study", strGroupLevel, "Subject")
+          ),
+          category = factor(.data[[strCategory]])
+        ) %>%
+        dplyr::summarize(
+          n = dplyr::n(),
+          .by = dplyr::all_of(c("level", "category"))
+        ) %>%
+        dplyr::mutate(
+          pct = .data$n/sum(.data$n),
+          .by = "level"
+        ) %>%
+        dplyr::arrange(.data$level, .data$category) %>%
+        tidyr::pivot_wider(
+          names_from = "level",
+          names_sep = "_",
+          values_from = c("n", "pct"),
+          values_fill = 0
+        ) %>%
+        dplyr::arrange(dplyr::desc(.data$n_Study)) %>%
+        gt::gt() %>%
+        gt::opt_row_striping() %>%
+        gt::tab_spanner(
+          label = "Study",
+          columns = dplyr::ends_with("_Study")
+        ) %>%
+        gt::tab_spanner(
+          label = glue::glue("{strGroupLevel} ({strGroupID})"),
+          columns = dplyr::ends_with(strGroupLevel)
+        ) %>%
+        gt::tab_spanner(
+          label = glue::glue("Participant ({strSubjectID})"),
+          columns = dplyr::ends_with("_Subject")
+        ) %>%
+        gt::cols_label(
+          dplyr::starts_with("n_") ~ "#",
+          dplyr::starts_with("pct_") ~ "%"
+        ) %>%
+        gt::cols_label(
+          # The ... formula option didn't like me using variables.
+          .list = list(
+            category = strCategoryName
+          )
+        ) %>%
+        gt::fmt_percent(
+          columns = dplyr::starts_with("pct_"),
+          decimals = 0
+        )
+    })
   })
+}
+
+#' UI for Collapsed Prevalence Panel
+#'
+#' @inheritParams shared-params
+#'
+#' @returns A shiny tag object, usually for use in [shiny::renderUI()].
+#' @keywords internal
+out_AEPrevalence_Collapsed <- function(ns) {
+  plotOutput(ns("plot"))
+}
+
+#' UI for Expanded Prevalence Panel
+#'
+#' @inheritParams shared-params
+#'
+#' @returns A shiny tag object, usually for use in [shiny::renderUI()].
+#' @keywords internal
+out_AEPrevalence_Expanded <- function(ns) {
+  bslib::layout_columns(
+    plotOutput(ns("plot")),
+    gt::gt_output(ns("table"))
+  )
 }

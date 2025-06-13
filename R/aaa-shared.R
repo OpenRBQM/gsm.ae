@@ -33,6 +33,8 @@
 #' @param id `character` The id for this element.
 #' @param dfAnalyticsInput `data.frame` Participant-level metric data.
 #' @param dfResults `data.frame` A stacked summary of analysis pipeline output.
+#' @param ns `function` A namespace function, such as the one returned by
+#'   [shiny::NS()].
 #' @param rctv_dSnapshotDate `reactive Date` A [shiny::reactive()] object that
 #'   returns the date of a data snapshot.
 #' @param rctv_dSnapshotDatePrevious `reactive Date` A [shiny::reactive()]

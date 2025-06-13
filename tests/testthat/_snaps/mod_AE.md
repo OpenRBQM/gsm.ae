@@ -19,7 +19,7 @@
             </div>
           </div>
           <div class="bslib-grid-item bslib-gap-spacing html-fill-container">
-            <div class="card bslib-card bslib-mb-spacing bslib-card-input html-fill-item html-fill-container" data-bslib-card-init data-full-screen="false" data-require-bs-caller="card()" data-require-bs-version="5" id="testing-dashboard-prevalence" style="min-height:300px;">
+            <div class="card bslib-card bslib-mb-spacing bslib-card-input html-fill-item html-fill-container" data-bslib-card-init data-full-screen="false" data-require-bs-caller="card()" data-require-bs-version="5" id="testing-dashboard-prevalence-card" style="min-height:300px;">
               <div class="card-body bslib-gap-spacing html-fill-item html-fill-container" style="margin-top:auto;margin-bottom:auto;flex:1 1 auto;">
                 <h5>Prevalence</h5>
                 <div class="inlineSelectInput">
@@ -31,7 +31,7 @@
                   </div>
                   <span id="testing-dashboard-prevalence-title-grouping" class="shiny-html-output"></span>
                 </div>
-                <div class="shiny-plot-output html-fill-item" id="testing-dashboard-prevalence-plot" style="width:100%;height:400px;"></div>
+                <div class="shiny-html-output html-fill-item html-fill-container" id="testing-dashboard-prevalence-expandable"></div>
               </div>
               <bslib-tooltip placement="auto" bsOptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
                 <template>Expand</template>
