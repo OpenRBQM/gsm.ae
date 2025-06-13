@@ -20,16 +20,6 @@
       
       $spec
       $spec$AE
-      $spec$AE$aest_dt
-      $spec$AE$aest_dt$type
-      [1] "Date"
-      
-      
-      $spec$AE$aeser
-      $spec$AE$aeser$type
-      [1] "character"
-      
-      
       $spec$AE$SubjectID
       $spec$AE$SubjectID$type
       [1] "character"
@@ -42,6 +32,11 @@
       
       $spec$AE$GroupLevel
       $spec$AE$GroupLevel$type
+      [1] "character"
+      
+      
+      $spec$AE$aeser
+      $spec$AE$aeser$type
       [1] "character"
       
       
@@ -70,6 +65,21 @@
       [1] "character"
       
       
+      $spec$AE$mincreated_dts
+      $spec$AE$mincreated_dts$type
+      [1] "Date"
+      
+      
+      $spec$AE$aest_dt
+      $spec$AE$aest_dt$type
+      [1] "Date"
+      
+      
+      $spec$AE$aeen_dt
+      $spec$AE$aeen_dt$type
+      [1] "Date"
+      
+      
       
       $spec$SUBJ
       $spec$SUBJ$SubjectID
@@ -86,11 +96,17 @@
                    aetoxgr               aeongo                aerel 
           "Toxicity Grade"           "Ongoing?"           "Related?" 
       
-      $config$strMetricID_AE
-      [1] "Analysis_kri0001"
+      $config$chrDateFields
+       mincreated_dts         aest_dt         aeen_dt 
+      "AE Entry Date" "AE Start Date"   "AE End Date" 
       
-      $config$strMetricID_SAE
-      [1] "Analysis_kri0002"
+      $config$chrMetricID_AE
+                    Site            Country 
+      "Analysis_kri0001" "Analysis_cou0001" 
+      
+      $config$chrMetricID_SAE
+                    Site            Country 
+      "Analysis_kri0002" "Analysis_cou0002" 
       
       
       $packages

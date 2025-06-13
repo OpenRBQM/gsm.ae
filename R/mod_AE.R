@@ -7,19 +7,25 @@
 mod_AE_UI <- function(
   id,
   chrCategoricalFields = c(
-  aeser = "Serious?",
-  mdrpt_nsv = "Preferred Term",
-  mdrsoc_nsv = "System Organ Class",
-  aetoxgr = "Toxicity Grade",
-  aeongo = "Ongoing?",
-  aerel = "Related?"
-)
+    aeser = "Serious?",
+    mdrpt_nsv = "Preferred Term",
+    mdrsoc_nsv = "System Organ Class",
+    aetoxgr = "Toxicity Grade",
+    aeongo = "Ongoing?",
+    aerel = "Related?"
+  ),
+  chrDateFields = c(
+    mincreated_dts = "AE Entry Date",
+    aest_dt = "AE Start Date",
+    aeen_dt = "AE End Date"
+  )
 ) {
   ns <- NS(id)
   bslib::page_fillable(
     mod_AEDashboard_UI(
       ns("dashboard"),
-      chrCategoricalFields = chrCategoricalFields
+      chrCategoricalFields = chrCategoricalFields,
+      chrDateFields = chrDateFields
     )
   )
 }
@@ -47,11 +53,24 @@ mod_AE_Server <- function(
     aeongo = "Ongoing?",
     aerel = "Related?"
   ),
-  strMetricID_AE = "Analysis_kri0001",
-  strMetricID_SAE = "Analysis_kri0002"
+  chrDateFields = c(
+    mincreated_dts = "AE Entry Date",
+    aest_dt = "AE Start Date",
+    aeen_dt = "AE End Date"
+  ),
+  chrMetricID_AE = c(Site = "Analysis_kri0001", Country = "Analysis_cou0001"),
+  chrMetricID_SAE = c(Site = "Analysis_kri0002", Country = "Analysis_cou0002")
 ) {
-  dfAnalyticsInput <- PrepareGSMData(dfAnalyticsInput)
-  dfResults <- PrepareGSMData(dfResults)
+  dfAnalyticsInput <- PrepareGSMData(
+    dfAnalyticsInput,
+    chrMetricID_AE = chrMetricID_AE,
+    chrMetricID_SAE = chrMetricID_SAE
+  )
+  dfResults <- PrepareGSMData(
+    dfResults,
+    chrMetricID_AE = chrMetricID_AE,
+    chrMetricID_SAE = chrMetricID_SAE
+  )
 
   moduleServer(id, function(input, output, session) {
     rctv_dSnapshotDatePrevious <- reactive({
@@ -88,26 +107,27 @@ mod_AE_Server <- function(
       rctv_strGroupID = rctv_strGroupID_inferred,
       rctv_strGroupLevel = rctv_strGroupLevel,
       rctv_strSubjectID = rctv_strSubjectID,
-      chrCategoricalFields = chrCategoricalFields
+      chrCategoricalFields = chrCategoricalFields,
+      chrDateFields = chrDateFields
     )
   })
 }
 
 PrepareGSMData <- function(
   df,
-  strMetricID_AE = "Analysis_kri0001",
-  strMetricID_SAE = "Analysis_kri0002"
+  chrMetricID_AE = c(Site = "Analysis_kri0001", Country = "Analysis_cou0001"),
+  chrMetricID_SAE = c(Site = "Analysis_kri0002", Country = "Analysis_cou0002")
 ) {
   df %>%
     dplyr::filter(
-      .data$MetricID %in% c(strMetricID_AE, strMetricID_SAE),
+      .data$MetricID %in% c(chrMetricID_AE, chrMetricID_SAE),
       .data$Denominator > 0
     ) %>%
     dplyr::mutate(
       MetricID = dplyr::case_match(
         .data$MetricID,
-        strMetricID_AE ~ "AE",
-        strMetricID_SAE ~ "SAE"
+        chrMetricID_AE ~ "AE",
+        chrMetricID_SAE ~ "SAE"
       ),
       dplyr::across(
         c("Numerator", "Denominator"),

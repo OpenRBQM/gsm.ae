@@ -4,7 +4,7 @@
 \alias{out_DashboardCard}
 \title{Standardized cards for dashboard tab}
 \usage{
-out_DashboardCard(id, title, ...)
+out_DashboardCard(id, strTitle, ...)
 }
 \arguments{
 \item{id}{\code{character} The id for this element.}

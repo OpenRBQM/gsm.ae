@@ -9,6 +9,15 @@ test_that("mod_AESummary_UI produces the expected UI", {
 
 test_that("mod_AESummary_Server works as expected", {
   call <- rlang::current_env()
+  sample_strSubjectID <- gsm.app::sample_dfAnalyticsInput %>%
+    dplyr::filter(GroupLevel == "Site") %>%
+    dplyr::pull("SubjectID") %>%
+    .[[1]]
+  sample_strGroupID <- gsm.app::sample_dfAnalyticsInput %>%
+    dplyr::filter(GroupLevel == "Site") %>%
+    dplyr::pull("GroupID") %>%
+    .[[1]]
+
   testServer(
     mod_AESummary_Server,
     args = list(
@@ -27,13 +36,13 @@ test_that("mod_AESummary_Server works as expected", {
       test_html <- test_result$html
       expect_cleaned_html(test_html, call = call)
 
-      rctv_strGroupID("0X1145")
+      rctv_strGroupID(sample_strGroupID)
       session$flushReact()
       test_result <- output$table
       test_html <- test_result$html
       expect_cleaned_html(test_html, call = call)
 
-      rctv_strSubjectID("S75378")
+      rctv_strSubjectID(sample_strSubjectID)
       session$flushReact()
       test_result <- output$table
       test_html <- test_result$html

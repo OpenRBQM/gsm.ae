@@ -19,31 +19,45 @@ pluginAE <- function(
     aeongo = "Ongoing?",
     aerel = "Related?"
   ),
-  strMetricID_AE = "Analysis_kri0001",
-  strMetricID_SAE = "Analysis_kri0002"
+  chrDateFields = c(
+    mincreated_dts = "AE Entry Date",
+    aest_dt = "AE Start Date",
+    aeen_dt = "AE End Date"
+  ),
+  chrMetricID_AE = c(Site = "Analysis_kri0001", Country = "Analysis_cou0001"),
+  chrMetricID_SAE = c(Site = "Analysis_kri0002", Country = "Analysis_cou0002")
 ) {
   chrCategoricalFields <- ValidateNames(chrCategoricalFields)
+  chrDateFields <- ValidateNames(chrDateFields)
   lCategoricalFieldsDefinitions <- rlang::set_names(
     rep(
       list(list(type = "character")),
-      length(chrCategoricalFields) - 1
+      length(chrCategoricalFields)
     ),
-    setdiff(names(chrCategoricalFields), "aeser")
+    names(chrCategoricalFields)
   )
+  lDateFieldsDefinitions <- rlang::set_names(
+    rep(
+      list(list(type = "Date")),
+      length(chrDateFields)
+    ),
+    names(chrDateFields)
+  )
+  lSpec_AE <- c(
+    list(
+      SubjectID = list(type = "character"),
+      GroupID = list(type = "character"),
+      GroupLevel = list(type = "character")
+    ),
+    lCategoricalFieldsDefinitions,
+    lDateFieldsDefinitions
+  )
+  lSpec_AE <- lSpec_AE[unique(names(lSpec_AE))]
 
   gsm.app::plugin_Define(
     strName = "Adverse Events",
     lSpec = list(
-      AE = c(
-        list(
-          aest_dt = list(type = "Date"),
-          aeser = list(type = "character"),
-          SubjectID = list(type = "character"),
-          GroupID = list(type = "character"),
-          GroupLevel = list(type = "character")
-        ),
-        lCategoricalFieldsDefinitions
-      ),
+      AE = lSpec_AE,
       SUBJ = list(
         SubjectID = list(type = "character")
       )
@@ -51,7 +65,8 @@ pluginAE <- function(
     fnShinyUI = mod_AE_UI,
     fnShinyServer = mod_AE_Server,
     chrCategoricalFields = chrCategoricalFields,
-    strMetricID_AE = strMetricID_AE,
-    strMetricID_SAE = strMetricID_SAE
+    chrDateFields = chrDateFields,
+    chrMetricID_AE = chrMetricID_AE,
+    chrMetricID_SAE = chrMetricID_SAE
   )
 }
