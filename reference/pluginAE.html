@@ -48,8 +48,10 @@ We provide a ready-to-use plugin definition for this AE plugin.</p>
 <span>  chrCategoricalFields <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>aeser <span class="op">=</span> <span class="st">"Serious?"</span>, mdrpt_nsv <span class="op">=</span> <span class="st">"Preferred Term"</span>, mdrsoc_nsv <span class="op">=</span></span>
 <span>    <span class="st">"System Organ Class"</span>, aetoxgr <span class="op">=</span> <span class="st">"Toxicity Grade"</span>, aeongo <span class="op">=</span> <span class="st">"Ongoing?"</span>, aerel <span class="op">=</span></span>
 <span>    <span class="st">"Related?"</span><span class="op">)</span>,</span>
-<span>  strMetricID_AE <span class="op">=</span> <span class="st">"Analysis_kri0001"</span>,</span>
-<span>  strMetricID_SAE <span class="op">=</span> <span class="st">"Analysis_kri0002"</span></span>
+<span>  chrDateFields <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>mincreated_dts <span class="op">=</span> <span class="st">"AE Entry Date"</span>, aest_dt <span class="op">=</span> <span class="st">"AE Start Date"</span>, aeen_dt</span>
+<span>    <span class="op">=</span> <span class="st">"AE End Date"</span><span class="op">)</span>,</span>
+<span>  chrMetricID_AE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Site <span class="op">=</span> <span class="st">"Analysis_kri0001"</span>, Country <span class="op">=</span> <span class="st">"Analysis_cou0001"</span><span class="op">)</span>,</span>
+<span>  chrMetricID_SAE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>Site <span class="op">=</span> <span class="st">"Analysis_kri0002"</span>, Country <span class="op">=</span> <span class="st">"Analysis_cou0002"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -60,18 +62,30 @@ We provide a ready-to-use plugin definition for this AE plugin.</p>
 <dl><dt id="arg-chrcategoricalfields">chrCategoricalFields<a class="anchor" aria-label="anchor" href="#arg-chrcategoricalfields"></a></dt>
 <dd><p><code>character</code> A named vector of fields in <code>dfAE</code> to
 treat as categorical, where the names are the column names and the values
-are display values. Unnamed elements will be used as both the field name
-and the display name. These fields are currently used in the Charts panel.</p></dd>
+are what to display to users. Unnamed elements will be used as both the
+field name and the display name. These fields are currently used in the
+Prevalence panel.</p></dd>
 
 
-<dt id="arg-strmetricid-ae">strMetricID_AE<a class="anchor" aria-label="anchor" href="#arg-strmetricid-ae"></a></dt>
-<dd><p><code>length-1 character</code> The ID of the adverse events
-metric. Defaults to <code>"Analysis_kri0001"</code>.</p></dd>
+<dt id="arg-chrdatefields">chrDateFields<a class="anchor" aria-label="anchor" href="#arg-chrdatefields"></a></dt>
+<dd><p><code>character</code> A named vector of fields in <code>dfAE</code> to treat
+as dates, where the names are the column names and the values are what to
+display to users. Unnamed elements will be used as both the field name and
+the display name. These fields are currently used in the Timeline panel.</p></dd>
 
 
-<dt id="arg-strmetricid-sae">strMetricID_SAE<a class="anchor" aria-label="anchor" href="#arg-strmetricid-sae"></a></dt>
-<dd><p><code>length-1 character</code> The ID of the serious adverse
-events metric. Defaults to <code>"Analysis_kri0001"</code>.</p></dd>
+<dt id="arg-chrmetricid-ae">chrMetricID_AE<a class="anchor" aria-label="anchor" href="#arg-chrmetricid-ae"></a></dt>
+<dd><p><code>character</code> The ID(s) of the adverse events metric(c).
+The default value is named by <code>GroupLevel</code>, but the names are not currently
+used. It is advisable to only provide one <code>MetricID</code> per <code>GroupLevel</code>,
+though.</p></dd>
+
+
+<dt id="arg-chrmetricid-sae">chrMetricID_SAE<a class="anchor" aria-label="anchor" href="#arg-chrmetricid-sae"></a></dt>
+<dd><p><code>character</code> The ID(s) of the serious adverse events
+metric(s). The default value is named by <code>GroupLevel</code>, but the names are
+not currently used. It is advisable to only provide one <code>MetricID</code> per
+<code>GroupLevel</code>, though.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -91,13 +105,14 @@ events metric. Defaults to <code>"Analysis_kri0001"</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $shiny$UI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (id, chrCategoricalFields = c(aeser = "Serious?", mdrpt_nsv = "Preferred Term", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     mdrsoc_nsv = "System Organ Class", aetoxgr = "Toxicity Grade", </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     aeongo = "Ongoing?", aerel = "Related?")) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     aeongo = "Ongoing?", aerel = "Related?"), chrDateFields = c(mincreated_dts = "AE Entry Date", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     aest_dt = "AE Start Date", aeen_dt = "AE End Date")) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     ns &lt;- NS(id)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     bslib::page_fillable(mod_AEDashboard_UI(ns("dashboard"), </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         chrCategoricalFields = chrCategoricalFields))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         chrCategoricalFields = chrCategoricalFields, chrDateFields = chrDateFields))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55853a72bba8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5651bb162f80&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: namespace:gsm.ae&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $shiny$Server</span>
@@ -105,11 +120,15 @@ events metric. Defaults to <code>"Analysis_kri0001"</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     rctv_dfAE_Study, rctv_strGroupID, rctv_strGroupLevel, rctv_strSubjectID, </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     chrCategoricalFields = c(aeser = "Serious?", mdrpt_nsv = "Preferred Term", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         mdrsoc_nsv = "System Organ Class", aetoxgr = "Toxicity Grade", </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         aeongo = "Ongoing?", aerel = "Related?"), strMetricID_AE = "Analysis_kri0001", </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     strMetricID_SAE = "Analysis_kri0002") </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         aeongo = "Ongoing?", aerel = "Related?"), chrDateFields = c(mincreated_dts = "AE Entry Date", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         aest_dt = "AE Start Date", aeen_dt = "AE End Date"), </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     chrMetricID_AE = c(Site = "Analysis_kri0001", Country = "Analysis_cou0001"), </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     chrMetricID_SAE = c(Site = "Analysis_kri0002", Country = "Analysis_cou0002")) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dfAnalyticsInput &lt;- PrepareGSMData(dfAnalyticsInput)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dfResults &lt;- PrepareGSMData(dfResults)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     dfAnalyticsInput &lt;- PrepareGSMData(dfAnalyticsInput, chrMetricID_AE = chrMetricID_AE, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         chrMetricID_SAE = chrMetricID_SAE)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     dfResults &lt;- PrepareGSMData(dfResults, chrMetricID_AE = chrMetricID_AE, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         chrMetricID_SAE = chrMetricID_SAE)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     moduleServer(id, function(input, output, session) {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         rctv_dSnapshotDatePrevious &lt;- reactive({</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             dSnapshotDates &lt;- as.Date(unique(dfResults$SnapshotDate))</span>
@@ -136,25 +155,15 @@ events metric. Defaults to <code>"Analysis_kri0001"</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             rctv_dSnapshotDate = rctv_dSnapshotDate, rctv_dSnapshotDatePrevious = rctv_dSnapshotDatePrevious, </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             rctv_dfAE_Study = rctv_dfAE_Study, rctv_strGroupID = rctv_strGroupID_inferred, </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             rctv_strGroupLevel = rctv_strGroupLevel, rctv_strSubjectID = rctv_strSubjectID, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             chrCategoricalFields = chrCategoricalFields)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             chrCategoricalFields = chrCategoricalFields, chrDateFields = chrDateFields)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     })</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55853a72f308&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5651bb165ae0&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: namespace:gsm.ae&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $spec</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $spec$AE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $spec$AE$aest_dt</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $spec$AE$aest_dt$type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Date"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $spec$AE$aeser</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $spec$AE$aeser$type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "character"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $spec$AE$SubjectID</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $spec$AE$SubjectID$type</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "character"</span>
@@ -167,6 +176,11 @@ events metric. Defaults to <code>"Analysis_kri0001"</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $spec$AE$GroupLevel</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $spec$AE$GroupLevel$type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "character"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $spec$AE$aeser</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $spec$AE$aeser$type</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "character"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -195,6 +209,21 @@ events metric. Defaults to <code>"Analysis_kri0001"</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "character"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $spec$AE$mincreated_dts</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $spec$AE$mincreated_dts$type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Date"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $spec$AE$aest_dt</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $spec$AE$aest_dt$type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Date"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $spec$AE$aeen_dt</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $spec$AE$aeen_dt$type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Date"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $spec$SUBJ</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $spec$SUBJ$SubjectID</span>
@@ -211,11 +240,17 @@ events metric. Defaults to <code>"Analysis_kri0001"</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              aetoxgr               aeongo                aerel </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "Toxicity Grade"           "Ongoing?"           "Related?" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $config$strMetricID_AE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Analysis_kri0001"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $config$chrDateFields</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  mincreated_dts         aest_dt         aeen_dt </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> "AE Entry Date" "AE Start Date"   "AE End Date" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $config$strMetricID_SAE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Analysis_kri0002"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $config$chrMetricID_AE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               Site            Country </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> "Analysis_kri0001" "Analysis_cou0001" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $config$chrMetricID_SAE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               Site            Country </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> "Analysis_kri0002" "Analysis_cou0002" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $packages</span>
