@@ -7,11 +7,34 @@
 #'
 #' @param chrCategoricalFields `character` A named vector of fields in `dfAE` to
 #'   treat as categorical, where the names are the column names and the values
-#'   are display values. Unnamed elements will be used as both the field name
-#'   and the display name. These fields are currently used in the Charts panel.
+#'   are what to display to users. Unnamed elements will be used as both the
+#'   field name and the display name. These fields are currently used in the
+#'   Prevalence panel.
+#' @param chrDateFields `character` A named vector of fields in `dfAE` to treat
+#'   as dates, where the names are the column names and the values are what to
+#'   display to users. Unnamed elements will be used as both the field name and
+#'   the display name. These fields are currently used in the Timeline panel.
+#' @param chrColors `character` Colors to use for a scale, labels, etc.
+#' @param chrFields `character` A named vector of fields in `dfAE` to display in
+#'   a drop-down menu, where the names are display values and the values are
+#'   column names. Passed to [shinyWidgets::virtualSelectInput()] as `choices`.
+#' @param chrMetricID_AE `character` The ID(s) of the adverse events metric(c).
+#'   The default value is named by `GroupLevel`, but the names are not currently
+#'   used. It is advisable to only provide one `MetricID` per `GroupLevel`,
+#'   though.
+#' @param chrMetricID_SAE `character` The ID(s) of the serious adverse events
+#'   metric(s). The default value is named by `GroupLevel`, but the names are
+#'   not currently used. It is advisable to only provide one `MetricID` per
+#'   `GroupLevel`, though.
+#' @param envCall `environment` The environment from which this function was
+#'   called, for use in better error messages. This value should usually be left
+#'   as the default, or passed from the calling function if the calling function
+#'   also has an `envCall` argument.
 #' @param id `character` The id for this element.
 #' @param dfAnalyticsInput `data.frame` Participant-level metric data.
 #' @param dfResults `data.frame` A stacked summary of analysis pipeline output.
+#' @param ns `function` A namespace function, such as the one returned by
+#'   [shiny::NS()].
 #' @param rctv_dSnapshotDate `reactive Date` A [shiny::reactive()] object that
 #'   returns the date of a data snapshot.
 #' @param rctv_dSnapshotDatePrevious `reactive Date` A [shiny::reactive()]
@@ -40,10 +63,6 @@
 #'   `"site_active_dt"`.
 #' @param strField_StudyActive `length-1 character` The field that indicates
 #'   when the study became active. Defaults to `"act_fpfv"`.
-#' @param strMetricID_AE `length-1 character` The ID of the adverse events
-#'   metric. Defaults to `"Analysis_kri0001"`.
-#' @param strMetricID_SAE `length-1 character` The ID of the serious adverse
-#'   events metric. Defaults to `"Analysis_kri0001"`.
 #'
 #' @name shared-params
 #' @keywords internal

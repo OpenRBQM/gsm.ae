@@ -6,14 +6,44 @@
 \arguments{
 \item{chrCategoricalFields}{\code{character} A named vector of fields in \code{dfAE} to
 treat as categorical, where the names are the column names and the values
-are display values. Unnamed elements will be used as both the field name
-and the display name. These fields are currently used in the Charts panel.}
+are what to display to users. Unnamed elements will be used as both the
+field name and the display name. These fields are currently used in the
+Prevalence panel.}
+
+\item{chrDateFields}{\code{character} A named vector of fields in \code{dfAE} to treat
+as dates, where the names are the column names and the values are what to
+display to users. Unnamed elements will be used as both the field name and
+the display name. These fields are currently used in the Timeline panel.}
+
+\item{chrColors}{\code{character} Colors to use for a scale, labels, etc.}
+
+\item{chrFields}{\code{character} A named vector of fields in \code{dfAE} to display in
+a drop-down menu, where the names are display values and the values are
+column names. Passed to \code{\link[shinyWidgets:virtualSelectInput]{shinyWidgets::virtualSelectInput()}} as \code{choices}.}
+
+\item{chrMetricID_AE}{\code{character} The ID(s) of the adverse events metric(c).
+The default value is named by \code{GroupLevel}, but the names are not currently
+used. It is advisable to only provide one \code{MetricID} per \code{GroupLevel},
+though.}
+
+\item{chrMetricID_SAE}{\code{character} The ID(s) of the serious adverse events
+metric(s). The default value is named by \code{GroupLevel}, but the names are
+not currently used. It is advisable to only provide one \code{MetricID} per
+\code{GroupLevel}, though.}
+
+\item{envCall}{\code{environment} The environment from which this function was
+called, for use in better error messages. This value should usually be left
+as the default, or passed from the calling function if the calling function
+also has an \code{envCall} argument.}
 
 \item{id}{\code{character} The id for this element.}
 
 \item{dfAnalyticsInput}{\code{data.frame} Participant-level metric data.}
 
 \item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output.}
+
+\item{ns}{\code{function} A namespace function, such as the one returned by
+\code{\link[shiny:NS]{shiny::NS()}}.}
 
 \item{rctv_dSnapshotDate}{\verb{reactive Date} A \code{\link[shiny:reactive]{shiny::reactive()}} object that
 returns the date of a data snapshot.}
@@ -54,12 +84,6 @@ when the group (usually site or country) became active. Defaults to
 
 \item{strField_StudyActive}{\verb{length-1 character} The field that indicates
 when the study became active. Defaults to \code{"act_fpfv"}.}
-
-\item{strMetricID_AE}{\verb{length-1 character} The ID of the adverse events
-metric. Defaults to \code{"Analysis_kri0001"}.}
-
-\item{strMetricID_SAE}{\verb{length-1 character} The ID of the serious adverse
-events metric. Defaults to \code{"Analysis_kri0001"}.}
 }
 \description{
 Reused parameter definitions are gathered here for easier usage. Note: We

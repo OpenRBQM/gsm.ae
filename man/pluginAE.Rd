@@ -8,21 +8,33 @@ pluginAE(
   chrCategoricalFields = c(aeser = "Serious?", mdrpt_nsv = "Preferred Term", mdrsoc_nsv =
     "System Organ Class", aetoxgr = "Toxicity Grade", aeongo = "Ongoing?", aerel =
     "Related?"),
-  strMetricID_AE = "Analysis_kri0001",
-  strMetricID_SAE = "Analysis_kri0002"
+  chrDateFields = c(mincreated_dts = "AE Entry Date", aest_dt = "AE Start Date", aeen_dt
+    = "AE End Date"),
+  chrMetricID_AE = c(Site = "Analysis_kri0001", Country = "Analysis_cou0001"),
+  chrMetricID_SAE = c(Site = "Analysis_kri0002", Country = "Analysis_cou0002")
 )
 }
 \arguments{
 \item{chrCategoricalFields}{\code{character} A named vector of fields in \code{dfAE} to
 treat as categorical, where the names are the column names and the values
-are display values. Unnamed elements will be used as both the field name
-and the display name. These fields are currently used in the Charts panel.}
+are what to display to users. Unnamed elements will be used as both the
+field name and the display name. These fields are currently used in the
+Prevalence panel.}
 
-\item{strMetricID_AE}{\verb{length-1 character} The ID of the adverse events
-metric. Defaults to \code{"Analysis_kri0001"}.}
+\item{chrDateFields}{\code{character} A named vector of fields in \code{dfAE} to treat
+as dates, where the names are the column names and the values are what to
+display to users. Unnamed elements will be used as both the field name and
+the display name. These fields are currently used in the Timeline panel.}
 
-\item{strMetricID_SAE}{\verb{length-1 character} The ID of the serious adverse
-events metric. Defaults to \code{"Analysis_kri0001"}.}
+\item{chrMetricID_AE}{\code{character} The ID(s) of the adverse events metric(c).
+The default value is named by \code{GroupLevel}, but the names are not currently
+used. It is advisable to only provide one \code{MetricID} per \code{GroupLevel},
+though.}
+
+\item{chrMetricID_SAE}{\code{character} The ID(s) of the serious adverse events
+metric(s). The default value is named by \code{GroupLevel}, but the names are
+not currently used. It is advisable to only provide one \code{MetricID} per
+\code{GroupLevel}, though.}
 }
 \value{
 A plugin definition for use in gsm.app.

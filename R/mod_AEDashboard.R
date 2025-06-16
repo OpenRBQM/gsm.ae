@@ -13,23 +13,18 @@ mod_AEDashboard_UI <- function(
     aetoxgr = "Toxicity Grade",
     aeongo = "Ongoing?",
     aerel = "Related?"
+  ),
+  chrDateFields = c(
+    mincreated_dts = "AE Entry Date",
+    aest_dt = "AE Start Date",
+    aeen_dt = "AE End Date"
   )
 ) {
   ns <- NS(id)
   bslib::layout_columns(
     mod_AESummary_UI(id = ns("summary")),
-    mod_AECharts_UI(id = ns("charts"), chrCategoricalFields = chrCategoricalFields),
-    out_DashboardCard(
-      id = ns("data_quality"),
-      "Data Quality",
-      tags$em("Placeholder: Box plot to show distribution of time to AE entry and Queries on AE forms\nAverage time to entry for AEs (date of next visit after AE start date, until the mincreated date) at the study and selected level (site or country).\nQueries on AE forms (count with ability to details on demand the queries) - no update to data model needed. Based on output received from DM/CP (on DNA tab), add to deep dive app.")
-    ),
-    out_DashboardCard(
-      id = ns("top_soc"),
-      "Top SOC",
-      tags$em("Placeholder: Compare top SOC for the study to whatever is selected - either site or country e.g., Gastro site 25%, study 75%\nIn order to identify Systems or Organ Classes (SOCs) with particular issues in AEs, as a CM/RA, I would like to see counts/% by SOC, for site and (if data is subset) selected thing.")
-    ),
-    col_widths = c(-2, 4, 4, -2, -2, 4, 4, -2)
+    mod_AEPrevalence_UI(id = ns("prevalence"), chrCategoricalFields = chrCategoricalFields),
+    mod_AETimeline_UI(id = ns("timeline"), chrDateFields = chrDateFields)
   )
 }
 
@@ -38,10 +33,10 @@ mod_AEDashboard_UI <- function(
 #' @inheritParams shared-params
 #' @returns A [bslib::card()] with appropriate size and title.
 #' @keywords internal
-out_DashboardCard <- function(id, title, ...) {
+out_DashboardCard <- function(id, strTitle, ...) {
   bslib::card(
     id = id,
-    bslib::card_title(title),
+    bslib::card_title(strTitle),
     full_screen = TRUE,
     min_height = "300px",
     ...
@@ -69,11 +64,15 @@ mod_AEDashboard_Server <- function(
     aetoxgr = "Toxicity Grade",
     aeongo = "Ongoing?",
     aerel = "Related?"
+  ),
+  chrDateFields = c(
+    mincreated_dts = "AE Entry Date",
+    aest_dt = "AE Start Date",
+    aeen_dt = "AE End Date"
   )
 ) {
-  # All dashboard card server functions will be called here. That's why this
-  # function looks like it's unnecessary. Since it doesn't have other contents,
-  # there's nothing to test yet.
+  # Leaving these with nocov because this just calls all the server functions
+  # without doing anything fancy with them.
   #
   # nocov start
   moduleServer(id, function(input, output, session) {
@@ -86,13 +85,21 @@ mod_AEDashboard_Server <- function(
       rctv_strGroupLevel = rctv_strGroupLevel,
       rctv_strSubjectID = rctv_strSubjectID
     )
-    mod_AECharts_Server(
-      "charts",
+    mod_AEPrevalence_Server(
+      "prevalence",
       rctv_dfAE_Study = rctv_dfAE_Study,
       rctv_strGroupID = rctv_strGroupID,
       rctv_strGroupLevel = rctv_strGroupLevel,
       rctv_strSubjectID = rctv_strSubjectID,
       chrCategoricalFields = chrCategoricalFields
+    )
+    mod_AETimeline_Server(
+      "timeline",
+      rctv_dfAE_Study = rctv_dfAE_Study,
+      rctv_strGroupID = rctv_strGroupID,
+      rctv_strGroupLevel = rctv_strGroupLevel,
+      rctv_strSubjectID = rctv_strSubjectID,
+      chrDateFields = chrDateFields
     )
   })
   # nocov end

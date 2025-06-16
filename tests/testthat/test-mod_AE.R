@@ -36,8 +36,16 @@ test_that("mod_AE_Server initializes reactive variables", {
       expect_true(is.na(rctv_dSnapshotDatePrevious()))
 
       expect_null(rctv_strGroupID_inferred())
-      rctv_strSubjectID("S75378")
-      expect_equal(rctv_strGroupID_inferred(), "0X1145")
+      sample_strSubjectID <- gsm.app::sample_dfAnalyticsInput %>%
+        dplyr::filter(GroupLevel == "Site") %>%
+        dplyr::pull("SubjectID") %>%
+        .[[1]]
+      rctv_strSubjectID(sample_strSubjectID)
+      expected_strGroupID <- gsm.app::sample_dfAnalyticsInput %>%
+        dplyr::filter(GroupLevel == "Site") %>%
+        dplyr::pull("GroupID") %>%
+        .[[1]]
+      expect_equal(rctv_strGroupID_inferred(), expected_strGroupID)
     }
   )
 })
