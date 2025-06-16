@@ -1,11 +1,11 @@
 #' AE Plugin Definition
 #'
 #' Plugins for gsm.app are defined by a named `list` with information about the
-#' plugin. These can be loaded from a yaml file with [gsm.app::plugin_Read()].
-#' We provide a ready-to-use plugin definition for this AE plugin.
+#' plugin. We provide a ready-to-use plugin definition for this AE plugin.
 #'
 #' @returns A plugin definition for use in gsm.app.
 #' @inheritParams shared-params
+#' @inheritParams gsm.app::plugin_Define
 #' @export
 #'
 #' @examples
@@ -25,7 +25,8 @@ pluginAE <- function(
     aeen_dt = "AE End Date"
   ),
   chrMetricID_AE = c(Site = "Analysis_kri0001", Country = "Analysis_cou0001"),
-  chrMetricID_SAE = c(Site = "Analysis_kri0002", Country = "Analysis_cou0002")
+  chrMetricID_SAE = c(Site = "Analysis_kri0002", Country = "Analysis_cou0002"),
+  lWorkflows = list()
 ) {
   chrCategoricalFields <- ValidateNames(chrCategoricalFields)
   chrDateFields <- ValidateNames(chrDateFields)
@@ -67,6 +68,7 @@ pluginAE <- function(
     chrCategoricalFields = chrCategoricalFields,
     chrDateFields = chrDateFields,
     chrMetricID_AE = chrMetricID_AE,
-    chrMetricID_SAE = chrMetricID_SAE
+    chrMetricID_SAE = chrMetricID_SAE,
+    lWorkflows = lWorkflows
   )
 }

@@ -40,7 +40,7 @@ scrub_collapse_ids <- function(chrLines) {
 
 scrub_gt_ids <- function(chrLines) {
   chrLines <- gsub('id="[a-z]{10}"', 'id="gtRandomID"', chrLines)
-  gsub('#[a-z]{10} ', '#gtRandomID ', chrLines)
+  gsub("#[a-z]{10} ", "#gtRandomID ", chrLines)
 }
 
 scrub_extra_black_style <- function(chrLines) {
