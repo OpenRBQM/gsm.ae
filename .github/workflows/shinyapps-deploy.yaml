@@ -124,7 +124,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Comment on PR with deployment link
-        if: github.event_name == 'pull_request' && github.event.action == 'opened'
+        if: github.event_name == 'pull_request'
         uses: actions/github-script@v6
         with:
           script: |
