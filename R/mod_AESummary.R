@@ -167,7 +167,7 @@ SummarizeAE <- function(
     dfAnalyticsInput,
     n = sum(.data$Numerator),
     days = sum(.data$Denominator),
-    rate = signif(.data$n/.data$days, 2),
+    rate = signif(.data$n / .data$days, 2),
     participants = dplyr::n(),
     participants0 = sum(.data$Numerator == 0),
     .by = dplyr::all_of(by)

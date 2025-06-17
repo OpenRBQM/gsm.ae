@@ -11,7 +11,8 @@ pluginAE(
   chrDateFields = c(mincreated_dts = "AE Entry Date", aest_dt = "AE Start Date", aeen_dt
     = "AE End Date"),
   chrMetricID_AE = c(Site = "Analysis_kri0001", Country = "Analysis_cou0001"),
-  chrMetricID_SAE = c(Site = "Analysis_kri0002", Country = "Analysis_cou0002")
+  chrMetricID_SAE = c(Site = "Analysis_kri0002", Country = "Analysis_cou0002"),
+  lWorkflows = list()
 )
 }
 \arguments{
@@ -35,14 +36,19 @@ though.}
 metric(s). The default value is named by \code{GroupLevel}, but the names are
 not currently used. It is advisable to only provide one \code{MetricID} per
 \code{GroupLevel}, though.}
+
+\item{lWorkflows}{\code{list} An optional named list of workflows to run in order
+to translate app domain data into the format required by the plugin (as
+defined in the plugin \code{spec}). These workflows are ran before the plugin's
+\code{spec} is applied, and are meant to serve as a bridge between your domain
+data and the plugin's expected domains.}
 }
 \value{
 A plugin definition for use in gsm.app.
 }
 \description{
 Plugins for gsm.app are defined by a named \code{list} with information about the
-plugin. These can be loaded from a yaml file with \code{\link[gsm.app:plugin_Read]{gsm.app::plugin_Read()}}.
-We provide a ready-to-use plugin definition for this AE plugin.
+plugin. We provide a ready-to-use plugin definition for this AE plugin.
 }
 \examples{
 pluginAE()

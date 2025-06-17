@@ -113,7 +113,7 @@ mod_AETimeline_Server <- function(
         ggplot2::geom_label(
           ggplot2::aes(
             label = ggplot2::after_stat(.data$count),
-            y = ggplot2::after_stat(.data$count)/2
+            y = ggplot2::after_stat(.data$count) / 2
           ),
           fill = "white",
           size = 14,

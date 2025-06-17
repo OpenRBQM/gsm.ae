@@ -151,7 +151,7 @@ mod_AEPrevalence_Server <- function(
           .by = dplyr::all_of(c("level", "category"))
         ) %>%
         dplyr::mutate(
-          pct = .data$n/sum(.data$n),
+          pct = .data$n / sum(.data$n),
           .by = "level"
         ) %>%
         tidyr::complete(
@@ -235,7 +235,7 @@ mod_AEPrevalence_Server <- function(
           .by = dplyr::all_of(c("level", "category"))
         ) %>%
         dplyr::mutate(
-          pct = .data$n/sum(.data$n),
+          pct = .data$n / sum(.data$n),
           .by = "level"
         ) %>%
         dplyr::arrange(.data$level, .data$category) %>%
