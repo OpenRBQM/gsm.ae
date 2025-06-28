@@ -21,7 +21,7 @@ Imports:
     forcats,
     ggplot2,
     glue,
-    gsm.app (>= 2.5.1),
+    gsm.app (> 2.5.1),
     gsm.mapping,
     gt,
     htmltools,
