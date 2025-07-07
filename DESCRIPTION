@@ -21,7 +21,7 @@ Imports:
     forcats,
     ggplot2,
     glue,
-    gsm.app (> 2.5.1),
+    gsm.app (>= 2.5.2),
     gsm.mapping,
     gt,
     htmltools,
@@ -29,7 +29,7 @@ Imports:
     magrittr,
     rlang,
     scales,
-    shiny,
+    shiny (>= 1.11.1),
     shinyWidgets,
     stringr,
     tidyr,
@@ -37,7 +37,7 @@ Imports:
 Suggests: 
     testthat (>= 3.0.0)
 Remotes:
-    gsm.app=gilead-biostats/gsm.app@dev,
+    gsm.app=gilead-biostats/gsm.app@main,
     gsm.mapping=gilead-biostats/gsm.mapping@main
 Config/testthat/edition: 3
 Encoding: UTF-8
