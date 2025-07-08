@@ -105,7 +105,7 @@ mod_AETimeline_Server <- function(
           date = lubridate::floor_date(.data[[strField]], unit = "months")
         ) %>%
         dplyr::filter(
-          .data$date > max(.data$date) - lubridate::dmonths(6)
+          .data$date > max(.data$date, na.rm = TRUE) - lubridate::dmonths(6)
         ) %>%
         ggplot2::ggplot() +
         ggplot2::aes(x = .data$date, fill = .data$level) +
