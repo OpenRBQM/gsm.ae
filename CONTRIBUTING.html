@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="index.html">gsm.ae</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,6 +16,7 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
+<li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/OpenRBQM/gsm.ae/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -42,19 +43,64 @@
 <h2 id="bigger-changes">Bigger changes<a class="anchor" aria-label="anchor" href="#bigger-changes"></a></h2>
 <p>If you want to make a bigger change, it’s a good idea to first file an issue and make sure someone from the team agrees that it’s needed. If you’ve found a bug, please file an issue that illustrates the bug with a minimal <a href="https://www.tidyverse.org/help/#reprex" class="external-link">reprex</a> (this will also help you write a unit test, if needed). See the tidyverse guide on <a href="https://code-review.tidyverse.org/issues/" class="external-link">how to create a great issue</a> for more advice.</p>
 <div class="section level3">
+<h3 id="branches">Branches<a class="anchor" aria-label="anchor" href="#branches"></a></h3>
+<p>The core branches that are used in this repository are:</p>
+<ul><li>
+<code>main</code>: Contains the production version of the package.</li>
+<li>
+<code>dev</code>: Contains the development version of the package.</li>
+<li>
+<code>fix-XXXX</code>: Used to develop new functionality in the package.</li>
+<li>
+<code>rc-vX.X.X</code>: Used for final touches to release <code>dev</code> to <code>main</code>.</li>
+</ul></div>
+<div class="section level3">
 <h3 id="pull-request-process">Pull request process<a class="anchor" aria-label="anchor" href="#pull-request-process"></a></h3>
-<ul><li><p>Fork the package and clone onto your computer. If you haven’t done this before, we recommend using <code>usethis::create_from_github("OpenRBQM/gsm.ae")</code>.</p></li>
-<li><p>Install all development dependencies with <code><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak::pak()</a></code>, and then make sure the package passes R CMD check by running <code>devtools::check()</code>. If R CMD check doesn’t pass cleanly, it’s a good idea to ask for help before continuing.</p></li>
-<li><p>Create a Git branch for your pull request (PR). We recommend using <code>usethis::pr_init("brief-description-of-change")</code>.</p></li>
-<li><p>Make your changes, commit to git, and then create a PR by running <code>usethis::pr_push()</code>, and following the prompts in your browser. The title of your PR should briefly describe the change. The body of your PR should contain <code>Fixes #issue-number</code>.</p></li>
-<li><p>For user-facing changes, add a bullet to the top of <code>NEWS.md</code> (i.e. just below the first header). Follow the style described in <a href="https://style.tidyverse.org/news.html" class="external-link uri">https://style.tidyverse.org/news.html</a>.</p></li>
+<ul><li>Fork the package and clone onto your computer. If you haven’t done this before, we recommend using <code>usethis::create_from_github("OpenRBQM/gsm.ae")</code>.</li>
+<li>Install all development dependencies with <code><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak::pak()</a></code>, and then make sure the package passes R CMD check by running <code>devtools::check()</code>. If R CMD check doesn’t pass cleanly, it’s a good idea to ask for help before continuing.</li>
+<li>Create a Git branch for your pull request (PR). We recommend using <code>usethis::pr_init("brief-description-of-change")</code>.</li>
+<li>Make your changes. For user-facing changes, add a bullet to the top of <code>NEWS.md</code> (i.e. just below the first header). Follow the style described in <a href="https://style.tidyverse.org/news.html" class="external-link uri">https://style.tidyverse.org/news.html</a>.</li>
+<li>Commit your changes to git, and then create a PR by running <code>usethis::pr_push()</code>, and following the prompts in your browser. The title of your PR should briefly describe the change. The body of your PR should include <code>Closes #issue-number</code>. All PRs other than releases should target the <code>dev</code> branch.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="code-style">Code style<a class="anchor" aria-label="anchor" href="#code-style"></a></h3>
 <ul><li><p>New code should follow the tidyverse <a href="https://style.tidyverse.org" class="external-link">style guide</a>. You can use the <a href="https://CRAN.R-project.org/package=styler" class="external-link">styler</a> package to apply these styles, but please don’t restyle code that has nothing to do with your PR.</p></li>
 <li><p>We use <a href="https://cran.r-project.org/package=roxygen2" class="external-link">roxygen2</a>, with <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/rd-formatting.html" class="external-link">Markdown syntax</a>, for documentation.</p></li>
 <li><p>We use <a href="https://cran.r-project.org/package=testthat" class="external-link">testthat</a> for unit tests. Contributions with test cases included are easier to accept.</p></li>
+<li><p>See <a href="#styler">Styler</a> below for the formal guidelines that will be performed at release.</p></li>
 </ul></div>
+</div>
+<div class="section level2">
+<h2 id="release-process">Release Process<a class="anchor" aria-label="anchor" href="#release-process"></a></h2>
+<p>Use this process to update the <code>main</code> branch of the project.</p>
+<ul><li>Create a branch from <code>dev</code>, <code>rc-vX.Y.Z</code>, where <code>X.Y.Z</code> is the target version number of this release.</li>
+<li>Run <code>usethis::use_version("major")</code> (to change the <code>X</code> in <code>X.Y.Z</code>), <code>"minor"</code> (to change the <code>Y</code>), or <code>"patch"</code> (to change the <code>Z</code>). Almost all releases should be <code>"minor"</code>. This function updates the <code>Version</code> field in the <code>DESCRIPTION</code>, as well as the version at the top of <code>NEWS.md</code>.</li>
+<li>Ensure that <code>NEWS.md</code> is ready and mentions all relevant changes in the release.</li>
+<li>Ensure that the <code>DESCRIPTION</code> only references <code>main</code> branches of <code>gsm</code> packages in the <code>Remotes</code> section. If {gsm.ae} relies on a branch of a <code>gsm</code> package other than <code>main</code>, {gsm.ae} is not ready to release. Wait until the other package has a release to its <code>main</code> branch.</li>
+<li>Run <code>usethis::use_tidy_description()</code> to ensure that the <code>DESCRIPTION</code> is laid out as expected.</li>
+<li>Run <code>spelling::spell_check_package()</code> to eliminate typos. Use <code>spelling::update_wordlist()</code> to log any known terms in the package <code>WORDLIST</code>, but verify that none of them are typos.</li>
+<li>Ensure that the package follows the style as described in the <a href="#styler">Styler</a> section.</li>
+<li>Run <code>devtools::check()</code> to ensure that everything is working as expected. This runs automatically on GitHub for every PR, but it’s good to run locally to check for warnings or notes that might be hidden in the GitHub action.</li>
+</ul></div>
+<div class="section level2">
+<h2 id="styler-styler">Styler {styler}<a class="anchor" aria-label="anchor" href="#styler-styler"></a></h2>
+<p>Use this function to ensure that the package follows our style:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">gilead_style</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dirs</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"R"</span>, <span class="st">"tests"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">double_indent_style</span> <span class="op">&lt;-</span> <span class="fu">styler</span><span class="fu">::</span><span class="fu">tidyverse_style</span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="va">double_indent_style</span><span class="op">$</span><span class="va">indention</span><span class="op">$</span><span class="va">unindent_fun_dec</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
+<span>  <span class="va">double_indent_style</span><span class="op">$</span><span class="va">indention</span><span class="op">$</span><span class="va">update_indention_ref_fun_dec</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
+<span>  <span class="va">double_indent_style</span><span class="op">$</span><span class="va">line_break</span><span class="op">$</span><span class="va">remove_line_breaks_in_fun_dec</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
+<span></span>
+<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">dir</span> <span class="kw">in</span> <span class="va">dirs</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu">styler</span><span class="fu">::</span><span class="fu">style_dir</span><span class="op">(</span></span>
+<span>      <span class="va">dir</span>,</span>
+<span>      recursive <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      transformers <span class="op">=</span> <span class="va">double_indent_style</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu">gilead_style</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a></h2>
