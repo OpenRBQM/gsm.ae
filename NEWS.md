@@ -1,3 +1,5 @@
+# gsm.ae (development version)
+
 # gsm.ae 0.1.0
 
 This initial release provides a dashboard that summarizes trends in Site- and Country-level adverse event and severe adverse event data. The data is presented as a series of panels, which can be expanded to show additional information (as demonstrated in the "Prevalence" panel).
