@@ -108,19 +108,20 @@ mod_AETimeline_Server <- function(
         ggplot2::ggplot() +
         ggplot2::aes(x = .data$date, fill = .data$level) +
         ggplot2::geom_bar(color = "black") +
-        ggplot2::geom_label(
-          ggplot2::aes(
-            label = ggplot2::after_stat(.data$count),
-            y = ggplot2::after_stat(.data$count) / 2
-          ),
-          fill = "white",
-          size = 14,
-          size.unit = "pt",
-          stat = "count"
-        ) +
+        # ggplot2::geom_label(
+        #   ggplot2::aes(
+        #     label = ggplot2::after_stat(.data$count),
+        #     y = ggplot2::after_stat(.data$count) / 2
+        #   ),
+        #   fill = "white",
+        #   size = 14,
+        #   size.unit = "pt",
+        #   stat = "count"
+        # ) +
         ggplot2::scale_x_date(
           date_breaks = "month",
-          date_labels = "%b %Y"
+          date_labels = "%b %Y",
+          guide = ggplot2::guide_axis(check.overlap = TRUE)
         ) +
         ggplot2::scale_y_continuous(
           breaks = NULL,
