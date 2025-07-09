@@ -124,7 +124,7 @@ mod_AETimeline_Server <- function(
           guide = ggplot2::guide_axis(check.overlap = TRUE)
         ) +
         ggplot2::scale_y_continuous(
-          breaks = NULL,
+          # breaks = NULL,
           # Ensure low-value labels don't get cut off.
           expand = ggplot2::expansion(mult = c(0.1, 0))
         ) +
