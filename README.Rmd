@@ -29,10 +29,10 @@ knitr::opts_chunk$set(
 gsm.ae provides Shiny modules and a plugin for use in apps created with [{gsm.app}](https://github.com/Gilead-BioStats/gsm.app).
 
 ::: {.pkgdown-release}
-You can explore a sample app produced by the latest release of gsm.ae [here](https://rinpharma.shinyapps.io/gsm-ae).
+You can explore a sample app produced by the latest release of gsm.ae [here](https://rinpharma.shinyapps.io/gsm-ae){:target="_blank"}.
 :::
 ::: {.pkgdown-devel}
-You can explore a sample app produced by the development version of gsm.ae [here](https://rinpharma.shinyapps.io/gsm-ae-dev).
+You can explore a sample app produced by the development version of gsm.ae [here](https://rinpharma.shinyapps.io/gsm-ae-dev){:target="_blank"}.
 :::
 
 ## Installation

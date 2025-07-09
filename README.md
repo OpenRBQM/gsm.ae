@@ -21,14 +21,15 @@ gsm.ae provides Shiny modules and a plugin for use in apps created with
 <div class="pkgdown-release">
 
 You can explore a sample app produced by the latest release of gsm.ae
-[here](https://rinpharma.shinyapps.io/gsm-ae).
+[here](https://rinpharma.shinyapps.io/gsm-ae){:target=“\_blank”}.
 
 </div>
 
 <div class="pkgdown-devel">
 
 You can explore a sample app produced by the development version of
-gsm.ae [here](https://rinpharma.shinyapps.io/gsm-ae-dev).
+gsm.ae
+[here](https://rinpharma.shinyapps.io/gsm-ae-dev){:target=“\_blank”}.
 
 </div>
 
