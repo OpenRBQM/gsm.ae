@@ -104,9 +104,7 @@ mod_AETimeline_Server <- function(
           ),
           date = lubridate::floor_date(.data[[strField]], unit = "months")
         ) %>%
-        dplyr::filter(
-          .data$date > max(.data$date, na.rm = TRUE) - lubridate::dmonths(6)
-        ) %>%
+        dplyr::filter(!is.na(.data$date)) %>%
         ggplot2::ggplot() +
         ggplot2::aes(x = .data$date, fill = .data$level) +
         ggplot2::geom_bar(color = "black") +
