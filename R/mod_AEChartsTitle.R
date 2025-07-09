@@ -53,7 +53,9 @@ mod_AEChartsTitle_Server <- function(
       )
       span("by", HTML(stringr::str_flatten_comma(groups, last = " and ")))
     })
-    return(reactive({input$field}))
+    return(reactive({
+      input$field
+    }))
   })
 }
 
@@ -93,6 +95,8 @@ mod_AEChartsTitle_Server_Color <- function(
       )
       span("by", HTML(stringr::str_flatten_comma(groups, last = " and ")))
     })
-    return(reactive({input$field}))
+    return(reactive({
+      input$field
+    }))
   })
 }

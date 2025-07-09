@@ -1,11 +1,11 @@
 name: Deploy Repo to shinyapps.io
 on:
   push:
-    branches: [main]
+    branches: [dev, main]
     paths-ignore:
       - 'README.md'
   pull_request:
-    branches: [main]
+    branches: [dev, main]
     paths-ignore:
       - 'README.md'
   workflow_dispatch:
@@ -13,9 +13,10 @@ on:
       target-deployment:
         description: 'Select the target shinyapps deployment type'
         required: true
-        default: 'prod'
+        default: 'dev'
         type: choice
         options:
+          - dev
           - prod
           - pr
 
@@ -28,7 +29,7 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     permissions:
-      contents: write
+      pull-requests: write
     steps:
       - name: Extract repository name
         run: echo "REPO_NAME=${GITHUB_REPOSITORY##*/}" >> $GITHUB_ENV
@@ -42,6 +43,10 @@ jobs:
         run: |
           echo "DEPLOYMENT_TYPE=pr" >> $GITHUB_ENV
           echo "PR_NUMBER=${{ github.event.pull_request.number }}" >> $GITHUB_ENV
+
+      - name: Set DEPLOYMENT_TYPE for pushes to dev
+        if: github.event_name == 'push' && github.ref == 'refs/heads/dev'
+        run: echo "DEPLOYMENT_TYPE=dev" >> $GITHUB_ENV
 
       - name: Set DEPLOYMENT_TYPE for pushes to main
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -119,16 +124,27 @@ jobs:
         shell: Rscript {0}
 
       - name: Comment on PR with deployment link
-        if: github.event_name == 'pull_request' && github.event.action == 'opened'
+        if: github.event_name == 'pull_request'
         uses: actions/github-script@v6
         with:
           script: |
-            const appUrl = `https://rinpharma.shinyapps.io/${process.env.APPNAME}`;
-            const comment = `🚀 Deployed App: [${appUrl}](${appUrl})`;
-
-            await github.rest.issues.createComment({
-              issue_number: context.issue.number,
+            const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: comment,
+              issue_number: context.issue.number,
             });
+
+            const appUrl = `https://rinpharma.shinyapps.io/${process.env.APPNAME}`;
+            const existingComment = comments.find(comment =>
+              comment.body.includes(appUrl) && comment.user.login === 'github-actions[bot]'
+            );
+
+            if (!existingComment) {
+              const newComment = `🚀 Deployed App: [${appUrl}](${appUrl})`;
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: newComment,
+              });
+            }

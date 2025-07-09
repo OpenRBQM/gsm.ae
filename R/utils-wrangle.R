@@ -20,7 +20,7 @@ FilterByInputs <- function(
 FilterByScalar <- function(df, strField, vecValue) {
   if (strField %in% colnames(df) && length(vecValue) == 1) {
     return(
-      df[df[[strField]] == vecValue,]
+      df[df[[strField]] == vecValue, ]
     )
   }
   return(df)
